@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="RORO RQS_browser.jnlp">
+  <information>
+    <title>RORO RQS</title>
+    <vendor>cmeehan</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="RORO_RQS.jar" size="648622" download="eager" />
+    <jar href="lib\commons-codec-1.10.jar" size="284184" download="eager" />
+    <jar href="lib\commons-fileupload-1.3.1.jar" size="69002" download="eager" />
+    <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
+    <jar href="lib\curvesapi-1.03.jar" size="92241" download="eager" />
+    <jar href="lib\hamcrest-core-1.3.jar" size="45024" download="eager" />
+    <jar href="lib\itext-pdfa-5.5.9-javadoc.jar" size="476210" download="eager" />
+    <jar href="lib\itext-pdfa-5.5.9-sources.jar" size="126192" download="eager" />
+    <jar href="lib\itext-pdfa-5.5.9.jar" size="117922" download="eager" />
+    <jar href="lib\itext-xtra-5.5.9-javadoc.jar" size="364739" download="eager" />
+    <jar href="lib\itext-xtra-5.5.9-sources.jar" size="128778" download="eager" />
+    <jar href="lib\itext-xtra-5.5.9.jar" size="119941" download="eager" />
+    <jar href="lib\itextpdf-5.5.9-javadoc.jar" size="5554301" download="eager" />
+    <jar href="lib\itextpdf-5.5.9-sources.jar" size="2344632" download="eager" />
+    <jar href="lib\itextpdf-5.5.9.jar" size="2287148" download="eager" />
+    <jar href="lib\javax.mail.jar" size="603572" download="eager" />
+    <jar href="lib\jcommon-1.0.23.jar" size="330246" download="eager" />
+    <jar href="lib\jdatepicker-1.3.4.jar" size="42949" download="eager" />
+    <jar href="lib\jfreechart-1.0.19-experimental.jar" size="13796" download="eager" />
+    <jar href="lib\jfreechart-1.0.19-swt.jar" size="79793" download="eager" />
+    <jar href="lib\jfreechart-1.0.19.jar" size="1570157" download="eager" />
+    <jar href="lib\jfreesvg-2.0.jar" size="50769" download="eager" />
+    <jar href="lib\junit-4.11.jar" size="245039" download="eager" />
+    <jar href="lib\junit-4.12.jar" size="314932" download="eager" />
+    <jar href="lib\jxl-2.6.12.jar" size="725735" download="eager" />
+    <jar href="lib\log4j-1.2.17.jar" size="489884" download="eager" />
+    <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
+    <jar href="lib\orsoncharts-1.4-eval-nofx.jar" size="445025" download="eager" />
+    <jar href="lib\orsonpdf-1.6-eval.jar" size="72444" download="eager" />
+    <jar href="lib\poi-3.15-beta1.jar" size="2538750" download="eager" />
+    <jar href="lib\poi-examples-3.15-beta1.jar" size="341726" download="eager" />
+    <jar href="lib\poi-excelant-3.15-beta1.jar" size="31570" download="eager" />
+    <jar href="lib\poi-ooxml-3.15-beta1.jar" size="1292287" download="eager" />
+    <jar href="lib\poi-ooxml-schemas-3.15-beta1.jar" size="5920793" download="eager" />
+    <jar href="lib\poi-scratchpad-3.15-beta1.jar" size="1320130" download="eager" />
+    <jar href="lib\rs2xml.jar" size="171578" download="eager" />
+    <jar href="lib\servlet.jar" size="80054" download="eager" />
+    <jar href="lib\swingx-1.6.1.jar" size="1389926" download="eager" />
+    <jar href="lib\swtgraphics2d.jar" size="17492" download="eager" />
+    <jar href="lib\xmlbeans-2.6.0.jar" size="2730866" download="eager" />
+    <jar href="lib\xmlworker-5.5.9-javadoc.jar" size="1158391" download="eager" />
+    <jar href="lib\xmlworker-5.5.9-sources.jar" size="368873" download="eager" />
+    <jar href="lib\xmlworker-5.5.9.jar" size="251792" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="RORO.userSignIn"  name="RORO RQS" >
+  </applet-desc>
+  <update check="always"/>
+</jnlp>
