@@ -311,12 +311,10 @@ public class userSignIn extends javax.swing.JDialog {
     }
 
     private boolean validateUserInformation(String user, String pass, String username, String password) {
-        boolean credentials;
+        boolean credentials = false;
 
         if (user.equals(username) & pass.equals(password)) {
             credentials = true;
-        } else {
-            credentials = false;
         }
         return credentials;
     }
@@ -339,24 +337,24 @@ public class userSignIn extends javax.swing.JDialog {
                 ps.setString(2, pass);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    String firstName = rs.getString("firstName");
-                    String lastName = rs.getString("lastName");
-                    String title = rs.getString("title");
-                    String region = rs.getString("region");
-                    String officePhone = rs.getString("phone");
-                    String mobilePhone = rs.getString("mobilePhone");
-                    String officeLocation = rs.getString("officeLocation");
-                    String email = rs.getString("email");
-                    String department = rs.getString("department");
-                    String rights = rs.getString("rights");
                     String getUsername = rs.getString("username");
                     String getPassword = rs.getString("password");
-
+                    // Check the username and password against what is registered in the database
+                    // If the information does not match exactly then block user access, otherwise grant access
                     if (!validateUserInformation(user, pass, getUsername, getPassword)) {
                         JOptionPane.showMessageDialog(this, "User credentials are incorrect. Please try again.\n\nHint: make sure that CAPS Lock is turned off.", "Invalid Log In", JOptionPane.WARNING_MESSAGE);
-                        
+                        passwordField.setText("");
                     } else {
-
+                        String firstName = rs.getString("firstName");
+                        String lastName = rs.getString("lastName");
+                        String title = rs.getString("title");
+                        String region = rs.getString("region");
+                        String officePhone = rs.getString("phone");
+                        String mobilePhone = rs.getString("mobilePhone");
+                        String officeLocation = rs.getString("officeLocation");
+                        String email = rs.getString("email");
+                        String department = rs.getString("department");
+                        String rights = rs.getString("rights");
                         if ((rights.equals("General") || rights.equals("Limited")) && department.equals("Customer Service")) {
                             CustomerService cs = new CustomerService();
                             cs.setVisible(true);
