@@ -310,6 +310,17 @@ public class userSignIn extends javax.swing.JDialog {
         }
     }
 
+    private boolean validateUserInformation(String user, String pass, String username, String password) {
+        boolean credentials;
+
+        if (user.equals(username) & pass.equals(password)) {
+            credentials = true;
+        } else {
+            credentials = false;
+        }
+        return credentials;
+    }
+
     private void userSignInActivity() {
         if (sDriveExists.exists()) {
             //Call variables for log in and user recognition (ID & password)
@@ -338,63 +349,71 @@ public class userSignIn extends javax.swing.JDialog {
                     String email = rs.getString("email");
                     String department = rs.getString("department");
                     String rights = rs.getString("rights");
-                    System.out.println(department);
-                    if ((rights.equals("General") || rights.equals("Limited")) && department.equals("Customer Service")) {
-                        CustomerService cs = new CustomerService();
-                        cs.setVisible(true);
+                    String getUsername = rs.getString("username");
+                    String getPassword = rs.getString("password");
 
-                    } else if (rights.equals("Administrative")) {
-                        AdministratorMenu am = new AdministratorMenu();
-                        am.setVisible(true);
+                    if (!validateUserInformation(user, pass, getUsername, getPassword)) {
+                        JOptionPane.showMessageDialog(this, "User credentials are incorrect. Please try again.\n\nHint: make sure that CAPS Lock is turned off.", "Invalid Log In", JOptionPane.WARNING_MESSAGE);
+                        
+                    } else {
 
-                        try {
-                            PreparedStatement psUsers = conn.prepareStatement(sqlUsers);
-                            ResultSet rsUsers = psUsers.executeQuery(sqlUsers);
+                        if ((rights.equals("General") || rights.equals("Limited")) && department.equals("Customer Service")) {
+                            CustomerService cs = new CustomerService();
+                            cs.setVisible(true);
 
-                            AdministratorMenu.adminUserComboBox.addItem("-");
-                            if(rsUsers.next()) {
-                                String[] users = {rsUsers.getString("Name")};
-                                String[] amId = {rsUsers.getString("userID")};
-                                for (String u : users) {
-                                    AdministratorMenu.adminUserComboBox.addItem(Arrays.toString(amId) + " - " + u);
+                        } else if (rights.equals("Administrative")) {
+                            AdministratorMenu am = new AdministratorMenu();
+                            am.setVisible(true);
+
+                            try {
+                                PreparedStatement psUsers = conn.prepareStatement(sqlUsers);
+                                ResultSet rsUsers = psUsers.executeQuery(sqlUsers);
+
+                                AdministratorMenu.adminUserComboBox.addItem("-");
+                                if (rsUsers.next()) {
+                                    String[] users = {rsUsers.getString("Name")};
+                                    String[] amId = {rsUsers.getString("userID")};
+                                    for (String u : users) {
+                                        AdministratorMenu.adminUserComboBox.addItem(Arrays.toString(amId) + " - " + u);
+                                    }
                                 }
+
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
                             }
+                        } else if (((rights.equals("General") || rights.equals("Limited")) && (department.equals("Sales") || department.equals("Trade Management")))) {
 
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
+                            MainMenu mm = new MainMenu();
+                            mm.MainMenuInformation(user, id);
+                            mm.setVisible(true);
+
+                            //Assign information to labels on userInformation Panel
+                            MainMenu.usernameLabel.setText(user);
+                            MainMenu.userInformationLabel.setText(firstName + " " + lastName);
+                            MainMenu.userIDLabel.setText(id);
+                            MainMenu.titleLabel.setText(title);
+                            MainMenu.salesRegionLabel.setText(region);
+                            MainMenu.officePhoneLabel.setText(officePhone);
+                            MainMenu.mobilePhoneLabel.setText(mobilePhone);
+                            MainMenu.officeLocationLabel.setText(officeLocation);
+                            MainMenu.emailLabel.setText(email);
+                            new UserInformationActivity().UpdateUserInformationActivity(id, user);
+
+                            // If the user is Emilie then set the heading label color to purple
+                            if (user.equals("eschoenhut")) {
+                                float[] hsb = Color.RGBtoHSB(193, 80, 208, null);
+                                float hue = hsb[0];
+                                float saturation = hsb[1];
+                                float brightness = hsb[2];
+                                MainMenu.userInformationLabel.setForeground(Color.getHSBColor(hue, saturation, brightness));
+                            }
+                        } else if (rights.equals("None")) {
+                            JOptionPane.showMessageDialog(null, "You do not have access to this software. Please contact your supervisor or \nthe system administrator to gain access.");
+                            exit(0);
                         }
-                    } else if (((rights.equals("General") || rights.equals("Limited")) && (department.equals("Sales") || department.equals("Trade Management")))) {
 
-                        MainMenu mm = new MainMenu();
-                        mm.MainMenuInformation(user, id);
-                        mm.setVisible(true);
-
-                        //Assign information to labels on userInformation Panel
-                        MainMenu.usernameLabel.setText(user);
-                        MainMenu.userInformationLabel.setText(firstName + " " + lastName);
-                        MainMenu.userIDLabel.setText(id);
-                        MainMenu.titleLabel.setText(title);
-                        MainMenu.salesRegionLabel.setText(region);
-                        MainMenu.officePhoneLabel.setText(officePhone);
-                        MainMenu.mobilePhoneLabel.setText(mobilePhone);
-                        MainMenu.officeLocationLabel.setText(officeLocation);
-                        MainMenu.emailLabel.setText(email);
-                        new UserInformationActivity().UpdateUserInformationActivity(id, user);
-
-                        // If the user is Emilie then set the heading label color to purple
-                        if (user.equals("eschoenhut")) {
-                            float[] hsb = Color.RGBtoHSB(193, 80, 208, null);
-                            float hue = hsb[0];
-                            float saturation = hsb[1];
-                            float brightness = hsb[2];
-                            MainMenu.userInformationLabel.setForeground(Color.getHSBColor(hue, saturation, brightness));
-                        }
-                    } else if (rights.equals("None")) {
-                        JOptionPane.showMessageDialog(null, "You do not have access to this software. Please contact your supervisor or \nthe system administrator to gain access.");
-                        exit(0);
+                        this.dispose();
                     }
-
-                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Username & Password Invalid");
                     usernameTextField.setText(user);

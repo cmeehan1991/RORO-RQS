@@ -31,7 +31,7 @@ import net.proteanit.sql.DbUtils;
  * @author cmeehan
  */
 public class CustomerService extends javax.swing.JFrame {
-
+    private final Connection conn = new DBConnection().connect();
     /**
      * Creates new form CustomerService
      */
@@ -1321,8 +1321,7 @@ public class CustomerService extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void getQuoteByIDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getQuoteByIDButtonActionPerformed
-        // TODO add your handling code here:
-        Connection conn = new DBConnection().connect();
+        //This function allows the CS user to input theh quote number and view all relevant quote informatin. 
 
         String quoteID = getQuoteByIDTextField.getText();
 
@@ -1536,9 +1535,8 @@ public class CustomerService extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_getQuoteByIDButtonActionPerformed
 
+    
     private void ConfirmBookedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmBookedButtonActionPerformed
-
-        Connection conn = new DBConnection().connect();
 
         String bookingNumber = bookingNumberTextField.getText();
         String quoteID = quoteNumberTextField.getText();
@@ -1631,6 +1629,29 @@ public class CustomerService extends javax.swing.JFrame {
 
     }//GEN-LAST:event_ConfirmBookedButtonActionPerformed
 
+    // Checks if the quote has been marked as booked
+    private boolean checkIfBooked(String quoteID){
+        Boolean booked = null;
+        String SQL = "SELECT booked FROM allquotes WHERE ID=?";
+        try{
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setString(1, quoteID);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                booked = rs.getBoolean("booked");
+            }
+        }catch(SQLException ex){   
+            System.out.println(ex.getMessage());
+        }
+        // If the quote is not marked as booked, returns false
+        return booked;
+    }
+    
+    //Sends the email notification for an original booking
+    private void sendBookingNotification(){
+        
+    }
+    
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         customerNameLabel.setText("N/A");
         authorLabel.setText("N/A");
