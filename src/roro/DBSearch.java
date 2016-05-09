@@ -247,7 +247,6 @@ public class DBSearch extends javax.swing.JFrame {
                 {"Booked"},
                 {"Booking Number"},
                 {"Declined"},
-                {"Reason for Decline"},
                 {"Comments"},
                 {"Date"},
                 {"Duplicate"},
@@ -738,7 +737,7 @@ public class DBSearch extends javax.swing.JFrame {
                         fields = "IF(booked=true, 'Yes', '') AS 'Booked'";
                         break;
                     case "Declined":
-                        fields = "IF(deny=true, 'Yes', '') AS 'Declined', reason_for_decline AS 'Reason for Decline'";
+                        fields = "IF(deny=true, 'Yes', '') AS 'Declined', IF(reason_for_decline='N/A', '', reason_for_decline) AS 'Reason for Decline'";
                         break;
                     case "Comments":
                         fields = "comments AS 'Comments'";
@@ -746,9 +745,6 @@ public class DBSearch extends javax.swing.JFrame {
                     case "Date":
                         fields = "DATE_FORMAT(DATE_QUOTED, '%Y-%m-%d') AS 'Date Quoted', IF(DATE_UPDATED != '', DATE_FORMAT(DATE_UPDATED, '%Y-%m-%d'), '') AS 'Date Last Updated'";
                         break;
-                    /*case "Date Updated":
-                        fields = "DATE_FORMAT(DATE_UPDATED, '%Y-%m-%d') AS 'Date Updated'";
-                        break;*/
                     case "Booking Number":
                         fields = "bookingNumber AS 'Booking Number'";
                         break;

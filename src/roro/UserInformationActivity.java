@@ -186,14 +186,14 @@ public class UserInformationActivity {
 
     private ResultSet requiringAttentionTable(String attentionDate) {
         ResultSet rs = null;
-        String SQL = "SELECT ID AS 'Quote ID', IF(DATE_UPDATED !=?, DATE_FORMAT(DATE_UPDATED, '%Y-%m-%d'), DATE_FORMAT(DATE_QUOTED, '%Y-%m-%d')) AS 'Date Last Updated', customerName AS 'Company', CONCAT(comm_class,', ', handling_instructions) AS 'Commodity Type', comm_description AS 'Commodity Description' FROM allquotes WHERE booked!=? AND deny !=? AND feedback != ? AND IF(DATE_QUOTED !=?, DATE_UPDATED <= ?, DATE_QUOTED <=?)";
+        String SQL = "SELECT ID AS 'Quote ID', IF(DATE_UPDATED !=?, DATE_FORMAT(DATE_UPDATED, '%Y-%m-%d'), DATE_FORMAT(DATE_QUOTED, '%Y-%m-%d')) AS 'Date Last Updated', customerName AS 'Company', CONCAT(comm_class,', ', handling_instructions) AS 'Commodity Type', comm_description AS 'Commodity Description' FROM allquotes WHERE booked!=? AND deny !=? AND feedback != ? AND IF(DATE_QUOTED=?, DATE_UPDATED <= ?, DATE_QUOTED <=?)";
         try {
             PreparedStatement ps = conn.prepareStatement(SQL);
             ps.setString(1, null);
             ps.setBoolean(2, true);
             ps.setBoolean(3, true);
             ps.setBoolean(4, true);
-            ps.setString(5, " ");
+            ps.setString(5, "");
             ps.setString(6, attentionDate);
             ps.setString(7, attentionDate);
             rs = ps.executeQuery();

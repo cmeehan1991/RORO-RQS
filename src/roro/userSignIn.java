@@ -319,100 +319,98 @@ public class userSignIn extends javax.swing.JDialog {
         return credentials;
     }
 
+    private void goToMain(ResultSet rs, String user, String ID) throws SQLException {
+        //SQL to retrieve all current users from DB;
+        String sqlUsers = "SELECT userID, CONCAT(firstName,' ', lastName) AS Name FROM authorized_users WHERE department='Sales';";
+        String firstName = rs.getString("firstName");
+        String lastName = rs.getString("lastName");
+        String title = rs.getString("title");
+        String region = rs.getString("region");
+        String officePhone = rs.getString("phone");
+        String mobilePhone = rs.getString("mobilePhone");
+        String officeLocation = rs.getString("officeLocation");
+        String email = rs.getString("email");
+        String department = rs.getString("department");
+        String rights = rs.getString("rights");
+        if ((rights.equals("General") || rights.equals("Limited")) && department.equals("Customer Service")) {
+            CustomerService cs = new CustomerService();
+            cs.setVisible(true);
+        } else if (rights.equals("Administrative")) {
+            AdministratorMenu am = new AdministratorMenu();
+            am.setVisible(true);
+            try {
+                PreparedStatement psUsers = conn.prepareStatement(sqlUsers);
+                ResultSet rsUsers = psUsers.executeQuery(sqlUsers);
+
+                AdministratorMenu.adminUserComboBox.addItem("-");
+                if (rsUsers.next()) {
+                    String[] users = {rsUsers.getString("Name")};
+                    String[] amId = {rsUsers.getString("userID")};
+                    for (String u : users) {
+                        AdministratorMenu.adminUserComboBox.addItem(Arrays.toString(amId) + " - " + u);
+                    }
+                }
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else if (((rights.equals("General") || rights.equals("Limited")) && (department.equals("Sales") || department.equals("Trade Management")))) {
+
+            MainMenu mm = new MainMenu();
+            mm.MainMenuInformation(user, ID);
+            mm.setVisible(true);
+
+            //Assign information to labels on userInformation Panel
+            MainMenu.usernameLabel.setText(user);
+            MainMenu.userInformationLabel.setText(firstName + " " + lastName);
+            MainMenu.userIDLabel.setText(ID);
+            MainMenu.titleLabel.setText(title);
+            MainMenu.salesRegionLabel.setText(region);
+            MainMenu.officePhoneLabel.setText(officePhone);
+            MainMenu.mobilePhoneLabel.setText(mobilePhone);
+            MainMenu.officeLocationLabel.setText(officeLocation);
+            MainMenu.emailLabel.setText(email);
+            new UserInformationActivity().UpdateUserInformationActivity(ID, user);
+
+            // If the user is Emilie then set the heading label color to purple
+            if (user.equals("eschoenhut")) {
+                float[] hsb = Color.RGBtoHSB(193, 80, 208, null);
+                float hue = hsb[0];
+                float saturation = hsb[1];
+                float brightness = hsb[2];
+                MainMenu.userInformationLabel.setForeground(Color.getHSBColor(hue, saturation, brightness));
+            }
+        } else if (rights.equals("None")) {
+            JOptionPane.showMessageDialog(null, "You do not have access to this software. Please contact your supervisor or \nthe system administrator to gain access.");
+            exit(0);
+        }
+
+        this.dispose();
+    }
+
     private void userSignInActivity() {
         if (sDriveExists.exists()) {
             //Call variables for log in and user recognition (ID & password)
             String pass = password(), user = user();
-            String id = userID(user, pass);
-
-            String sqlLogIn = "SELECT * FROM authorized_users WHERE username=? and password=?";
-
-            //SQL to retrieve all current users from DB;
-            String sqlUsers = "SELECT userID, CONCAT(firstName,' ', lastName) AS Name FROM authorized_users WHERE department='Sales';";
-
+            String SQL = "SELECT * FROM authorized_users WHERE username=? and password=?";
             try {
-                //Log in SQL handling
-                PreparedStatement ps = conn.prepareStatement(sqlLogIn);
+                PreparedStatement ps = conn.prepareStatement(SQL);
                 ps.setString(1, user);
                 ps.setString(2, pass);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     String getUsername = rs.getString("username");
                     String getPassword = rs.getString("password");
+                    
                     // Check the username and password against what is registered in the database
                     // If the information does not match exactly then block user access, otherwise grant access
                     if (!validateUserInformation(user, pass, getUsername, getPassword)) {
                         JOptionPane.showMessageDialog(this, "User credentials are incorrect. Please try again.\n\nHint: make sure that CAPS Lock is turned off.", "Invalid Log In", JOptionPane.WARNING_MESSAGE);
                         passwordField.setText("");
                     } else {
-                        String firstName = rs.getString("firstName");
-                        String lastName = rs.getString("lastName");
-                        String title = rs.getString("title");
-                        String region = rs.getString("region");
-                        String officePhone = rs.getString("phone");
-                        String mobilePhone = rs.getString("mobilePhone");
-                        String officeLocation = rs.getString("officeLocation");
-                        String email = rs.getString("email");
-                        String department = rs.getString("department");
-                        String rights = rs.getString("rights");
-                        if ((rights.equals("General") || rights.equals("Limited")) && department.equals("Customer Service")) {
-                            CustomerService cs = new CustomerService();
-                            cs.setVisible(true);
-
-                        } else if (rights.equals("Administrative")) {
-                            AdministratorMenu am = new AdministratorMenu();
-                            am.setVisible(true);
-
-                            try {
-                                PreparedStatement psUsers = conn.prepareStatement(sqlUsers);
-                                ResultSet rsUsers = psUsers.executeQuery(sqlUsers);
-
-                                AdministratorMenu.adminUserComboBox.addItem("-");
-                                if (rsUsers.next()) {
-                                    String[] users = {rsUsers.getString("Name")};
-                                    String[] amId = {rsUsers.getString("userID")};
-                                    for (String u : users) {
-                                        AdministratorMenu.adminUserComboBox.addItem(Arrays.toString(amId) + " - " + u);
-                                    }
-                                }
-
-                            } catch (Exception e) {
-                                System.out.println(e.getMessage());
-                            }
-                        } else if (((rights.equals("General") || rights.equals("Limited")) && (department.equals("Sales") || department.equals("Trade Management")))) {
-
-                            MainMenu mm = new MainMenu();
-                            mm.MainMenuInformation(user, id);
-                            mm.setVisible(true);
-
-                            //Assign information to labels on userInformation Panel
-                            MainMenu.usernameLabel.setText(user);
-                            MainMenu.userInformationLabel.setText(firstName + " " + lastName);
-                            MainMenu.userIDLabel.setText(id);
-                            MainMenu.titleLabel.setText(title);
-                            MainMenu.salesRegionLabel.setText(region);
-                            MainMenu.officePhoneLabel.setText(officePhone);
-                            MainMenu.mobilePhoneLabel.setText(mobilePhone);
-                            MainMenu.officeLocationLabel.setText(officeLocation);
-                            MainMenu.emailLabel.setText(email);
-                            new UserInformationActivity().UpdateUserInformationActivity(id, user);
-
-                            // If the user is Emilie then set the heading label color to purple
-                            if (user.equals("eschoenhut")) {
-                                float[] hsb = Color.RGBtoHSB(193, 80, 208, null);
-                                float hue = hsb[0];
-                                float saturation = hsb[1];
-                                float brightness = hsb[2];
-                                MainMenu.userInformationLabel.setForeground(Color.getHSBColor(hue, saturation, brightness));
-                            }
-                        } else if (rights.equals("None")) {
-                            JOptionPane.showMessageDialog(null, "You do not have access to this software. Please contact your supervisor or \nthe system administrator to gain access.");
-                            exit(0);
-                        }
-
-                        this.dispose();
+                        goToMain(rs, user, userID(user, pass));
                     }
-                } else {
+                } else {// If the username and password do not match or are not entered correctly then deny access
                     JOptionPane.showMessageDialog(this, "Username & Password Invalid");
                     usernameTextField.setText(user);
                     passwordField.setText("");
@@ -422,10 +420,10 @@ public class userSignIn extends javax.swing.JDialog {
                     passwordField.setBorder(new LineBorder(Color.RED, 1));
                 }
             } catch (SQLException | HeadlessException ex) {
-                JOptionPane.showMessageDialog(this, "Error Loggin in: " + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error Signing in: " + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Please connect to the S: drive and try again.", "Connection Error!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please connect to the S: drive and try again.", "Connection Error!", JOptionPane.ERROR_MESSAGE);
             passwordField.setText("");
         }
     }

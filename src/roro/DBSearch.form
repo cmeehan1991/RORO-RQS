@@ -365,7 +365,7 @@
             <Component class="javax.swing.JTable" name="fieldsTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="1" rowCount="29">
+                  <Table columnCount="1" rowCount="28">
                     <Column editable="true" title="Fields" type="java.lang.Object">
                       <Data value="Quote ID"/>
                       <Data value="Customer Name"/>
@@ -391,7 +391,6 @@
                       <Data value="Booked"/>
                       <Data value="Booking Number"/>
                       <Data value="Declined"/>
-                      <Data value="Reason for Decline"/>
                       <Data value="Comments"/>
                       <Data value="Date"/>
                       <Data value="Duplicate"/>
