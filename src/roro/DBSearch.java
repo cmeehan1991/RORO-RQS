@@ -752,7 +752,7 @@ public class DBSearch extends javax.swing.JFrame {
                         fields = "IF(duplicateRate=true, 'Yes', '') AS 'Duplicate'";
                         break;
                     case "Feedback":
-                        fields = "feedback AS 'Feedback', feedbackType AS 'Feedback Category', feedbackDescription AS 'Feedback Description'";
+                        fields = "IF(feedback=true, 'Yes', '') AS 'Feedback', feedbackType AS 'Feedback Category', feedbackDescription AS 'Feedback Description'";
                         break;
                     default:
                         break;
@@ -827,7 +827,7 @@ public class DBSearch extends javax.swing.JFrame {
                         column = "allquotes." + booked;
                         break;
                     case "Decline":
-                        column = "allquotes." + declined;
+                        column = declined;
                         break;
                     case "Quote Date":
                         column = "IF(allquotes.DATE_UPDATED!='',allquotes.DATE_UPDATED, allquotes.DATE_QUOTED)";
@@ -885,7 +885,7 @@ public class DBSearch extends javax.swing.JFrame {
                     whereStatement[r] = "";
                 }
 
-                System.out.println(r);
+                System.out.println(Arrays.toString(whereStatement));
             }
             if (rows >= 0) {
                 if (Selections.length < 1) {
@@ -919,6 +919,7 @@ public class DBSearch extends javax.swing.JFrame {
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
+                System.out.println(sql);
                 this.dispose();
             }
         }

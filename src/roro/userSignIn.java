@@ -401,29 +401,28 @@ public class userSignIn extends javax.swing.JDialog {
                 if (rs.next()) {
                     String getUsername = rs.getString("username");
                     String getPassword = rs.getString("password");
-                    
+
                     // Check the username and password against what is registered in the database
                     // If the information does not match exactly then block user access, otherwise grant access
                     if (!validateUserInformation(user, pass, getUsername, getPassword)) {
                         JOptionPane.showMessageDialog(this, "User credentials are incorrect. Please try again.\n\nHint: make sure that CAPS Lock is turned off.", "Invalid Log In", JOptionPane.WARNING_MESSAGE);
                         passwordField.setText("");
+                        usernameTextField.setBorder(new LineBorder(Color.RED, 1));
+                        passwordField.setBorder(new LineBorder(Color.RED, 1));
                     } else {
                         goToMain(rs, user, userID(user, pass));
                     }
                 } else {// If the username and password do not match or are not entered correctly then deny access
-                    JOptionPane.showMessageDialog(this, "Username & Password Invalid");
-                    usernameTextField.setText(user);
+                    JOptionPane.showMessageDialog(this, "Username & Password Invalid", "Log in Error", JOptionPane.WARNING_MESSAGE);
                     passwordField.setText("");
-                    usernameTextField.setBackground(Color.YELLOW);
                     usernameTextField.setBorder(new LineBorder(Color.RED, 1));
-                    passwordField.setBackground(Color.YELLOW);
                     passwordField.setBorder(new LineBorder(Color.RED, 1));
                 }
             } catch (SQLException | HeadlessException ex) {
                 JOptionPane.showMessageDialog(this, "Error Signing in: " + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Please connect to the S: drive and try again.", "Connection Error!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please connect to the S: drive and try again.", "Connection Error!", JOptionPane.ERROR_MESSAGE);
             passwordField.setText("");
         }
     }

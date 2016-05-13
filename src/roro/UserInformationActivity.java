@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import static java.util.Calendar.YEAR;
-import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -78,7 +76,7 @@ public class UserInformationActivity {
             PreparedStatement ps = conn.prepareStatement(SQL);
             ps.setString(1, userID);
             ps.setString(2, firstOfWeek);
-            ps.setString(3, today);
+            ps.setString(3, today+" 23:59");
             ResultSet rs = ps.executeQuery();
             System.out.println("Today: "+today+" First of Week: "+firstOfWeek);
             if(rs.next()){
