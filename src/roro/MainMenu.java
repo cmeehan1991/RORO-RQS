@@ -3,6 +3,8 @@ package RORO;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.sun.glass.events.KeyEvent;
+import java.awt.Color;
+import java.awt.Container;
 import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -188,7 +190,6 @@ public class MainMenu extends javax.swing.JFrame {
         jChooser = new JFileChooser();
         DatePicker();
         SailingScheduleTable();
-
     }
 
     /**
@@ -6037,6 +6038,10 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_submitToPublishingPDFButtonActionPerformed
 
     private void clearNewQuoteFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearNewQuoteFormActionPerformed
+        clearNewQuoteForm();
+    }//GEN-LAST:event_clearNewQuoteFormActionPerformed
+
+    private void clearNewQuoteForm() {
         //Clear new quote form
         //customerNameList.setSelectedIndex(-1);
         newQuoteCustomerNameLabel.setText("N/A");
@@ -6093,480 +6098,287 @@ public class MainMenu extends javax.swing.JFrame {
         packingListTable.setModel(dtm);
         shipperCommentsTextArea.setText("");
         includeShipperCommentsCheckBox.setSelected(false);
-
-    }//GEN-LAST:event_clearNewQuoteFormActionPerformed
+    }
 
 //New Quote submit button
     private void submitNewQuoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitNewQuoteActionPerformed
 
-        String SQLId = "SELECT userID FROM authorized_users WHERE username=?";
+        //Get input from new quote form
+        String newQuoteCompany = newQuoteCustomerNameLabel.getText();
+        String newQuoteContactName = contactNameTextField.getText();
+        String newQuoteContactEmail = contactEmailTextField.getText();
+        String tradeLane = tradeLaneComboBox.getSelectedItem().toString();
+        String pol = polTextField.getText();
+        String pod = podTextField.getText();
+        String tshp1 = tshp1TextField.getText();
+        String tshp2 = tshp2TextField.getText();
+        String commodityClass = commodityClassComboBox.getSelectedItem().toString();
+        String commodityDescription = commodityDescriptionTextField.getText();
+        String handlingInstructions = handlingInstructionsComboBox.getSelectedItem().toString();
+        String OFT = oftTextField.getText();
+        String oftMeasurement = oftMeasurementComboBox.getSelectedItem().toString();
+        String BAF = bafTextField.getText();
+        Boolean bafIncluded = bafIncludedCheckBox.isSelected();
+        String ecaBAF = ecaBAFTextField.getText();
+        String ecaBafMeasurement = ecaBafMeasurementComboBox.getSelectedItem().toString();
+        Boolean ecaIncluded = ecaBafIncludedCheckBox.isSelected();
+        String thc = thcTextField.getText();
+        String thcMeasurement = thcMeasurementComboBox.getSelectedItem().toString();
+        Boolean thcIncluded = thcIncludedCheckBox.isSelected();
+        Boolean thcAttachment = thcAttached.isSelected();
+        String wfg = wfgTextField.getText();
+        String wfgMeasurement = wfgMeasurementComboBox.getSelectedItem().toString();
+        Boolean wfgIncluded = wfgIncludedCheckBox.isSelected();
+        Boolean wfgAttachment = wfgAttached.isSelected();
+        String documentationFee = documentationFeeComboBox.getSelectedItem().toString();
+        Boolean documentationFeeIncluded = documentationFeeIncludedCheckBox.isSelected();
+        Boolean warRisk = warRiskCheckBox.isSelected();
+        String comments = commentsTextArea.getText();
+        Boolean denial = newQuoteDenialCheckBox.isSelected();
+        Boolean spotRate = spotRateCheckBox.isSelected();
+        Boolean booked = newQuoteBookedCheckBox.isSelected();
+        Boolean accessories = newQuoteAccessoriesCheckBox.isSelected();
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
+        Boolean mafiMinimum = mafiMinimumCheckBox.isSelected();
+        String mafiMinimumCharge = mafiMinimumTextField.getText();
+        String reasonForDecline = declineComboBox.getSelectedItem().toString();
+        Boolean contract_rate = contractRateCheckBox.isSelected();
+        String bookingNumber = "";// Cannot be null
+        Boolean includeSailingSchedule = includeSailingScheduleCheckBox.isSelected();
+        Boolean includeCarrierRemarks = includeShipperCommentsCheckBox.isSelected();
+        String carrierComments = shipperCommentsTextArea.getText();
+        String bookedUserID = ""; // Cannot be null
+
+        //If the quote is marked as booked then get the bookingNumber
+        if (booked == true) {
+            bookingNumber = bookingNumberTextField.getText();
+            bookedUserID = userID;
+        }
+
+        // If the quote is a decline the user must choose a reason, otherwise default to N/A
+        if (denial == true && reasonForDecline.equals("N/A")) {
+            JOptionPane.showMessageDialog(null, "You must select a reason for declining this cargo");
+        }
+
+        String sql = "INSERT INTO allquotes (tradeLane, pol, pod, tshp1, tshp2, comm_class, handling_instructions, comm_description, rate, rate_unit, baf, eca_baf, eca_unit, thc, thc_unit, wfg, wfg_unit, doc_fee, war_risk, spot_rate, user_ID, booked, date, DATE_QUOTED, comments, deny, customerName, thcIncluded, wfgIncluded, thcAttached, wfgAttached, bafIncluded, ecaIncluded, documentationFeeIncluded, accessories, mafiMinimum, mafiMinimumCharge, reason_for_decline, contract_rate, bookedUserID, bookingNumber, contactName, contactEmail, carrierComments)" + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement idPS = conn.prepareStatement(SQLId);
-            idPS.setString(1, username);
-            ResultSet idRS = idPS.executeQuery();
-            if (idRS.next()) {
-                String id = idRS.getString("userID");
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, tradeLane);
+            ps.setString(2, pol);
+            ps.setString(3, pod);
+            ps.setString(4, tshp1);
+            ps.setString(5, tshp2);
+            ps.setString(6, commodityClass);
+            ps.setString(7, handlingInstructions);
+            ps.setString(8, commodityDescription);
+            ps.setString(9, OFT);
+            ps.setString(10, oftMeasurement);
+            ps.setString(11, BAF);
+            ps.setString(12, ecaBAF);
+            ps.setString(13, ecaBafMeasurement);
+            ps.setString(14, thc);
+            ps.setString(15, thcMeasurement);
+            ps.setString(16, wfg);
+            ps.setString(17, wfgMeasurement);
+            ps.setString(18, documentationFee);
+            ps.setBoolean(19, warRisk);
+            ps.setBoolean(20, spotRate);
+            ps.setString(21, userID);
+            ps.setBoolean(22, booked);
+            ps.setString(23, timeStamp);
+            ps.setString(24, timeStamp);
+            ps.setString(25, comments);
+            ps.setBoolean(26, denial);
+            ps.setString(27, newQuoteCompany);
+            ps.setBoolean(28, thcIncluded);
+            ps.setBoolean(29, wfgIncluded);
+            ps.setBoolean(30, thcAttachment);
+            ps.setBoolean(31, wfgAttachment);
+            ps.setBoolean(32, bafIncluded);
+            ps.setBoolean(33, ecaIncluded);
+            ps.setBoolean(34, documentationFeeIncluded);
+            ps.setBoolean(35, accessories);
+            ps.setBoolean(36, mafiMinimum);
+            ps.setString(37, mafiMinimumCharge);
+            ps.setString(38, reasonForDecline);
+            ps.setBoolean(39, contract_rate);
+            ps.setString(40, bookedUserID);
+            ps.setString(41, bookingNumber);
+            ps.setString(42, newQuoteContactName);
+            ps.setString(43, newQuoteContactEmail);
+            ps.setString(44, carrierComments);
 
-                System.out.println("ID:" + id);
-                //Get input from new quote form
-                String newQuoteCustomerName = newQuoteCustomerNameLabel.getText();
-                String newQuoteContactName = contactNameTextField.getText();
-                String newQuoteContactEmail = contactEmailTextField.getText();
-                String tradeLane = tradeLaneComboBox.getSelectedItem().toString();
-                String pol = polTextField.getText();
-                String pod = podTextField.getText();
-                String tshp1 = tshp1TextField.getText();
-                String tshp2 = tshp2TextField.getText();
-                String commodityClass = commodityClassComboBox.getSelectedItem().toString();
-                String commodityDescription = commodityDescriptionTextField.getText();
-                String handlingInstructions = handlingInstructionsComboBox.getSelectedItem().toString();
-                String OFT = oftTextField.getText();
-                String oftMeasurement = oftMeasurementComboBox.getSelectedItem().toString();
-                String BAF = bafTextField.getText();
-                Boolean bafIncluded = bafIncludedCheckBox.isSelected();
-                String ecaBAF = ecaBAFTextField.getText();
-                String ecaBafMeasurement = ecaBafMeasurementComboBox.getSelectedItem().toString();
-                Boolean ecaIncluded = ecaBafIncludedCheckBox.isSelected();
-                String thc = thcTextField.getText();
-                String thcMeasurement = thcMeasurementComboBox.getSelectedItem().toString();
-                Boolean thcIncluded = thcIncludedCheckBox.isSelected();
-                Boolean thcAttachment = thcAttached.isSelected();
-                String wfg = wfgTextField.getText();
-                String wfgMeasurement = wfgMeasurementComboBox.getSelectedItem().toString();
-                Boolean wfgIncluded = wfgIncludedCheckBox.isSelected();
-                Boolean wfgAttachment = wfgAttached.isSelected();
-                String documentationFee = documentationFeeComboBox.getSelectedItem().toString();
-                Boolean documentationFeeIncluded = documentationFeeIncludedCheckBox.isSelected();
-                Boolean warRisk = warRiskCheckBox.isSelected();
-                String comments = commentsTextArea.getText();
-                String customerName = null;
-                String CN = null;
-                Boolean denial = newQuoteDenialCheckBox.isSelected();
-                Boolean spotRate = spotRateCheckBox.isSelected();
-                Boolean booked = newQuoteBookedCheckBox.isSelected();
-                Boolean accessories = newQuoteAccessoriesCheckBox.isSelected();
-                String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
-                Boolean mafiMinimum = mafiMinimumCheckBox.isSelected();
-                String mafiMinimumCharge = mafiMinimumTextField.getText();
-                String reason_for_decline = null;
-                String deny = declineComboBox.getSelectedItem().toString();
-                Boolean contract_rate = contractRateCheckBox.isSelected();
-                String bookingNumber = " ";
-                Boolean includeSailingSchedule = includeSailingScheduleCheckBox.isSelected();
-                Boolean includeCarrierRemarks = includeShipperCommentsCheckBox.isSelected();
-                String carrierComments = shipperCommentsTextArea.getText();
+            // Execute the INSERT statement and return the ID as lastKey
+            ps.executeUpdate();
+            ResultSet keys = ps.getGeneratedKeys();
+            int lastKey = 1;
+            while (keys.next()) {
+                lastKey = keys.getInt(1);
+            }
 
-                if (booked == true) {
-                    bookingNumber = bookingNumberTextField.getText();
-                } else {
-                    bookingNumber = " ";
-                }
+            // Handle the packing list
+            int rows = packingListTable.getRowCount();
+            for (int row = 0; row < rows; row++) {
+                Object commodity = packingListTable.getValueAt(row, 0);
+                Object quantity = packingListTable.getValueAt(row, 1);
+                Object l = packingListTable.getValueAt(row, 2);
+                Object w = packingListTable.getValueAt(row, 3);
+                Object h = packingListTable.getValueAt(row, 4);
+                Object kgs = packingListTable.getValueAt(row, 5);
+                Object lin = packingListTable.getValueAt(row, 6);
+                Object win = packingListTable.getValueAt(row, 7);
+                Object hin = packingListTable.getValueAt(row, 8);
+                Object cbm = packingListTable.getValueAt(row, 9);
+                Object lbs = packingListTable.getValueAt(row, 10);
 
-                if (newQuoteCustomerName.equals("N/A")) {
-                    customerName = "N/A";
-                    System.out.println(customerName);
-                } else if (!newQuoteCustomerName.equals("N/A")) {
-                    customerName = newQuoteCustomerName;
-                    System.out.println(customerName);
-                }
+                String SQL = "INSERT INTO packinglist (quoteID, commodity, quantity, l, w, h, kgs, length_inches, width_inches, height_inches, cbm, lbs) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
-                if (customerName.equals("")) {
-                    CN = "N/A";
-                    System.out.println(customerName);
-                } else if (!customerName.equals("")) {
-                    CN = customerName;
-                    System.out.println(customerName);
-                }
-                if (denial == true && deny.equals("N/A")) {
-                    JOptionPane.showMessageDialog(null, "You must select a reason for declining this cargo");
-                } else if (denial = true && !deny.equals("N/A")) {
-                    reason_for_decline = declineComboBox.getSelectedItem().toString();
-                } else if (denial != true) {
-                    reason_for_decline = "N/A";
-                }
-
-                String sql = "INSERT INTO allquotes (tradeLane, pol, pod, tshp1, tshp2, comm_class, handling_instructions, comm_description, rate, rate_unit, baf, eca_baf, eca_unit, thc, thc_unit, wfg, wfg_unit, doc_fee, war_risk, spot_rate, user_ID, booked, date, DATE_QUOTED, comments, deny, customerName, thcIncluded, wfgIncluded, thcAttached, wfgAttached, bafIncluded, ecaIncluded, documentationFeeIncluded, accessories, mafiMinimum, mafiMinimumCharge, reason_for_decline, contract_rate, bookedUserID, bookingNumber, contactName, contactEmail, carrierComments)" + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 try {
+                    PreparedStatement pstmt = conn.prepareStatement(SQL);
+                    pstmt.setInt(1, lastKey);
+                    pstmt.setString(2, String.valueOf(commodity));
+                    pstmt.setString(3, String.valueOf(quantity));
+                    pstmt.setString(4, String.valueOf(l));
+                    pstmt.setString(5, String.valueOf(w));
+                    pstmt.setString(6, String.valueOf(h));
+                    pstmt.setString(7, String.valueOf(kgs));
+                    pstmt.setString(8, String.valueOf(lin));
+                    pstmt.setString(9, String.valueOf(win));
+                    pstmt.setString(10, String.valueOf(hin));
+                    pstmt.setString(11, String.valueOf(cbm));
+                    pstmt.setString(12, String.valueOf(lbs));
+                    pstmt.addBatch();
+                    pstmt.executeBatch();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                }
+            }
 
-                    PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                    ps.setString(1, tradeLane);
-                    ps.setString(2, pol);
-                    ps.setString(3, pod);
-                    ps.setString(4, tshp1);
-                    ps.setString(5, tshp2);
-                    ps.setString(6, commodityClass);
-                    ps.setString(7, handlingInstructions);
-                    ps.setString(8, commodityDescription);
-                    ps.setString(9, OFT);
-                    ps.setString(10, oftMeasurement);
-                    ps.setString(11, BAF);
-                    ps.setString(12, ecaBAF);
-                    ps.setString(13, ecaBafMeasurement);
-                    ps.setString(14, thc);
-                    ps.setString(15, thcMeasurement);
-                    ps.setString(16, wfg);
-                    ps.setString(17, wfgMeasurement);
-                    ps.setString(18, documentationFee);
-                    ps.setBoolean(19, warRisk);
-                    ps.setBoolean(20, spotRate);
-                    ps.setString(21, id);
-                    ps.setBoolean(22, booked);
-                    ps.setString(23, timeStamp);
-                    ps.setString(24, timeStamp);
-                    ps.setString(25, comments);
-                    ps.setBoolean(26, denial);
-                    ps.setString(27, CN);
-                    ps.setBoolean(28, thcIncluded);
-                    ps.setBoolean(29, wfgIncluded);
-                    ps.setBoolean(30, thcAttachment);
-                    ps.setBoolean(31, wfgAttachment);
-                    ps.setBoolean(32, bafIncluded);
-                    ps.setBoolean(33, ecaIncluded);
-                    ps.setBoolean(34, documentationFeeIncluded);
-                    ps.setBoolean(35, accessories);
-                    ps.setBoolean(36, mafiMinimum);
-                    ps.setString(37, mafiMinimumCharge);
-                    ps.setString(38, reason_for_decline);
-                    ps.setBoolean(39, contract_rate);
-                    if (booked == true) {
-                        ps.setString(40, id);
-                    } else {
-                        ps.setString(40, "");
-                    }
-                    ps.setString(41, bookingNumber);
-                    ps.setString(42, newQuoteContactName);
-                    ps.setString(43, newQuoteContactEmail);
-                    ps.setString(44, carrierComments);
-                    ps.executeUpdate();
-                    ResultSet keys = ps.getGeneratedKeys();
-                    int lastKey = 1;
-                    while (keys.next()) {
-                        lastKey = keys.getInt(1);
-                    }
-                    
-                    int rows = packingListTable.getRowCount();
-                    for (int row = 0; row < rows; row++) {
-                        Object commodity = packingListTable.getValueAt(row, 0);
-                        Object quantity = packingListTable.getValueAt(row, 1);
-                        Object l = packingListTable.getValueAt(row, 2);
-                        Object w = packingListTable.getValueAt(row, 3);
-                        Object h = packingListTable.getValueAt(row, 4);
-                        Object kgs = packingListTable.getValueAt(row, 5);
-                        Object lin = packingListTable.getValueAt(row, 6);
-                        Object win = packingListTable.getValueAt(row, 7);
-                        Object hin = packingListTable.getValueAt(row, 8);
-                        Object cbm = packingListTable.getValueAt(row, 9);
-                        Object lbs = packingListTable.getValueAt(row, 10);
-                        String c = null;
-                        String q = null;
-                        String L = null;
-                        String W = null;
-                        String H = null;
-                        String Lin = null;
-                        String Hin = null;
-                        String Win = null;
-                        String m3 = null;
-                        String K = null;
-                        String lb = null;
+            if (includeSailingSchedule == true) {
+                int ssRows = newQuoteSailingScheduleTable.getRowCount();
+                for (int r = 0; r < ssRows; r++) {
+                    String vessel_voyage = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 0));
+                    String sail_date = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 1));
+                    String transit_time = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 2));
+                    String trans_shipment = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 3));
 
-                        if (commodity == null) {
-                            c = "";
-                        } else if (commodity != null) {
-                            c = String.valueOf(commodity);
-                            System.out.println(c);
-                        }
-                        if (quantity == null) {
-                            q = "";
-                        } else if (quantity != null) {
-                            q = String.valueOf(quantity);
-                        }
-                        if (l == null) {
-                            L = "";
-                        } else if (l != null) {
-                            L = String.valueOf(l);
-                        }
-                        if (w == null) {
-                            W = "";
-                        } else if (w != null) {
-                            W = String.valueOf(w);
-                        }
-                        if (h == null) {
-                            H = "";
-                        } else if (h != null) {
-                            H = String.valueOf(h);
-                        }
-                        if (w == null) {
-                            W = "";
-                        } else if (w != null) {
-                            W = String.valueOf(w);
-                        }
-                        if (cbm == null) {
-                            m3 = "";
-                        } else if (cbm != null) {
-                            m3 = String.valueOf(cbm);
-                        }
-                        if (kgs == null) {
-                            K = "";
-                        } else if (kgs != null) {
-                            K = String.valueOf(kgs);
-                        }
-                        if (lbs == null) {
-                            lb = "";
-                        } else if (lbs != null) {
-                            lb = String.valueOf(lbs);
-                        }
-                        if (lin == null) {
-                            Lin = "";
-                        } else if (lin != null) {
-                            Lin = String.valueOf(lin);
-                        }
-                        if (win == null) {
-                            Win = "";
-                        } else if (win != null) {
-                            Win = String.valueOf(win);
-                        }
-                        if (hin == null) {
-                            Hin = "";
-                        } else if (hin != null) {
-                            Hin = String.valueOf(hin);
-                        }
+                    String sailingScheduleSQL = "INSERT INTO quote_schedule (quote_id, alpha_character, vessel_voyage, sail_date, transit_time, trans_shipment) VALUES(?,?,?,?,?,?)";
 
-                        String SQL = "INSERT INTO packinglist (quoteID, commodity, quantity, l, w, h, kgs, length_inches, width_inches, height_inches, cbm, lbs) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-
-                        try {
-                            try (PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-                                pstmt.setInt(1, lastKey);
-                                pstmt.setString(2, c);
-                                pstmt.setString(3, q);
-                                pstmt.setString(4, L);
-                                pstmt.setString(5, W);
-                                pstmt.setString(6, H);
-                                pstmt.setString(7, K);
-                                pstmt.setString(8, Lin);
-                                pstmt.setString(9, Win);
-                                pstmt.setString(10, Hin);
-                                pstmt.setString(11, m3);
-                                pstmt.setString(12, lb);
-                                pstmt.addBatch();
-                                pstmt.executeBatch();
-                            }
-
-                        } catch (Exception e) {
-                            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-                        }
-
-                        if (includeSailingSchedule == true) {
-                            int ssRows = newQuoteSailingScheduleTable.getRowCount();
-                            int ssCols = newQuoteSailingScheduleTable.getColumnCount();
-                            for (int r = 0; r < ssRows; r++) {
-                                String vessel_voyage = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 0));
-                                String sail_date = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 1));
-                                String transit_time = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 2));
-                                String trans_shipment = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 3));
-
-                                String sailingScheduleSQL = "INSERT INTO quote_schedule (quote_id, alpha_character, vessel_voyage, sail_date, transit_time, trans_shipment) VALUES(?,?,?,?,?,?)";
-
-                                try {
-                                    PreparedStatement psSailingScheduleSQL = conn.prepareStatement(sailingScheduleSQL);
-                                    psSailingScheduleSQL.setInt(1, lastKey);
-                                    psSailingScheduleSQL.setString(2, " ");
-                                    psSailingScheduleSQL.setString(3, vessel_voyage);
-                                    psSailingScheduleSQL.setString(4, sail_date);
-                                    psSailingScheduleSQL.setString(5, transit_time);
-                                    psSailingScheduleSQL.setString(6, trans_shipment);
-                                    psSailingScheduleSQL.addBatch();
-                                    psSailingScheduleSQL.executeBatch();
-                                } catch (Exception ex) {
-                                    System.out.println(ex.getMessage());
-                                    JOptionPane.showMessageDialog(null, "There is an error with the sailing schedule.", "Error!", JOptionPane.ERROR_MESSAGE);
-                                }
-
-                            }
-                        }
+                    try {
+                        PreparedStatement psSailingScheduleSQL = conn.prepareStatement(sailingScheduleSQL);
+                        psSailingScheduleSQL.setInt(1, lastKey);
+                        psSailingScheduleSQL.setString(2, " ");
+                        psSailingScheduleSQL.setString(3, vessel_voyage);
+                        psSailingScheduleSQL.setString(4, sail_date);
+                        psSailingScheduleSQL.setString(5, transit_time);
+                        psSailingScheduleSQL.setString(6, trans_shipment);
+                        psSailingScheduleSQL.addBatch();
+                        psSailingScheduleSQL.executeBatch();
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                        JOptionPane.showMessageDialog(null, "There is an error with the sailing schedule.", "Error!", JOptionPane.ERROR_MESSAGE);
                     }
 
-                    //Displays quote ID in window pane
-                    JOptionPane.showMessageDialog(null, "Quote ID:" + lastKey);
+                }
+            }
+
+            //Displays quote ID in window pane
+            JOptionPane.showMessageDialog(null, "Quote ID:" + lastKey);
 
 
-                    /*
+            /*
                      *
                      *Create PDF displaying quote information using iText
                      *
-                     */
-                    //Declare  variables for combination prior to creating PDF
-                    int quoteID = lastKey; //Assigned by DB
-                    String POL = pol;
-                    String POD = pod;
-                    String tshpPorts = "";
-                    String transShipment = ""; //Will output portPairs + tshpPorts
-                    String displayOFT = "$" + OFT + " per " + oftMeasurement;
-                    String displayOFTAccessories = "";
-                    String bunker = "";//BAF
-                    String eca = "";//ECA BAF
-                    String thcPDF = "";//THC
-                    String wfgPDF = "";//WFG
-                    String docFeePDF = "";//Doc Fee
-                    String warRiskPDF = "";
-                    String disclaimers = "";
-                    String mafiDisclaimer = "";
-                    String quoteStatus = "";
+             */
+            //Declare  variables for combination prior to creating PDF
+            int quoteID = lastKey; //Assigned by DB
+            String tshpPorts = null;
+            String displayOFT = "$" + OFT + " per " + oftMeasurement;
+            String bunker = "";//BAF
+            String eca = "";//ECA BAF
+            String thcPDF = "";//THC
+            String wfgPDF = "";//WFG
+            String docFeePDF = null;// Doc Fee
+            String warRiskPDF = "";
+            String quoteStatus = "";
 
-                    //Adding accessories charges
-                    if (accessories == true) {
-                        displayOFTAccessories = displayOFT;
-                    }
-
-                    //Arrange trans-shipment ports
-                    if (!tshp1.equals("") && tshp2.equals("")) {
-                        tshpPorts = tshp1;
-                    } else if (!tshp1.equals("") && !tshp2.equals("")) {
-                        tshpPorts = tshp1 + " & " + tshp2;
-                    }
-
-                    //Arrange complete port pairs, POL, POD, & trans-shipment ports
-                    if (!tshpPorts.equals("")) {
-                        transShipment = tshpPorts;
-                    } else {
-                        transShipment = "N/A";
-                    }
-
-                    //Assign bunker amount
-                    if (bafIncluded == true) {
-                        bunker = "Included";
-                    } else if (!BAF.equals("")) {
-                        bunker = BAF + "%";
-                    }
-
-                    //Assign ECA amount
-                    if (ecaIncluded == true) {
-                        eca = "Included";
-                    } else if (!ecaBAF.equals("")) {
-                        eca = "$" + ecaBAF + " per " + ecaBafMeasurement;
-                    }
-
-                    //THC value
-                    if (thcIncluded == true) {
-                        thcPDF = "Included";
-                    } else if (!thc.equals("")) {
-                        thcPDF = "$" + thc + " per " + thcMeasurement;
-                    } else if (thcAttachment == true) {
-                        thcPDF = "See attachment";
-                    } else if (thcMeasurement.equals("FAS")) {
-                        thcPDF = "FAS";
-                    } else if (thcMeasurement.equals("Subject to local charges")) {
-                        thcPDF = "Subject to local charges";
-                    }
-
-                    //wfgPDF
-                    if (wfgIncluded == true) {
-                        wfgPDF = "Included";
-                    } else if (!wfg.equals("")) {
-                        wfgPDF = "$" + wfg + " per " + wfgMeasurement;
-                    } else if (wfgAttachment == true) {
-                        wfgPDF = "See attachment";
-                    } else if (wfgMeasurement.equals("FAS")) {
-                        wfgPDF = "FAS";
-                    } else if (wfgMeasurement.equals("Subject to local charges")) {
-                        wfgPDF = "Subject to local charges";
-                    }
-
-                    //docFee
-                    if (documentationFeeIncluded == true) {
-                        docFeePDF = "Included";
-                    } else {
-                        docFeePDF = documentationFee;
-                    }
-                    if (warRisk == true) {
-                        warRiskPDF = "3%/OFT";
-                    }
-
-                    if (mafiMinimum == true) {
-                        mafiDisclaimer = "MAFI minimum charge of $" + mafiMinimumCharge + " per MAFI unit";
-                    }
-
-                    if (booked == true) {
-                        quoteStatus = "Booked";
-                    } else if (denial == true) {
-                        quoteStatus = "Decline";
-                    } else {
-                        quoteStatus = "Active";
-                    }
-
-                    new QuotePDf().QuotePDF(String.valueOf(quoteID), timeStamp, newQuoteContactName, customerName, newQuoteContactEmail, quoteStatus, username, pol, pod, tshpPorts, commodityClass, handlingInstructions, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, docFeePDF, warRisk, warRiskPDF, includeCarrierRemarks, includeSailingSchedule, carrierComments, newQuoteSailingScheduleTable, packingListTable, spotRate, contract_rate);
-
-                } catch (SQLException | HeadlessException | IOException ex) {
-                    JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
-                }
-
-                //Confirmation that the rate has been stored in desktop folder and on the group drive
-                JOptionPane.showMessageDialog(this, "You can find the rate in the desktop folder and on the group S: drive");
-
-                //Clears all input fields upon record insertion
-                newQuoteCustomerNameLabel.setText("N/A");
-                contactNameTextField.setText("");
-                contactEmailTextField.setText("");
-                tradeLaneComboBox.setSelectedIndex(0);
-                polTextField.setText("");
-                podTextField.setText("");
-                tshp1TextField.setText("");
-                tshp2TextField.setText("");
-                commodityClassComboBox.setSelectedIndex(0);
-                handlingInstructionsComboBox.setSelectedIndex(0);
-                commodityDescriptionTextField.setText("");
-                oftTextField.setText("");
-                oftMeasurementComboBox.setSelectedIndex(0);
-                bafTextField.setText("");
-                bafIncludedCheckBox.setSelected(false);
-                ecaBAFTextField.setText("");
-                ecaBafMeasurementComboBox.setSelectedIndex(0);
-                ecaBafIncludedCheckBox.setSelected(false);
-                thcTextField.setText("");
-                thcMeasurementComboBox.setSelectedIndex(0);
-                thcIncludedCheckBox.setSelected(false);
-                wfgTextField.setText("");
-                wfgMeasurementComboBox.setSelectedIndex(0);
-                wfgIncludedCheckBox.setSelected(false);
-                documentationFeeComboBox.setSelectedIndex(0);
-                documentationFeeIncludedCheckBox.setSelected(false);
-                commentsTextArea.setText("");
-                warRiskCheckBox.setSelected(false);
-                spotRateCheckBox.setSelected(false);
-                newQuoteDenialCheckBox.setSelected(false);
-                newQuoteBookedCheckBox.setSelected(false);
-                thcAttached.setSelected(false);
-                wfgAttached.setSelected(false);
-                newQuoteAccessoriesCheckBox.setSelected(false);
-                contractRateCheckBox.setSelected(false);
-                DefaultTableModel mdl = (DefaultTableModel) packingListTable.getModel();
-                mdl.setRowCount(0);
-                packingListTable.setModel(mdl);
-                for (int r = 0; r < packingListTable.getRowCount(); r++) {
-                    for (int c = 0; c < 11; c++) {
-                        packingListTable.setValueAt("", r, c);
-                    }
-                }
-
-                for (int r = 0; r < newQuoteSailingScheduleTable.getRowCount(); r++) {
-                    for (int c = 0; c < newQuoteSailingScheduleTable.getColumnCount(); c++) {
-                        newQuoteSailingScheduleTable.setValueAt("", r, c);
-                    }
-                }
-                includeSailingScheduleCheckBox.setSelected(false);
-                mafiMinimumCheckBox.setSelected(false);
-                mafiMinimumTextField.setText("");
-                newQuoteDenialCheckBox.setSelected(false);
-                declineComboBox.setSelectedIndex(0);
-                bookingNumberTextField.setText("");
-                shipperCommentsTextArea.setText("");
-                includeShipperCommentsCheckBox.setSelected(false);
+            //Arrange trans-shipment ports
+            if (!tshp1.equals("") && tshp2.equals("")) {
+                tshpPorts = tshp1;
+            } else if (!tshp1.equals("") && !tshp2.equals("")) {
+                tshpPorts = tshp1 + " & " + tshp2;
             }
-        } catch (SQLException | HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "There has been an error with the upload. Error: " + e.getMessage());
-            System.out.println(e.getMessage());
-            System.out.println(e.getCause());
+
+            //Assign bunker amount
+            if (bafIncluded == true) {
+                bunker = "Included";
+            } else if (!BAF.equals("")) {
+                bunker = BAF + "%";
+            }
+
+            //Assign ECA amount
+            if (ecaIncluded == true) {
+                eca = "Included";
+            } else if (!ecaBAF.equals("")) {
+                eca = "$" + ecaBAF + " per " + ecaBafMeasurement;
+            }
+
+            //THC value
+            if (thcIncluded == true) {
+                thcPDF = "Included";
+            } else if (!thc.equals("")) {
+                thcPDF = "$" + thc + " per " + thcMeasurement;
+            } else if (thcAttachment == true) {
+                thcPDF = "See attachment";
+            } else if (thcMeasurement.equals("FAS")) {
+                thcPDF = "FAS";
+            } else if (thcMeasurement.equals("Subject to local charges")) {
+                thcPDF = "Subject to local charges";
+            }
+
+            //wfgPDF
+            if (wfgIncluded == true) {
+                wfgPDF = "Included";
+            } else if (!wfg.equals("")) {
+                wfgPDF = "$" + wfg + " per " + wfgMeasurement;
+            } else if (wfgAttachment == true) {
+                wfgPDF = "See attachment";
+            } else if (wfgMeasurement.equals("FAS")) {
+                wfgPDF = "FAS";
+            } else if (wfgMeasurement.equals("Subject to local charges")) {
+                wfgPDF = "Subject to local charges";
+            }
+
+            //docFee
+            if (documentationFeeIncluded == true) {
+                docFeePDF = "Included";
+            } else {
+                docFeePDF = documentationFee;
+            }
+            if (warRisk == true) {
+                warRiskPDF = "3%/OFT";
+            }
+            if (booked == true && denial == false) {
+                quoteStatus = "Booked";
+            } else if (denial == true && booked == false) {
+                quoteStatus = "Decline";
+            } else {
+                quoteStatus = "Active";
+            }
+
+            // Creates the PDF and saves it to the user's Quotes folder
+            new QuotePDf().QuotePDF(String.valueOf(quoteID), timeStamp, newQuoteContactName, newQuoteCompany, newQuoteContactEmail, quoteStatus, username, pol, pod, tshpPorts, commodityClass, handlingInstructions, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, docFeePDF, warRisk, warRiskPDF, includeCarrierRemarks, includeSailingSchedule, carrierComments, newQuoteSailingScheduleTable, packingListTable, spotRate, contract_rate);
+
+        } catch (SQLException | HeadlessException | IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
         }
 
+        //Confirmation that the rate has been stored in desktop folder and on the group drive
+        JOptionPane.showMessageDialog(this, "You can find the rate in the desktop folder and on the group S: drive");
+
+        //Clears all input fields upon record insertion
+        clearNewQuoteForm();
 
     }//GEN-LAST:event_submitNewQuoteActionPerformed
 
@@ -7732,17 +7544,17 @@ public class MainMenu extends javax.swing.JFrame {
             //Get the table model from RQS
             TableModel model = searchResultsTable.getModel();
             // Get the header values from RQS table and assign to headerRow
-            for (int headings = 0; headings < model.getColumnCount(); headings++){
+            for (int headings = 0; headings < model.getColumnCount(); headings++) {
                 headerRow.createCell(headings).setCellValue(model.getColumnName(headings));
             }
             //Get the data from RQS and fill in excel sheet starting at row 2 on excel sheet
-            for (int rows = 0; rows < model.getRowCount(); rows++){//For each row in RQS
-                for (int cols = 0; cols < model.getColumnCount(); cols++){//For each column in each row
+            for (int rows = 0; rows < model.getRowCount(); rows++) {//For each row in RQS
+                for (int cols = 0; cols < model.getColumnCount(); cols++) {//For each column in each row
                     //Assign cell value to corresponding cells in excel sheet
                     //If the cell is not blank or null
-                    if(model.getValueAt(rows, cols) != null){
-                        row.createCell(cols).setCellValue(model.getValueAt(rows,cols).toString());           
-                    }else{
+                    if (model.getValueAt(rows, cols) != null) {
+                        row.createCell(cols).setCellValue(model.getValueAt(rows, cols).toString());
+                    } else {
                         row.createCell(cols).setCellValue("");
                     }
                 }
@@ -7751,9 +7563,7 @@ public class MainMenu extends javax.swing.JFrame {
             wb.write(new FileOutputStream(file));
             wb.close();
             JOptionPane.showMessageDialog(this, "The results have been saved to your desktop", "Successful Export", JOptionPane.INFORMATION_MESSAGE);
-            
-            
-           
+
         } catch (IOException | HeadlessException e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());

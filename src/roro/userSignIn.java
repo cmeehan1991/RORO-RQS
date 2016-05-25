@@ -9,6 +9,7 @@ package RORO;
  *
  * @author cmeehan
  */
+import CustomerService.CustomerService;
 import static RORO.userSignIn.submitButton;
 import java.awt.*;
 import java.awt.event.*;
@@ -378,7 +379,11 @@ public class userSignIn extends javax.swing.JDialog {
                 float hue = hsb[0];
                 float saturation = hsb[1];
                 float brightness = hsb[2];
-                MainMenu.userInformationLabel.setForeground(Color.getHSBColor(hue, saturation, brightness));
+                MainMenu.userInformationLabel.setForeground(new Color(217,179,255));
+                MainMenu.jPanel13.setBackground(Color.getHSBColor(hue, saturation, brightness));
+                MainMenu.userInformationPanel.setBackground(Color.getHSBColor(hue, saturation, brightness));
+                MainMenu.jPanel1.setBackground(new Color(217,179,255));
+                MainMenu.jPanel2.setBackground(new Color(217,179,255));
             }
         } else if (rights.equals("None")) {
             JOptionPane.showMessageDialog(null, "You do not have access to this software. Please contact your supervisor or \nthe system administrator to gain access.");
