@@ -3,8 +3,6 @@ package RORO;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.sun.glass.events.KeyEvent;
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -12,7 +10,6 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,19 +21,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Properties;
 import static javafx.application.Platform.exit;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.DefaultEditorKit;
@@ -53,7 +41,6 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -130,51 +117,30 @@ public class MainMenu extends javax.swing.JFrame {
          * Date pickers for publishing form
          */
         //Validity from date picker 
-        Rectangle validityFromBounds = new Rectangle(validityFromButton.getBounds());
+        Point p = validityFromButton.getLocation();
         model3 = new UtilDateModel();
         Properties p3 = new Properties();
         p3.put("text.today", "Today");
         p3.put("text.month", "Month");
         p3.put("text.year", "Year");
         datePanel3 = new JDatePanelImpl(model3, p3);
-        validityFromDatePicker = new JDatePickerImpl(datePanel3, new DateLabelFormatter());
-        Point point0 = validityFromButton.getLocation();
-        validityFromDatePicker.setLocation(point0);
-        validityFromDatePicker.setBounds(validityFromBounds);
+        validityFromDatePicker = new JDatePickerImpl(datePanel3, new DateComponentFormatter());
+        jPanel28.add(validityFromDatePicker);
+        validityFromDatePicker.setLocation(p);
         validityFromButton.setVisible(false);
-        publishingCenterPanel.add(validityFromDatePicker);
 
         //Validity to date picker
-        Rectangle validityToBounds = new Rectangle(validityToButton.getBounds());
+        Point validityToPoint = validityToButton.getLocation();
         model4 = new UtilDateModel();
         Properties p4 = new Properties();
         p4.put("text.today", "Today");
         p4.put("text.month", "Month");
         p4.put("text.year", "Year");
         datePanel4 = new JDatePanelImpl(model4, p4);
-        validityToDatePicker = new JDatePickerImpl(datePanel4, new DateLabelFormatter());
-        Point point1 = validityToButton.getLocation();
-        validityToDatePicker.setLocation(point1);
-        validityToDatePicker.setBounds(validityToBounds);
+        validityToDatePicker = new JDatePickerImpl(datePanel4, new DateComponentFormatter());
+        jPanel28.add(validityToDatePicker);
+        validityToDatePicker.setLocation(validityToPoint);
         validityToButton.setVisible(false);
-        publishingCenterPanel.add(validityToDatePicker);
-    }
-
-    // This object sets the sailing schedule tables
-    private static void SailingScheduleTable() {
-        TableColumn tshipColumn = newQuoteSailingScheduleTable.getColumnModel().getColumn(3);
-        JComboBox tshipComboBox = new JComboBox();
-        tshipComboBox.addItem("");
-        tshipComboBox.addItem("Yes");
-        tshipComboBox.addItem("No");
-        tshipColumn.setCellEditor(new DefaultCellEditor(tshipComboBox));
-
-        TableColumn updateTshipColumn = updateEditSailingScheduleTable.getColumnModel().getColumn(3);
-        JComboBox updateTshipComboBox = new JComboBox();
-        updateTshipComboBox.addItem("");
-        updateTshipComboBox.addItem("Yes");
-        updateTshipComboBox.addItem("No");
-        updateTshipColumn.setCellEditor(new DefaultCellEditor(tshipComboBox));
     }
 
     public void MainMenuInformation(String username, String userID) {
@@ -189,7 +155,6 @@ public class MainMenu extends javax.swing.JFrame {
 
         jChooser = new JFileChooser();
         DatePicker();
-        SailingScheduleTable();
     }
 
     /**
@@ -223,11 +188,19 @@ public class MainMenu extends javax.swing.JFrame {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jLabel46 = new javax.swing.JLabel();
+        updateMTDApprovalGroup = new javax.swing.ButtonGroup();
+        buttonGroup15 = new javax.swing.ButtonGroup();
+        buttonGroup16 = new javax.swing.ButtonGroup();
+        buttonGroup14 = new javax.swing.ButtonGroup();
+        buttonGroup17 = new javax.swing.ButtonGroup();
+        buttonGroup18 = new javax.swing.ButtonGroup();
+        buttonGroup19 = new javax.swing.ButtonGroup();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jScrollPane15 = new javax.swing.JScrollPane();
         jPanel13 = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
         userInformationPanel = new javax.swing.JPanel();
-        userInformationLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         userIDLabel = new javax.swing.JLabel();
         titleLabel = new javax.swing.JLabel();
@@ -265,40 +238,45 @@ public class MainMenu extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         outstandingQuotesTable = new javax.swing.JTable();
         jLabel128 = new javax.swing.JLabel();
-        jLabel130 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         requireAttentionTable = new javax.swing.JTable();
-        selectOutstandingQuoteRequireAttentionButton = new javax.swing.JButton();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        outstandingQuotesTable1 = new javax.swing.JTable();
+        jLabel135 = new javax.swing.JLabel();
+        jLabel136 = new javax.swing.JLabel();
+        jToolBar14 = new javax.swing.JToolBar();
+        selectOustandingQuoteButton1 = new javax.swing.JButton();
+        jToolBar15 = new javax.swing.JToolBar();
         selectOustandingQuoteButton = new javax.swing.JButton();
-        jSeparator20 = new javax.swing.JSeparator();
+        jToolBar16 = new javax.swing.JToolBar();
+        selectOutstandingQuoteRequireAttentionButton = new javax.swing.JButton();
         newQuotePanel = new javax.swing.JPanel();
-        newQuoteLabel = new javax.swing.JLabel();
-        jLabel79 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        tradeLaneComboBox = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        polTextField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        podTextField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        tshp1TextField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        tshp2TextField = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        commentsTextArea = new javax.swing.JTextArea();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        packingListTable = new javax.swing.JTable();
+        jLabel93 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        shipperCommentsTextArea = new javax.swing.JTextArea();
+        includeShipperCommentsCheckBox = new javax.swing.JCheckBox();
+        jPanel14 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         commodityClassComboBox = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         handlingInstructionsComboBox = new javax.swing.JComboBox();
         newQuoteAccessoriesCheckBox = new javax.swing.JCheckBox();
-        commodityDescriptionTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        commodityDescriptionTextField = new javax.swing.JTextField();
+        jPanel15 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         oftTextField = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
         oftMeasurementComboBox = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
         bafTextField = new javax.swing.JTextField();
-        bafIncludedCheckBox = new javax.swing.JCheckBox();
         jLabel81 = new javax.swing.JLabel();
+        bafIncludedCheckBox = new javax.swing.JCheckBox();
         jLabel11 = new javax.swing.JLabel();
         jLabel74 = new javax.swing.JLabel();
         ecaBAFTextField = new javax.swing.JTextField();
@@ -310,255 +288,195 @@ public class MainMenu extends javax.swing.JFrame {
         thcMeasurementComboBox = new javax.swing.JComboBox();
         thcIncludedCheckBox = new javax.swing.JCheckBox();
         thcAttached = new javax.swing.JCheckBox();
-        jLabel19 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        commentsTextArea = new javax.swing.JTextArea();
         jLabel13 = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
         wfgTextField = new javax.swing.JTextField();
         wfgMeasurementComboBox = new javax.swing.JComboBox();
         wfgIncludedCheckBox = new javax.swing.JCheckBox();
         wfgAttached = new javax.swing.JCheckBox();
-        warRiskCheckBox = new javax.swing.JCheckBox();
-        spotRateCheckBox = new javax.swing.JCheckBox();
         jLabel14 = new javax.swing.JLabel();
-        newQuoteBookedCheckBox = new javax.swing.JCheckBox();
-        newQuoteDenialCheckBox = new javax.swing.JCheckBox();
         documentationFeeComboBox = new javax.swing.JComboBox();
         documentationFeeIncludedCheckBox = new javax.swing.JCheckBox();
-        submitNewQuote = new javax.swing.JButton();
-        clearNewQuoteForm = new javax.swing.JButton();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        packingListTable = new javax.swing.JTable();
-        jLabel53 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        warRiskCheckBox = new javax.swing.JCheckBox();
         mafiMinimumCheckBox = new javax.swing.JCheckBox();
         mafiMinimumTextField = new javax.swing.JTextField();
+        jPanel16 = new javax.swing.JPanel();
         contractRateCheckBox = new javax.swing.JCheckBox();
+        spotRateCheckBox = new javax.swing.JCheckBox();
+        newQuoteBookedCheckBox = new javax.swing.JCheckBox();
+        newQuoteDenialCheckBox = new javax.swing.JCheckBox();
         declineComboBox = new javax.swing.JComboBox();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
-        jSeparator6 = new javax.swing.JSeparator();
-        jButton7 = new javax.swing.JButton();
-        newQuoteCustomerNameLabel = new javax.swing.JLabel();
-        jSeparator7 = new javax.swing.JSeparator();
-        jSeparator15 = new javax.swing.JSeparator();
-        jSeparator16 = new javax.swing.JSeparator();
-        jSeparator17 = new javax.swing.JSeparator();
+        newQuoteTariffCheckBox = new javax.swing.JCheckBox();
+        newQuoteFTFSpotCheckBox = new javax.swing.JCheckBox();
+        newQuoteFTFTariffCheckBox = new javax.swing.JCheckBox();
         bookingNumberTextField = new javax.swing.JTextField();
-        newQuoteAddRow = new javax.swing.JButton();
+        newQuoteIndicatoryCheckBox = new javax.swing.JCheckBox();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel101 = new javax.swing.JLabel();
+        jLabel103 = new javax.swing.JLabel();
+        jLabel104 = new javax.swing.JLabel();
+        newQuoteMTDApprovalComboBox = new javax.swing.JComboBox<>();
+        newQuoteSpaceApprovalComboBox = new javax.swing.JComboBox<>();
+        newQuoteOverSeasResponseComboBox = new javax.swing.JComboBox<>();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel79 = new javax.swing.JLabel();
+        newQuoteCustomerNameLabel = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
         contactNameTextField = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
         contactEmailTextField = new javax.swing.JTextField();
-        jSeparator19 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        newQuoteContactPhoneTextField = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        newQuotePhoneExtensionTextField = new javax.swing.JTextField();
+        newQuotePhoneTypeTextField = new javax.swing.JComboBox<>();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        tradeLaneComboBox = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        polTextField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        podTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        tshp1TextField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        tshp2TextField = new javax.swing.JTextField();
+        jToolBar2 = new javax.swing.JToolBar();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        submitNewQuote = new javax.swing.JButton();
+        clearNewQuoteForm = new javax.swing.JButton();
+        jToolBar3 = new javax.swing.JToolBar();
+        newQuoteAddRow = new javax.swing.JButton();
         calculateCubicMetersButton = new javax.swing.JButton();
-        jScrollPane13 = new javax.swing.JScrollPane();
-        newQuoteSailingScheduleTable = new javax.swing.JTable();
-        jLabel83 = new javax.swing.JLabel();
-        includeSailingScheduleCheckBox = new javax.swing.JCheckBox();
-        jLabel93 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        shipperCommentsTextArea = new javax.swing.JTextArea();
-        includeShipperCommentsCheckBox = new javax.swing.JCheckBox();
-        jSeparator24 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
         updateEditQuotePanel = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel59 = new javax.swing.JLabel();
-        jLabel60 = new javax.swing.JLabel();
-        updatePOLTextField = new javax.swing.JTextField();
-        jLabel61 = new javax.swing.JLabel();
-        updatePODTextField = new javax.swing.JTextField();
-        jLabel62 = new javax.swing.JLabel();
-        updateTshp1TextField = new javax.swing.JTextField();
-        jLabel63 = new javax.swing.JLabel();
-        updateCommodityClassComboBox = new javax.swing.JComboBox();
-        jLabel64 = new javax.swing.JLabel();
-        updateCommodityDescriptionTextField = new javax.swing.JTextField();
-        jLabel65 = new javax.swing.JLabel();
-        updateHandlingInstructionsComboBox = new javax.swing.JComboBox();
-        jLabel66 = new javax.swing.JLabel();
-        jLabel67 = new javax.swing.JLabel();
-        jLabel68 = new javax.swing.JLabel();
-        jLabel69 = new javax.swing.JLabel();
-        jLabel70 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
-        updateOFTTextField = new javax.swing.JTextField();
-        updateBAFTextField = new javax.swing.JTextField();
-        updateEcaBafTextField = new javax.swing.JTextField();
-        updateTHCTextField = new javax.swing.JTextField();
-        updateWfgTextField = new javax.swing.JTextField();
-        updateOftUnitComboBox = new javax.swing.JComboBox();
-        updateBafIncludedCheckBox = new javax.swing.JCheckBox();
-        updateDocumentationFeeComboBox = new javax.swing.JComboBox();
-        updateDocFeeIncludedCheckBox = new javax.swing.JCheckBox();
-        updateEcaComboBox = new javax.swing.JComboBox();
-        updateThcComboBox = new javax.swing.JComboBox();
-        updateWfgComboBox = new javax.swing.JComboBox();
-        updateEcaIncludedCheckBox = new javax.swing.JCheckBox();
-        updateThcIncludedCheckBox = new javax.swing.JCheckBox();
-        updateWfgIncludedCheckBox = new javax.swing.JCheckBox();
-        updateTradeLane = new javax.swing.JComboBox();
-        jLabel76 = new javax.swing.JLabel();
-        updateTshp2TextField = new javax.swing.JTextField();
-        updateWarRiskCheckBox = new javax.swing.JCheckBox();
         jScrollPane5 = new javax.swing.JScrollPane();
         updateCommentsTextArea = new javax.swing.JTextArea();
-        updateSpotRateCheckBox = new javax.swing.JCheckBox();
-        updateEditQuoteButton = new javax.swing.JButton();
-        updateCancelButton = new javax.swing.JButton();
-        updateBookedCheckBox = new javax.swing.JCheckBox();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        updateEditPackingListTable = new javax.swing.JTable();
+        jLabel95 = new javax.swing.JLabel();
+        jScrollPane17 = new javax.swing.JScrollPane();
+        updateShipperCommentsTextArea = new javax.swing.JTextArea();
+        editQuoteIncludeShipperCommentsCheckBox = new javax.swing.JCheckBox();
+        jToolBar4 = new javax.swing.JToolBar();
         jLabel78 = new javax.swing.JLabel();
         updateQuoteIDTextArea = new javax.swing.JTextField();
         updateQuoteIDSearchButton = new javax.swing.JButton();
-        updateDeclineCheckBox = new javax.swing.JCheckBox();
-        jLabel15 = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
+        updateEditQuoteCustomerNameLabel3 = new javax.swing.JLabel();
         updateEditQuoteCustomerNameLabel = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel57 = new javax.swing.JLabel();
-        jLabel72 = new javax.swing.JLabel();
-        jLabel73 = new javax.swing.JLabel();
-        updateThcAttachedCheckBox = new javax.swing.JCheckBox();
-        updateWfgAttachedCheckBox = new javax.swing.JCheckBox();
-        updateEditQuoteCustomerNameLabel1 = new javax.swing.JLabel();
-        updateEditQuoteCustomerNameLabel2 = new javax.swing.JLabel();
-        authorLabel = new javax.swing.JLabel();
-        lastUpdatedByLabel = new javax.swing.JLabel();
-        authorLabel1 = new javax.swing.JLabel();
+        editCustomerButton = new javax.swing.JButton();
+        jLabel82 = new javax.swing.JLabel();
+        updateContactNameTextField = new javax.swing.JTextField();
+        jLabel80 = new javax.swing.JLabel();
+        updateContactEmailTextField = new javax.swing.JTextField();
+        jLabel100 = new javax.swing.JLabel();
+        updateQuotePhoneTextField = new javax.swing.JTextField();
+        jLabel107 = new javax.swing.JLabel();
+        updateQuoteExtensionTextField = new javax.swing.JTextField();
+        jComboBox8 = new javax.swing.JComboBox<>();
+        jPanel21 = new javax.swing.JPanel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        jPanel12 = new javax.swing.JPanel();
         jLabel124 = new javax.swing.JLabel();
         currentAlphaNumeralLabel = new javax.swing.JLabel();
         jLabel129 = new javax.swing.JLabel();
         updateAlphaNumeralTextField = new javax.swing.JTextField();
         authorLabel2 = new javax.swing.JLabel();
-        updateQuoteAccessoriesCheckBox = new javax.swing.JCheckBox();
-        jScrollPane12 = new javax.swing.JScrollPane();
-        updateEditPackingListTable = new javax.swing.JTable();
-        jLabel54 = new javax.swing.JLabel();
-        updateQuoteMAFIMinimumCheckBox = new javax.swing.JCheckBox();
-        updateEditMAFIMinimumTextField = new javax.swing.JTextField();
-        updateContractRateCheckBox = new javax.swing.JCheckBox();
-        updateDeclineComboBox = new javax.swing.JComboBox();
-        jSeparator10 = new javax.swing.JSeparator();
-        jSeparator11 = new javax.swing.JSeparator();
-        jSeparator12 = new javax.swing.JSeparator();
-        jSeparator13 = new javax.swing.JSeparator();
-        updateEditQuoteCustomerNameLabel3 = new javax.swing.JLabel();
-        editCustomerButton = new javax.swing.JButton();
-        quoteFeedbackCheckBox = new javax.swing.JCheckBox();
-        quoteFeedbackComboBox = new javax.swing.JComboBox();
-        quoteFeedbackTextField = new javax.swing.JTextField();
-        jSeparator9 = new javax.swing.JSeparator();
-        updateEditQuoteBookingNumberTextField = new javax.swing.JTextField();
-        jLabel80 = new javax.swing.JLabel();
-        updateContactEmailTextField = new javax.swing.JTextField();
-        jLabel82 = new javax.swing.JLabel();
-        updateContactNameTextField = new javax.swing.JTextField();
-        jSeparator18 = new javax.swing.JSeparator();
-        editQuoteDuplicateRateCheckBox = new javax.swing.JCheckBox();
+        updateEditQuoteCustomerNameLabel1 = new javax.swing.JLabel();
+        updateEditQuoteCustomerNameLabel2 = new javax.swing.JLabel();
+        authorLabel = new javax.swing.JLabel();
         updateEditQuoteCustomerNameLabel4 = new javax.swing.JLabel();
+        lastUpdatedByLabel = new javax.swing.JLabel();
         quoteCreatedLabel = new javax.swing.JLabel();
+        authorLabel1 = new javax.swing.JLabel();
         authorLabel3 = new javax.swing.JLabel();
         updateEditQuoteCustomerNameLabel5 = new javax.swing.JLabel();
         quoteLastUpdatedLabel = new javax.swing.JLabel();
-        updateEditQuoteAddRowButton = new javax.swing.JButton();
-        jSeparator5 = new javax.swing.JSeparator();
-        calculateCubicMetersButtonEditPL = new javax.swing.JButton();
-        jScrollPane14 = new javax.swing.JScrollPane();
-        updateEditSailingScheduleTable = new javax.swing.JTable();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel83 = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
-        editQuoteIncludeSailingScheduleCheckBox = new javax.swing.JCheckBox();
-        updateEditSailingScheduleAddRowButton = new javax.swing.JButton();
-        jLabel95 = new javax.swing.JLabel();
-        jScrollPane17 = new javax.swing.JScrollPane();
-        updateShipperCommentsTextArea = new javax.swing.JTextArea();
-        editQuoteIncludeShipperCommentsCheckBox = new javax.swing.JCheckBox();
-        publishingCenterPanel = new javax.swing.JPanel();
-        jLabel100 = new javax.swing.JLabel();
-        pQuoteIDTextField = new javax.swing.JTextField();
-        pQuoteIDButton = new javax.swing.JButton();
-        jSeparator8 = new javax.swing.JSeparator();
-        jLabel105 = new javax.swing.JLabel();
-        jLabel106 = new javax.swing.JLabel();
-        jLabel107 = new javax.swing.JLabel();
-        jLabel108 = new javax.swing.JLabel();
-        jLabel109 = new javax.swing.JLabel();
-        jLabel110 = new javax.swing.JLabel();
-        jLabel111 = new javax.swing.JLabel();
-        jLabel112 = new javax.swing.JLabel();
-        pCommodityDescriptionTextField = new javax.swing.JTextField();
-        pOftTextField = new javax.swing.JTextField();
-        pBafTextField = new javax.swing.JTextField();
-        pEcaTextField = new javax.swing.JTextField();
-        pThcTextField = new javax.swing.JTextField();
-        pWfgTextField = new javax.swing.JTextField();
-        kkluNumberTextField = new javax.swing.JTextField();
-        jLabel113 = new javax.swing.JLabel();
-        pPolTextField = new javax.swing.JTextField();
-        jLabel114 = new javax.swing.JLabel();
-        pBookingNumberTextField = new javax.swing.JTextField();
-        jLabel116 = new javax.swing.JLabel();
-        pOftComboBox = new javax.swing.JComboBox();
-        pWfgComboBox = new javax.swing.JComboBox();
-        pThcComboBox = new javax.swing.JComboBox();
-        pEcaComboBox = new javax.swing.JComboBox();
-        pDocFeeComboBox = new javax.swing.JComboBox();
-        pCommodityClassComboBox = new javax.swing.JComboBox();
-        pWfgIncludedCheckBox = new javax.swing.JCheckBox();
-        pEcaIncludedCheckBox = new javax.swing.JCheckBox();
-        pThcIncludedCheckBox = new javax.swing.JCheckBox();
-        pBafIncludedCheckBox = new javax.swing.JCheckBox();
-        pDocFeeIncludedCheckBox = new javax.swing.JCheckBox();
-        jLabel119 = new javax.swing.JLabel();
-        jLabel117 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        pCommentsTextArea = new javax.swing.JTextArea();
-        submitToPublishingPDFButton = new javax.swing.JButton();
-        cancelSpotFileButton = new javax.swing.JButton();
-        jLabel120 = new javax.swing.JLabel();
-        pPodTextField = new javax.swing.JTextField();
-        pWarRiskCheckBox = new javax.swing.JCheckBox();
-        jLabel115 = new javax.swing.JLabel();
-        jLabel123 = new javax.swing.JLabel();
-        pHandlingInstructions = new javax.swing.JComboBox();
-        jLabel125 = new javax.swing.JLabel();
-        storageTextField = new javax.swing.JTextField();
-        storageUnitComboBox = new javax.swing.JComboBox();
-        storageIncludedCheckBox = new javax.swing.JCheckBox();
-        thcSubjectToTariffCheckBox = new javax.swing.JCheckBox();
-        wfgSubjectToTariffCheckBox = new javax.swing.JCheckBox();
-        storageSubjectToTariffCheckBox = new javax.swing.JCheckBox();
-        ecaSubjectToTariffCheckBox = new javax.swing.JCheckBox();
-        bafSubjectToTariffCheckBox = new javax.swing.JCheckBox();
-        jLabel121 = new javax.swing.JLabel();
-        jLabel131 = new javax.swing.JLabel();
-        jLabel132 = new javax.swing.JLabel();
-        jLabel133 = new javax.swing.JLabel();
-        jLabel134 = new javax.swing.JLabel();
-        idTypeComboBox = new javax.swing.JComboBox();
-        saveChangesPublishingPDFButton = new javax.swing.JButton();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel138 = new javax.swing.JLabel();
-        commodityNumberTextField = new javax.swing.JFormattedTextField();
-        jLabel135 = new javax.swing.JLabel();
-        descriptionTextField = new javax.swing.JFormattedTextField();
-        jLabel136 = new javax.swing.JLabel();
-        tliNumberTextField = new javax.swing.JFormattedTextField();
-        jLabel137 = new javax.swing.JLabel();
-        newFilingCompleteButton = new javax.swing.JButton();
-        newFilingCompleteButton1 = new javax.swing.JButton();
-        expirationDateTextField = new javax.swing.JTextField();
-        jLabel139 = new javax.swing.JLabel();
-        pQuoteNumberTextField = new javax.swing.JTextField();
-        jLabel140 = new javax.swing.JLabel();
-        pIDTextField = new javax.swing.JTextField();
-        validityFromButton = new javax.swing.JButton();
-        validityToButton = new javax.swing.JButton();
-        jSeparator22 = new javax.swing.JSeparator();
+        updateQuoteMTDApprovalComboBox = new javax.swing.JComboBox<>();
+        updateQuoteSpaceApprovalComboBox = new javax.swing.JComboBox<>();
+        updateQuoteOverseasResponseComboBox = new javax.swing.JComboBox<>();
+        jPanel23 = new javax.swing.JPanel();
+        updatePOLTextField = new javax.swing.JTextField();
+        jLabel62 = new javax.swing.JLabel();
+        updateTshp1TextField = new javax.swing.JTextField();
+        updatePODTextField = new javax.swing.JTextField();
+        updateTshp2TextField = new javax.swing.JTextField();
+        updateTradeLane = new javax.swing.JComboBox();
+        jLabel59 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        jLabel76 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
+        jPanel24 = new javax.swing.JPanel();
+        jLabel63 = new javax.swing.JLabel();
+        updateCommodityClassComboBox = new javax.swing.JComboBox();
+        jLabel65 = new javax.swing.JLabel();
+        updateHandlingInstructionsComboBox = new javax.swing.JComboBox();
+        updateQuoteAccessoriesCheckBox = new javax.swing.JCheckBox();
+        updateCommodityDescriptionTextField = new javax.swing.JTextField();
+        jLabel64 = new javax.swing.JLabel();
+        jPanel25 = new javax.swing.JPanel();
+        jLabel66 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        updateOFTTextField = new javax.swing.JTextField();
+        updateOftUnitComboBox = new javax.swing.JComboBox();
+        jLabel67 = new javax.swing.JLabel();
+        updateBAFTextField = new javax.swing.JTextField();
+        jLabel73 = new javax.swing.JLabel();
+        updateBafIncludedCheckBox = new javax.swing.JCheckBox();
+        jLabel68 = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        updateEcaBafTextField = new javax.swing.JTextField();
+        updateEcaComboBox = new javax.swing.JComboBox();
+        updateEcaIncludedCheckBox = new javax.swing.JCheckBox();
+        updateQuoteMAFIMinimumCheckBox = new javax.swing.JCheckBox();
+        updateEditMAFIMinimumTextField = new javax.swing.JTextField();
+        jLabel69 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        updateTHCTextField = new javax.swing.JTextField();
+        updateThcComboBox = new javax.swing.JComboBox();
+        updateThcIncludedCheckBox = new javax.swing.JCheckBox();
+        updateThcAttachedCheckBox = new javax.swing.JCheckBox();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        updateWfgTextField = new javax.swing.JTextField();
+        updateWfgComboBox = new javax.swing.JComboBox();
+        updateWfgIncludedCheckBox = new javax.swing.JCheckBox();
+        updateWfgAttachedCheckBox = new javax.swing.JCheckBox();
+        jLabel71 = new javax.swing.JLabel();
+        updateDocumentationFeeComboBox = new javax.swing.JComboBox();
+        updateDocFeeIncludedCheckBox = new javax.swing.JCheckBox();
+        updateWarRiskCheckBox = new javax.swing.JCheckBox();
+        jPanel26 = new javax.swing.JPanel();
+        updateQuoteTariffCheckBox = new javax.swing.JCheckBox();
+        updateSpotRateCheckBox = new javax.swing.JCheckBox();
+        updateContractRateCheckBox = new javax.swing.JCheckBox();
+        updateBookedCheckBox = new javax.swing.JCheckBox();
+        updateEditQuoteBookingNumberTextField = new javax.swing.JTextField();
+        updateQuoteFTFTariffCheckBox = new javax.swing.JCheckBox();
+        updateQuoteInidicitoryCheckBox = new javax.swing.JCheckBox();
+        updateQuoteFTFSpotCheckBox = new javax.swing.JCheckBox();
+        updateDeclineCheckBox = new javax.swing.JCheckBox();
+        updateDeclineComboBox = new javax.swing.JComboBox();
+        editQuoteDuplicateRateCheckBox = new javax.swing.JCheckBox();
+        quoteFeedbackCheckBox = new javax.swing.JCheckBox();
+        quoteFeedbackComboBox = new javax.swing.JComboBox();
+        quoteFeedbackTextField = new javax.swing.JTextField();
+        jToolBar5 = new javax.swing.JToolBar();
+        updateEditQuoteAddRowButton = new javax.swing.JButton();
+        calculateCubicMetersButtonEditPL = new javax.swing.JButton();
+        jToolBar6 = new javax.swing.JToolBar();
+        updateEditQuoteButton = new javax.swing.JButton();
+        updateCancelButton = new javax.swing.JButton();
         searchPanel = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
-        queryTitleLabel = new javax.swing.JLabel();
         jScrollPane10 = new javax.swing.JScrollPane();
         searchResultsTable = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
@@ -568,16 +486,85 @@ public class MainMenu extends javax.swing.JFrame {
         queryNameTextField = new javax.swing.JTextField();
         jLabel56 = new javax.swing.JLabel();
         dateTextField = new javax.swing.JTextField();
-        jSeparator21 = new javax.swing.JSeparator();
         savedSearchesButton = new javax.swing.JButton();
+        publishingCenterPanel = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        pCommentsTextArea = new javax.swing.JTextArea();
+        jPanel27 = new javax.swing.JPanel();
+        jLabel120 = new javax.swing.JLabel();
+        pBookingNumberTextField = new javax.swing.JTextField();
+        jLabel139 = new javax.swing.JLabel();
+        pQuoteNumberTextField = new javax.swing.JTextField();
+        jLabel140 = new javax.swing.JLabel();
+        pIDTextField = new javax.swing.JTextField();
+        jPanel28 = new javax.swing.JPanel();
+        jLabel116 = new javax.swing.JLabel();
+        validityFromButton = new javax.swing.JButton();
+        validityToButton = new javax.swing.JButton();
+        jPanel29 = new javax.swing.JPanel();
+        jLabel119 = new javax.swing.JLabel();
+        kkluNumberTextField = new javax.swing.JTextField();
+        jLabel113 = new javax.swing.JLabel();
+        jLabel114 = new javax.swing.JLabel();
+        pPodTextField = new javax.swing.JTextField();
+        pPolTextField = new javax.swing.JTextField();
+        jPanel30 = new javax.swing.JPanel();
+        jLabel105 = new javax.swing.JLabel();
+        pCommodityClassComboBox = new javax.swing.JComboBox();
+        jLabel123 = new javax.swing.JLabel();
+        pHandlingInstructions = new javax.swing.JComboBox();
+        jLabel106 = new javax.swing.JLabel();
+        pCommodityDescriptionTextField = new javax.swing.JTextField();
+        jPanel31 = new javax.swing.JPanel();
+        BAF = new javax.swing.JLabel();
+        jLabel109 = new javax.swing.JLabel();
+        storageUnitComboBox = new javax.swing.JComboBox();
+        storageIncludedCheckBox = new javax.swing.JCheckBox();
+        thcSubjectToTariffCheckBox = new javax.swing.JCheckBox();
+        wfgSubjectToTariffCheckBox = new javax.swing.JCheckBox();
+        jLabel110 = new javax.swing.JLabel();
+        storageSubjectToTariffCheckBox = new javax.swing.JCheckBox();
+        jLabel111 = new javax.swing.JLabel();
+        ecaSubjectToTariffCheckBox = new javax.swing.JCheckBox();
+        jLabel112 = new javax.swing.JLabel();
+        bafSubjectToTariffCheckBox = new javax.swing.JCheckBox();
+        jLabel121 = new javax.swing.JLabel();
+        pOftTextField = new javax.swing.JTextField();
+        jLabel131 = new javax.swing.JLabel();
+        pBafTextField = new javax.swing.JTextField();
+        jLabel132 = new javax.swing.JLabel();
+        pEcaTextField = new javax.swing.JTextField();
+        pThcTextField = new javax.swing.JTextField();
+        pWfgTextField = new javax.swing.JTextField();
+        jLabel133 = new javax.swing.JLabel();
+        jLabel134 = new javax.swing.JLabel();
+        pOftComboBox = new javax.swing.JComboBox();
+        pWfgComboBox = new javax.swing.JComboBox();
+        pThcComboBox = new javax.swing.JComboBox();
+        pEcaComboBox = new javax.swing.JComboBox();
+        pDocFeeComboBox = new javax.swing.JComboBox();
+        pWfgIncludedCheckBox = new javax.swing.JCheckBox();
+        pEcaIncludedCheckBox = new javax.swing.JCheckBox();
+        pThcIncludedCheckBox = new javax.swing.JCheckBox();
+        pBafIncludedCheckBox = new javax.swing.JCheckBox();
+        pDocFeeIncludedCheckBox = new javax.swing.JCheckBox();
+        jLabel117 = new javax.swing.JLabel();
+        pWarRiskCheckBox = new javax.swing.JCheckBox();
+        jLabel115 = new javax.swing.JLabel();
+        jLabel125 = new javax.swing.JLabel();
+        storageTextField = new javax.swing.JTextField();
+        jToolBar7 = new javax.swing.JToolBar();
+        submitToPublishingPDFButton = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        saveChangesPublishingPDFButton = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        cancelSpotFileButton = new javax.swing.JButton();
+        jToolBar8 = new javax.swing.JToolBar();
+        idTypeComboBox = new javax.swing.JComboBox();
+        pQuoteIDTextField = new javax.swing.JTextField();
+        pQuoteIDButton = new javax.swing.JButton();
         customerInformationPanel = new javax.swing.JPanel();
         newCustomerPanel = new javax.swing.JPanel();
-        newCustomerButton = new javax.swing.JButton();
-        existingCustomerButton = new javax.swing.JButton();
-        jLabel22 = new javax.swing.JLabel();
-        submitNewCustomerInformation = new javax.swing.JButton();
-        cancelNewCustomerButton = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         newCustomerFirstName = new javax.swing.JTextField();
@@ -621,6 +608,8 @@ public class MainMenu extends javax.swing.JFrame {
         newCustomerNVOCCRadioButton = new javax.swing.JRadioButton();
         newCustomerBCORadioButton = new javax.swing.JRadioButton();
         newCustomerOtherRadioButton = new javax.swing.JRadioButton();
+        jLabel53 = new javax.swing.JLabel();
+        jComboBox9 = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         newCustomerAddress1 = new javax.swing.JTextField();
@@ -645,16 +634,16 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         newCustomerComments = new javax.swing.JTextArea();
+        jToolBar9 = new javax.swing.JToolBar();
+        newCustomerButton = new javax.swing.JButton();
+        jSeparator9 = new javax.swing.JToolBar.Separator();
+        existingCustomerButton = new javax.swing.JButton();
+        jToolBar10 = new javax.swing.JToolBar();
+        submitNewCustomerInformation = new javax.swing.JButton();
+        jSeparator10 = new javax.swing.JToolBar.Separator();
+        cancelNewCustomerButton = new javax.swing.JButton();
         existingCustomerPanel = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        newCustomerButton1 = new javax.swing.JButton();
-        existingCustomerButton1 = new javax.swing.JButton();
-        jLabel44 = new javax.swing.JLabel();
-        searchExistingCustomersButton = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
         jLabel52 = new javax.swing.JLabel();
-        existingCompanyNameTextField = new javax.swing.JTextField();
-        searchExistingCustomersButton1 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel152 = new javax.swing.JLabel();
         existingCompanyFirstNameTextField = new javax.swing.JTextField();
@@ -721,17 +710,37 @@ public class MainMenu extends javax.swing.JFrame {
         existingCustomerNVOCCRadioButton = new javax.swing.JRadioButton();
         existingCustomerBCORadioButton = new javax.swing.JRadioButton();
         existingCustomerOtherRadioButton = new javax.swing.JRadioButton();
+        jComboBox10 = new javax.swing.JComboBox<>();
+        jLabel54 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         existingCompanyCommentsTextArea = new javax.swing.JTextArea();
+        jToolBar11 = new javax.swing.JToolBar();
+        newCustomerButton1 = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        existingCustomerButton1 = new javax.swing.JButton();
+        jToolBar12 = new javax.swing.JToolBar();
+        existingCompanyNameTextField = new javax.swing.JTextField();
+        searchExistingCustomersButton = new javax.swing.JButton();
+        jToolBar13 = new javax.swing.JToolBar();
         editUpdateCustomerInformationButton = new javax.swing.JButton();
+        jSeparator8 = new javax.swing.JToolBar.Separator();
+        searchExistingCustomersButton1 = new javax.swing.JButton();
+        jSeparator7 = new javax.swing.JToolBar.Separator();
         editUpdateCustomerQuotesButton = new javax.swing.JButton();
+        jSeparator6 = new javax.swing.JToolBar.Separator();
         editUpdateCustomerBookingsButton = new javax.swing.JButton();
+        jToolBar1 = new javax.swing.JToolBar();
         UserInformationCenterButton = new javax.swing.JButton();
+        jSeparator26 = new javax.swing.JToolBar.Separator();
         newQuoteButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
         updateEditQuoteButton1 = new javax.swing.JButton();
+        jSeparator27 = new javax.swing.JToolBar.Separator();
         publishingCenterButton = new javax.swing.JButton();
+        jSeparator28 = new javax.swing.JToolBar.Separator();
         searchCenterButton = new javax.swing.JButton();
+        jSeparator29 = new javax.swing.JToolBar.Separator();
         customerInformationCenterButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         newCustomerMenuItem = new javax.swing.JMenu();
@@ -756,6 +765,19 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel46.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel46.setText("Address 1:");
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane14.setViewportView(jTable1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("\"K\" Line RORO ");
         setBackground(new java.awt.Color(51, 51, 51));
@@ -776,10 +798,6 @@ public class MainMenu extends javax.swing.JFrame {
         mainPanel.setLayout(new java.awt.CardLayout());
 
         userInformationPanel.setForeground(new java.awt.Color(255, 255, 255));
-
-        userInformationLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        userInformationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        userInformationLabel.setText("User Information");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -843,7 +861,6 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel126, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(phoneLabel1)
@@ -865,8 +882,8 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(emailLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(emailLabel)))
-                .addContainerGap())
+                        .addComponent(emailLabel))
+                    .addComponent(jLabel126, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {emailLabel1, officeLocationLabel1, phoneLabel1, phoneLabel4, regionLabel1, titleLabel1, usernameLabel1});
@@ -881,31 +898,31 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(userIDLabel)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(usernameLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel39)
                             .addComponent(usernameLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(titleLabel1)
                             .addComponent(titleLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(regionLabel1)
                             .addComponent(salesRegionLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(phoneLabel1)
                             .addComponent(officePhoneLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(phoneLabel4)
                             .addComponent(mobilePhoneLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(officeLocationLabel1)
                             .addComponent(officeLocationLabel))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailLabel1)
                     .addComponent(emailLabel)))
@@ -967,27 +984,23 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel127, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(phoneLabel3)
-                            .addComponent(regionLabel3)
-                            .addComponent(titleLabel3)
-                            .addComponent(usernameLabel3)
-                            .addComponent(usernameLabel4)
-                            .addComponent(regionLabel4)
-                            .addComponent(usernameLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(totalQuotesWeekLabel)
-                            .addComponent(bookedToDateLabel)
-                            .addComponent(bookingRatioLabel)
-                            .addComponent(totalBookingsCYTDLabel)
-                            .addComponent(totalQuotesLabel)
-                            .addComponent(totalQuotesCYTDLabel)
-                            .addComponent(outstandingLabel)))))
+                    .addComponent(phoneLabel3)
+                    .addComponent(regionLabel3)
+                    .addComponent(titleLabel3)
+                    .addComponent(usernameLabel3)
+                    .addComponent(usernameLabel4)
+                    .addComponent(regionLabel4)
+                    .addComponent(usernameLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(totalQuotesWeekLabel)
+                    .addComponent(bookedToDateLabel)
+                    .addComponent(bookingRatioLabel)
+                    .addComponent(totalBookingsCYTDLabel)
+                    .addComponent(totalQuotesLabel)
+                    .addComponent(totalQuotesCYTDLabel)
+                    .addComponent(outstandingLabel)))
+            .addComponent(jLabel127, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -998,27 +1011,27 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(usernameLabel3)
                     .addComponent(totalQuotesLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(usernameLabel4)
                     .addComponent(totalQuotesCYTDLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameLabel5)
                     .addComponent(totalQuotesWeekLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(titleLabel3)
                     .addComponent(outstandingLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(regionLabel4)
                     .addComponent(totalBookingsCYTDLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(regionLabel3)
                     .addComponent(bookedToDateLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(phoneLabel3)
                     .addComponent(bookingRatioLabel))
@@ -1058,11 +1071,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel128.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel128.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel128.setText("Outstanding Quotes");
-
-        jLabel130.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel130.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel130.setText("Quotes Requiring Attention (over 2 weeks old)");
+        jLabel128.setText("Requiring Attention");
 
         requireAttentionTable.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         requireAttentionTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -1094,12 +1103,58 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jScrollPane7.setViewportView(requireAttentionTable);
 
-        selectOutstandingQuoteRequireAttentionButton.setText("Select");
-        selectOutstandingQuoteRequireAttentionButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectOutstandingQuoteRequireAttentionButtonActionPerformed(evt);
+        outstandingQuotesTable1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        outstandingQuotesTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Quote ID", "Date Quoted", "Company", "Commodity Description", "Comodity Description"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        outstandingQuotesTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane16.setViewportView(outstandingQuotesTable1);
+
+        jLabel135.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel135.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel135.setText("Pending Response");
+
+        jLabel136.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel136.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel136.setText("Outstanding Quotes");
+
+        jToolBar14.setFloatable(false);
+        jToolBar14.setRollover(true);
+
+        selectOustandingQuoteButton1.setText("Select");
+        selectOustandingQuoteButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectOustandingQuoteButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar14.add(selectOustandingQuoteButton1);
+
+        jToolBar15.setFloatable(false);
+        jToolBar15.setRollover(true);
 
         selectOustandingQuoteButton.setText("Select");
         selectOustandingQuoteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1107,6 +1162,18 @@ public class MainMenu extends javax.swing.JFrame {
                 selectOustandingQuoteButtonActionPerformed(evt);
             }
         });
+        jToolBar15.add(selectOustandingQuoteButton);
+
+        jToolBar16.setFloatable(false);
+        jToolBar16.setRollover(true);
+
+        selectOutstandingQuoteRequireAttentionButton.setText("Select");
+        selectOutstandingQuoteRequireAttentionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectOutstandingQuoteRequireAttentionButtonActionPerformed(evt);
+            }
+        });
+        jToolBar16.add(selectOutstandingQuoteRequireAttentionButton);
 
         javax.swing.GroupLayout userInformationPanelLayout = new javax.swing.GroupLayout(userInformationPanel);
         userInformationPanel.setLayout(userInformationPanelLayout);
@@ -1115,173 +1182,66 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(userInformationPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userInformationLabel, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(userInformationPanelLayout.createSequentialGroup()
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jToolBar14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 1158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel128, javax.swing.GroupLayout.PREFERRED_SIZE, 1156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel130, javax.swing.GroupLayout.PREFERRED_SIZE, 1158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(selectOustandingQuoteButton)
-                    .addComponent(selectOutstandingQuoteRequireAttentionButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(userInformationPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator20, javax.swing.GroupLayout.PREFERRED_SIZE, 1211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel135, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(userInformationPanelLayout.createSequentialGroup()
+                                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jToolBar15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jToolBar16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel128, javax.swing.GroupLayout.PREFERRED_SIZE, 819, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(userInformationPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        userInformationPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel1, jPanel2});
+        userInformationPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane16, jScrollPane6, jScrollPane7});
 
         userInformationPanelLayout.setVerticalGroup(
             userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userInformationPanelLayout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(userInformationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator20, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addComponent(jLabel128)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel135, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(selectOustandingQuoteButton)
-                .addGap(5, 5, 5)
-                .addComponent(jLabel130)
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar15, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(selectOutstandingQuoteRequireAttentionButton)
-                .addContainerGap())
+                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel128, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        userInformationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane6, jScrollPane7});
-
         userInformationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel1, jPanel2});
+
+        userInformationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane16, jScrollPane6, jScrollPane7});
 
         mainPanel.add(userInformationPanel, "card5");
 
         newQuotePanel.setAutoscrolls(true);
-
-        newQuoteLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        newQuoteLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        newQuoteLabel.setText("New Quote");
-        newQuoteLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        jLabel79.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel79.setText("Company Name:");
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel1.setText("Trade Lane");
-
-        tradeLaneComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        tradeLaneComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Trans-Atlantic EB", "Trans-Atlantic WB", "North Atlantic Shuttle EB", "North Atlantic Shuttle WB", "NAX EB", "NAX WB", "ECAMS NB", "ECAMS SB", "Foreign to Foreign", "Other (Import Only)" }));
-        tradeLaneComboBox.setSelectedItem(0
-        );
-
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel2.setText("POL");
-
-        polTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        polTextField.setComponentPopupMenu(jPopupMenu1);
-        polTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                polTextFieldFocusGained(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel4.setText("POD");
-
-        podTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel3.setText("Tshp1");
-
-        tshp1TextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel5.setText("Tshp2");
-
-        tshp2TextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel6.setText("Commodity Class");
-
-        commodityClassComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        commodityClassComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Automobile/POV", "Automobile/POV (up to 14 cubic meters)", "Automobile/POV (14 - 17 cubic meters)", "Automobile/POV (17 - 25 cubic meters)", "Automobile/POV (up to 16 cubic meters)", "Automobile/POV (16 - 20 cubic meters)", "Automobile/POV (20 - 25 cubic meters)", "New Automobile", "New Automobile (up to 14 cubic meters)", "New Automobile (14 - 17 cubic meters)", "New Automobile (17 - 25 cubic meters)", "New Automobile (up to 16 cubic meters)", "New Automobile (16 - 20 cubic meters)", "New Automobile (20 - 25 cubic meters)", "Motorhome(s)", "Truck(s)", "Bus(es)", "Van(s)", "Chassis", "Travel trailer(s)", "Utility trailer(s)", "5th wheel trailer(s)", "Agriculture Equipment", "Construction Equipment", "Forestry Equipment", "Mining Equipment", "Handling Equipment", "Crane(s)", "Tractor(s)", "Boat(s) on Trailer", "Boat(s) on Cradle", "Static", "Static Machinery", "Special Purpose Vehicles", "Motorcycle(s)", "All-Terrain Vehicle(s)", "Jet Ski(s) (up to 2 cbm)", "Aircraft" }));
-
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel8.setText("Handling Instructions");
-
-        handlingInstructionsComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        handlingInstructionsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Self-propelled", "Towable", "Static", "MAFI", "Forkliftable", "Static (MAFI)", "Static (Forkliftable)" }));
-
-        newQuoteAccessoriesCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        newQuoteAccessoriesCheckBox.setText("Accessories");
-
-        commodityDescriptionTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel7.setText("Commodity Description");
-
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel9.setText("OFT");
-
-        jLabel17.setText("$");
-
-        oftTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        oftMeasurementComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        oftMeasurementComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-        oftMeasurementComboBox.setNextFocusableComponent(bafTextField);
-
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel10.setText("BAF");
-
-        bafTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        bafIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        bafIncludedCheckBox.setText("Included");
-        bafIncludedCheckBox.setNextFocusableComponent(ecaBAFTextField);
-
-        jLabel81.setText("%");
-
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel11.setText("ECA");
-
-        jLabel74.setText("$");
-
-        ecaBAFTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        ecaBafMeasurementComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        ecaBafMeasurementComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-
-        ecaBafIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        ecaBafIncludedCheckBox.setText("Included");
-
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel12.setText("THC");
-
-        jLabel75.setText("$");
-
-        thcTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        thcMeasurementComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        thcMeasurementComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-
-        thcIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        thcIncludedCheckBox.setText("Included");
-
-        thcAttached.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        thcAttached.setText("Attached to Email");
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1299,60 +1259,7 @@ public class MainMenu extends javax.swing.JFrame {
         commentsTextArea.setLineWrap(true);
         jScrollPane1.setViewportView(commentsTextArea);
 
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel13.setText("WFG");
-
-        jLabel77.setText("$");
-
-        wfgTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        wfgMeasurementComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        wfgMeasurementComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-
-        wfgIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        wfgIncludedCheckBox.setText("Included");
-
-        wfgAttached.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        wfgAttached.setText("Attached to Email");
-
-        warRiskCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        warRiskCheckBox.setText("War Risk");
-
-        spotRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        spotRateCheckBox.setText("Spot Rate");
-
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel14.setText("Documentation Fee");
-
-        newQuoteBookedCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        newQuoteBookedCheckBox.setText("Booked");
-
-        newQuoteDenialCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        newQuoteDenialCheckBox.setText("Decline");
-
-        documentationFeeComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        documentationFeeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "$25 per B/L", "$50 per B/L", "$75 per B/L" }));
-
-        documentationFeeIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        documentationFeeIncludedCheckBox.setText("Inclusive");
-        documentationFeeIncludedCheckBox.setActionCommand("Included");
-
-        submitNewQuote.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        submitNewQuote.setText("Submit");
-        submitNewQuote.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitNewQuoteActionPerformed(evt);
-            }
-        });
-
-        clearNewQuoteForm.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        clearNewQuoteForm.setText("Cancel");
-        clearNewQuoteForm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearNewQuoteFormActionPerformed(evt);
-            }
-        });
-
+        packingListTable.setAutoCreateRowSorter(true);
         packingListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1384,145 +1291,6 @@ public class MainMenu extends javax.swing.JFrame {
             packingListTable.getColumnModel().getColumn(1).setPreferredWidth(50);
         }
 
-        jLabel53.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel53.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel53.setText("Packing List");
-        jLabel53.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/search_icon.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        mafiMinimumCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        mafiMinimumCheckBox.setText("MAFI minimum: $");
-
-        mafiMinimumTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        contractRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        contractRateCheckBox.setText("Contract Rate");
-
-        declineComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        declineComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "No Service", "OFT", "Response", "Schedule", "Space", "Cargo Size", "Operational Restrictions", "Other (See Comments)" }));
-
-        jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator6.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton7.setText("Clear");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
-        newQuoteCustomerNameLabel.setText("N/A");
-
-        jSeparator7.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator15.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator15.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator15.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator16.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator16.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator16.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator17.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator17.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator17.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        newQuoteAddRow.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        newQuoteAddRow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RORO/add_row_icon.png"))); // NOI18N
-        newQuoteAddRow.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        newQuoteAddRow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newQuoteAddRowActionPerformed(evt);
-            }
-        });
-
-        jLabel20.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel20.setText("Contact Name: ");
-
-        contactNameTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel42.setText("Contact Email:");
-
-        contactEmailTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/upload_icon.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        calculateCubicMetersButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        calculateCubicMetersButton.setForeground(new java.awt.Color(240, 240, 240));
-        calculateCubicMetersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/math_icon.png"))); // NOI18N
-        calculateCubicMetersButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        calculateCubicMetersButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calculateCubicMetersButtonActionPerformed(evt);
-            }
-        });
-
-        newQuoteSailingScheduleTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Vessel/Voyage", "Sail Date", "T/T", "Trans-shipment"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        newQuoteSailingScheduleTable.getTableHeader().setReorderingAllowed(false);
-        newQuoteSailingScheduleTable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                newQuoteSailingScheduleTableKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                newQuoteSailingScheduleTableKeyTyped(evt);
-            }
-        });
-        jScrollPane13.setViewportView(newQuoteSailingScheduleTable);
-        if (newQuoteSailingScheduleTable.getColumnModel().getColumnCount() > 0) {
-            newQuoteSailingScheduleTable.getColumnModel().getColumn(0).setMinWidth(150);
-            newQuoteSailingScheduleTable.getColumnModel().getColumn(1).setPreferredWidth(50);
-            newQuoteSailingScheduleTable.getColumnModel().getColumn(2).setPreferredWidth(50);
-            newQuoteSailingScheduleTable.getColumnModel().getColumn(2).setMaxWidth(50);
-        }
-
-        jLabel83.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel83.setText("Schedule");
-        jLabel83.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
         jLabel93.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel93.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel93.setText("Carrier's Comments");
@@ -1539,228 +1307,626 @@ public class MainMenu extends javax.swing.JFrame {
         commentsTextArea.setLineWrap(true);
         jScrollPane3.setViewportView(shipperCommentsTextArea);
 
-        jSeparator24.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator24.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator24.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Commodity Information"));
 
-        javax.swing.GroupLayout newQuotePanelLayout = new javax.swing.GroupLayout(newQuotePanel);
-        newQuotePanel.setLayout(newQuotePanelLayout);
-        newQuotePanelLayout.setHorizontalGroup(
-            newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(newQuotePanelLayout.createSequentialGroup()
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel6.setText("Commodity Class");
+
+        commodityClassComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        commodityClassComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Automobile/POV", "Automobile/POV (up to 14 cubic meters)", "Automobile/POV (14 - 17 cubic meters)", "Automobile/POV (17 - 25 cubic meters)", "Automobile/POV (up to 16 cubic meters)", "Automobile/POV (16 - 20 cubic meters)", "Automobile/POV (20 - 25 cubic meters)", "New Automobile", "New Automobile (up to 14 cubic meters)", "New Automobile (14 - 17 cubic meters)", "New Automobile (17 - 25 cubic meters)", "New Automobile (up to 16 cubic meters)", "New Automobile (16 - 20 cubic meters)", "New Automobile (20 - 25 cubic meters)", "Motorhome(s)", "Truck(s)", "Bus(es)", "Van(s)", "Chassis", "Travel trailer(s)", "Utility trailer(s)", "5th wheel trailer(s)", "Agriculture Equipment", "Construction Equipment", "Forestry Equipment", "Mining Equipment", "Handling Equipment", "Crane(s)", "Tractor(s)", "Boat(s) on Trailer", "Boat(s) on Cradle", "Static", "Static Machinery", "Special Purpose Vehicles", "Motorcycle(s)", "All-Terrain Vehicle(s)", "Jet Ski(s) (up to 2 cbm)", "Aircraft" }));
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel8.setText("Handling Instructions");
+
+        handlingInstructionsComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        handlingInstructionsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Self-propelled", "Towable", "Static", "MAFI", "Forkliftable", "Static (MAFI)", "Static (Forkliftable)" }));
+
+        newQuoteAccessoriesCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        newQuoteAccessoriesCheckBox.setText("Accessories");
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel7.setText("Commodity Description");
+
+        commodityDescriptionTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(commodityDescriptionTextField))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(commodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(handlingInstructionsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(newQuoteAccessoriesCheckBox)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(commodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(handlingInstructionsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newQuoteAccessoriesCheckBox))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(commodityDescriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
+        );
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rate Quote"));
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel9.setText("OFT");
+
+        oftTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel17.setText("$");
+
+        oftMeasurementComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        oftMeasurementComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+        oftMeasurementComboBox.setNextFocusableComponent(bafTextField);
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel10.setText("BAF");
+
+        bafTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel81.setText("%");
+
+        bafIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bafIncludedCheckBox.setText("Included");
+        bafIncludedCheckBox.setNextFocusableComponent(ecaBAFTextField);
+
+        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel11.setText("ECA");
+
+        jLabel74.setText("$");
+
+        ecaBAFTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        ecaBafMeasurementComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ecaBafMeasurementComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+
+        ecaBafIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ecaBafIncludedCheckBox.setText("Included");
+
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel12.setText("THC");
+
+        jLabel75.setText("$");
+
+        thcTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        thcMeasurementComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        thcMeasurementComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+
+        thcIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        thcIncludedCheckBox.setText("Included");
+
+        thcAttached.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        thcAttached.setText("Attached to Email");
+
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel13.setText("WFG");
+
+        jLabel77.setText("$");
+
+        wfgTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        wfgMeasurementComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        wfgMeasurementComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+
+        wfgIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        wfgIncludedCheckBox.setText("Included");
+
+        wfgAttached.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        wfgAttached.setText("Attached to Email");
+
+        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel14.setText("Documentation Fee");
+
+        documentationFeeComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        documentationFeeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "$25 per B/L", "$50 per B/L", "$75 per B/L" }));
+
+        documentationFeeIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        documentationFeeIncludedCheckBox.setText("Included");
+
+        warRiskCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        warRiskCheckBox.setText("War Risk");
+
+        mafiMinimumCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        mafiMinimumCheckBox.setText("MAFI minimum: $");
+
+        mafiMinimumTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jSeparator19)
-                    .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(newQuotePanelLayout.createSequentialGroup()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel15Layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel17))
+                        .addComponent(jLabel10)
+                        .addGroup(jPanel15Layout.createSequentialGroup()
                             .addComponent(jLabel12)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel75)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(thcTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(thcMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(thcIncludedCheckBox)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(thcAttached)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel75))
+                        .addGroup(jPanel15Layout.createSequentialGroup()
                             .addComponent(jLabel13)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel77)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(wfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(7, 7, 7)
-                            .addComponent(wfgMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(wfgIncludedCheckBox)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(wfgAttached))
-                        .addGroup(newQuotePanelLayout.createSequentialGroup()
-                            .addComponent(warRiskCheckBox)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel14)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(documentationFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(documentationFeeIncludedCheckBox)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(contractRateCheckBox)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spotRateCheckBox)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSeparator24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(newQuoteBookedCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(bookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(newQuoteDenialCheckBox)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(declineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                                .addComponent(jLabel79)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(newQuoteCustomerNameLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton7))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(oftTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(oftMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bafTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)
-                                .addComponent(jLabel81)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bafIncludedCheckBox)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel74)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ecaBAFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ecaBafMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ecaBafIncludedCheckBox))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(commodityDescriptionTextField))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(commodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(handlingInstructionsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(newQuoteAccessoriesCheckBox)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mafiMinimumCheckBox)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mafiMinimumTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel20)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(contactNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel42)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(contactEmailTextField))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tradeLaneComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(polTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(podTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tshp1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tshp2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(newQuotePanelLayout.createSequentialGroup()
-                            .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(newQuotePanelLayout.createSequentialGroup()
-                                    .addComponent(includeSailingScheduleCheckBox)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(newQuotePanelLayout.createSequentialGroup()
-                                    .addComponent(includeShipperCommentsCheckBox)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel93, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(newQuotePanelLayout.createSequentialGroup()
-                                    .addComponent(submitNewQuote)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(clearNewQuoteForm)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(newQuoteAddRow)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(calculateCubicMetersButton)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton1))
-                                .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
-                                .addComponent(jLabel53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(newQuoteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 1213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel77)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel74)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(oftTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bafTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ecaBAFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(thcTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(wfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(oftMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ecaBafMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(thcMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wfgMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ecaBafIncludedCheckBox)
+                            .addComponent(mafiMinimumCheckBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mafiMinimumTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(thcIncludedCheckBox)
+                            .addComponent(wfgIncludedCheckBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(thcAttached)
+                            .addComponent(wfgAttached)))))
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(documentationFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(documentationFeeIncludedCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(warRiskCheckBox))
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGap(169, 169, 169)
+                        .addComponent(jLabel81)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bafIncludedCheckBox)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bafTextField, bookingNumberTextField, ecaBAFTextField, thcTextField, wfgTextField});
+        jPanel15Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bafTextField, ecaBAFTextField, thcTextField, wfgTextField});
 
-        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tshp1TextField, tshp2TextField});
+        jPanel15Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ecaBafMeasurementComboBox, oftMeasurementComboBox, thcMeasurementComboBox, wfgMeasurementComboBox});
 
-        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {clearNewQuoteForm, submitNewQuote});
+        jPanel15Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel12, jLabel13, jLabel9});
 
-        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ecaBafMeasurementComboBox, oftMeasurementComboBox, thcMeasurementComboBox, wfgMeasurementComboBox});
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel9)
+                    .addComponent(oftTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(oftMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(mafiMinimumCheckBox)
+                        .addComponent(mafiMinimumTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel10)
+                            .addComponent(bafTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel81)
+                            .addComponent(bafIncludedCheckBox))
+                        .addGap(0, 0, 0)
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel74)
+                            .addComponent(ecaBAFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ecaBafMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ecaBafIncludedCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, 0)
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel75)
+                            .addComponent(thcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(thcMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(thcIncludedCheckBox))
+                        .addGap(0, 0, 0)
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(wfgIncludedCheckBox)
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel77)
+                                    .addComponent(wfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(wfgMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, 0)
+                                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(jLabel14)
+                                    .addComponent(documentationFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(documentationFeeIncludedCheckBox)
+                                    .addComponent(warRiskCheckBox)))))
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addComponent(thcAttached)
+                        .addGap(0, 0, 0)
+                        .addComponent(wfgAttached)
+                        .addGap(23, 23, 23)))
+                .addGap(0, 0, 0))
+        );
 
-        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel19, jScrollPane1, jScrollPane13});
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rate Type"));
 
-        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel12, jLabel13, jLabel9});
+        contractRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        contractRateCheckBox.setText("Contract");
 
-        newQuotePanelLayout.setVerticalGroup(
-            newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(newQuotePanelLayout.createSequentialGroup()
+        spotRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        spotRateCheckBox.setText("Spot");
+
+        newQuoteBookedCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        newQuoteBookedCheckBox.setText("Booking");
+
+        newQuoteDenialCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        newQuoteDenialCheckBox.setText("Decline");
+
+        declineComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        declineComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "No Service", "OFT", "Response", "Schedule", "Space", "Cargo Size", "Operational Restrictions", "Other (See Comments)" }));
+
+        newQuoteTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        newQuoteTariffCheckBox.setText("Tariff");
+
+        newQuoteFTFSpotCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        newQuoteFTFSpotCheckBox.setText("Foreign to Foreign Spot");
+
+        newQuoteFTFTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        newQuoteFTFTariffCheckBox.setText("Foreign to Foreign Tariff");
+
+        newQuoteIndicatoryCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        newQuoteIndicatoryCheckBox.setText("Indicitory");
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                .addComponent(newQuoteTariffCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(spotRateCheckBox))
+                            .addComponent(newQuoteFTFTariffCheckBox)
+                            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel16Layout.createSequentialGroup()
+                                    .addComponent(contractRateCheckBox)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(newQuoteBookedCheckBox)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(bookingNumberTextField))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
+                                    .addComponent(newQuoteFTFSpotCheckBox)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(newQuoteIndicatoryCheckBox)))))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(newQuoteDenialCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(declineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {contractRateCheckBox, newQuoteTariffCheckBox});
+
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(newQuoteLabel)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newQuoteTariffCheckBox)
+                    .addComponent(spotRateCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator19, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contractRateCheckBox)
+                    .addComponent(newQuoteBookedCheckBox)
+                    .addComponent(bookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newQuoteFTFSpotCheckBox)
+                    .addComponent(newQuoteIndicatoryCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(newQuoteFTFTariffCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(newQuoteDenialCheckBox)
+                    .addComponent(declineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Quote Status"));
+
+        jLabel101.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel101.setText("MTD Approval:");
+
+        jLabel103.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel103.setText("Space Approval:");
+
+        jLabel104.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel104.setText("Overseas Response:");
+
+        newQuoteMTDApprovalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "Pending", "Approved", "Declined" }));
+
+        newQuoteSpaceApprovalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "Pending", "Approved", "Declined" }));
+
+        newQuoteOverSeasResponseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "Pending", "Approved", "Declined" }));
+        newQuoteOverSeasResponseComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newQuoteOverSeasResponseComboBoxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel17Layout.createSequentialGroup()
+                                .addComponent(jLabel103)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(newQuoteSpaceApprovalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel17Layout.createSequentialGroup()
+                                .addComponent(jLabel101)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(newQuoteMTDApprovalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addComponent(jLabel104)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(newQuoteOverSeasResponseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+
+        jPanel17Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel101, jLabel103, jLabel104});
+
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel101)
+                    .addComponent(newQuoteMTDApprovalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel103)
+                    .addComponent(newQuoteSpaceApprovalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel104)
+                    .addComponent(newQuoteOverSeasResponseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
+        );
+
+        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Contact Information"));
+
+        jLabel79.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel79.setText("Company Name:");
+
+        newQuoteCustomerNameLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        newQuoteCustomerNameLabel.setText("N/A");
+
+        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/search_icon.png"))); // NOI18N
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton7.setText("Clear");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel20.setText("Contact Name: ");
+
+        contactNameTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel42.setText("Contact Email:");
+
+        contactEmailTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel22.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel22.setText("Contact Phone:");
+
+        newQuoteContactPhoneTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel23.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel23.setText("Extension:");
+
+        newQuotePhoneExtensionTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        newQuotePhoneTypeTextField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Type", "Office", "Mobile", "Home", "Other" }));
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addComponent(jLabel79)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(newQuoteCustomerNameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(newQuoteContactPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(contactNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jLabel42)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(contactEmailTextField))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jLabel23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(newQuotePhoneExtensionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(newQuotePhoneTypeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButton7)
                     .addComponent(jButton6)
                     .addComponent(jLabel79)
                     .addComponent(newQuoteCustomerNameLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(0, 0, 0)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(contactNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel42)
                     .addComponent(contactEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel23)
+                        .addComponent(newQuotePhoneExtensionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(newQuotePhoneTypeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel22)
+                        .addComponent(newQuoteContactPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, 0))
+        );
+
+        jPanel18Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton6, jButton7});
+
+        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Port Information"));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel1.setText("Trade Lane");
+
+        tradeLaneComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tradeLaneComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Trans-Atlantic EB", "Trans-Atlantic WB", "North Atlantic Shuttle EB", "North Atlantic Shuttle WB", "NAX EB", "NAX WB", "ECAMS NB", "ECAMS SB", "Foreign to Foreign", "Other (Import Only)" }));
+        tradeLaneComboBox.setSelectedItem(0
+        );
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel2.setText("POL");
+
+        polTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        polTextField.setComponentPopupMenu(jPopupMenu1);
+        polTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                polTextFieldFocusGained(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel4.setText("POD");
+
+        podTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setText("Tshp1");
+
+        tshp1TextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel5.setText("Tshp2");
+
+        tshp2TextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(tradeLaneComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(polTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(podTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tshp1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tshp2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel19Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tshp1TextField, tshp2TextField});
+
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tradeLaneComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
@@ -1771,223 +1937,147 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(tshp1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(tshp2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(commodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(handlingInstructionsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newQuoteAccessoriesCheckBox)
-                    .addComponent(mafiMinimumCheckBox)
-                    .addComponent(mafiMinimumTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(commodityDescriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel9)
-                    .addComponent(oftTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17)
-                    .addComponent(oftMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(bafTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel81)
-                    .addComponent(bafIncludedCheckBox)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel74)
-                    .addComponent(ecaBAFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ecaBafMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ecaBafIncludedCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator17, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel75)
-                    .addComponent(thcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(thcMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(thcIncludedCheckBox)
-                    .addComponent(thcAttached)
-                    .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel77)
-                    .addComponent(wfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(wfgMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(wfgIncludedCheckBox)
-                    .addComponent(wfgAttached))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(warRiskCheckBox)
-                    .addComponent(jLabel14)
-                    .addComponent(documentationFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(documentationFeeIncludedCheckBox)
-                    .addComponent(contractRateCheckBox)
-                    .addComponent(spotRateCheckBox)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator24, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newQuoteBookedCheckBox)
-                    .addComponent(newQuoteDenialCheckBox)
-                    .addComponent(declineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0))
+        );
+
+        jToolBar2.setRollover(true);
+        jToolBar2.setFloatable(false);
+        jToolBar2.add(jSeparator3);
+
+        submitNewQuote.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        submitNewQuote.setText("Submit");
+        submitNewQuote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitNewQuoteActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(submitNewQuote);
+
+        clearNewQuoteForm.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        clearNewQuoteForm.setText("Cancel");
+        clearNewQuoteForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearNewQuoteFormActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(clearNewQuoteForm);
+
+        jToolBar3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jToolBar3.setRollover(true);
+        jToolBar3.setFloatable(false);
+
+        newQuoteAddRow.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        newQuoteAddRow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RORO/add_row_icon.png"))); // NOI18N
+        newQuoteAddRow.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        newQuoteAddRow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newQuoteAddRowActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(newQuoteAddRow);
+
+        calculateCubicMetersButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        calculateCubicMetersButton.setForeground(new java.awt.Color(240, 240, 240));
+        calculateCubicMetersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/math_icon.png"))); // NOI18N
+        calculateCubicMetersButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        calculateCubicMetersButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculateCubicMetersButtonActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(calculateCubicMetersButton);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/upload_icon.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(jButton1);
+
+        javax.swing.GroupLayout newQuotePanelLayout = new javax.swing.GroupLayout(newQuotePanel);
+        newQuotePanel.setLayout(newQuotePanelLayout);
+        newQuotePanelLayout.setHorizontalGroup(
+            newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newQuotePanelLayout.createSequentialGroup()
+                .addContainerGap(121, Short.MAX_VALUE)
+                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
+                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
+                        .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(newQuotePanelLayout.createSequentialGroup()
+                                .addComponent(includeShipperCommentsCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
+                        .addGap(389, 389, 389)
+                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(newQuotePanelLayout.createSequentialGroup()
+                        .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(121, Short.MAX_VALUE))
+        );
+
+        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel19, jScrollPane1});
+
+        newQuotePanelLayout.setVerticalGroup(
+            newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newQuotePanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(newQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel53)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(newQuotePanelLayout.createSequentialGroup()
-                        .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(includeSailingScheduleCheckBox)
-                            .addComponent(jLabel83))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(includeShipperCommentsCheckBox)
-                            .addComponent(jLabel93))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(submitNewQuote)
-                        .addComponent(clearNewQuoteForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(newQuoteAddRow)
-                        .addComponent(jButton1)
-                        .addComponent(calculateCubicMetersButton)))
+                    .addGroup(newQuotePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(0, 0, 0)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(newQuotePanelLayout.createSequentialGroup()
+                        .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(includeShipperCommentsCheckBox)
+                            .addComponent(jLabel93))
+                        .addGap(0, 0, 0)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {newQuoteBookedCheckBox, newQuoteDenialCheckBox, spotRateCheckBox, warRiskCheckBox});
-
-        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {clearNewQuoteForm, newQuoteAddRow, submitNewQuote});
-
-        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bookingNumberTextField, thcTextField});
-
-        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton6, jButton7});
+        newQuotePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel15, jPanel16});
 
         mainPanel.add(newQuotePanel, "card2");
         newQuotePanel.getAccessibleContext().setAccessibleName("newQuotePanel\n");
-
-        jLabel21.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Update/Edit Quote");
-
-        jLabel59.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel59.setText("Trade Lane");
-
-        jLabel60.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel60.setText("POL");
-
-        updatePOLTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel61.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel61.setText("POD");
-
-        updatePODTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel62.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel62.setText("Tshp1");
-
-        updateTshp1TextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel63.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel63.setText("Commodity Class");
-
-        updateCommodityClassComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateCommodityClassComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Automobile/POV", "Automobile/POV (up to 14 cubic meters)", "Automobile/POV (14 - 17 cubic meters)", "Automobile/POV (17 - 25 cubic meters)", "Automobile/POV (up to 16 cubic meters)", "Automobile/POV (16 - 20 cubic meters)", "Automobile/POV (20 - 25 cubic meters)", "New Automobile", "New Automobile (up to 14 cubic meters)", "New Automobile (14 - 17 cubic meters)", "New Automobile (17 - 25 cubic meters)", "New Automobile (up to 16 cubic meters)", "New Automobile (16 - 20 cubic meters)", "New Automobile (20 - 25 cubic meters)", "Motorhome(s)", "Truck(s)", "Bus(es)", "Van(s)", "Chassis", "Travel trailer(s)", "Utility trailer(s)", "5th wheel trailer(s)", "Agriculture Equipment", "Construction Equipment", "Forestry Equipment", "Mining Equipment", "Handling Equipment", "Crane(s)", "Tractor(s)", "Boat(s) on Trailer", "Boat(s) on Cradle", "Static", "Static Machinery", "Special Purpose Vehicles", "Motorcycle(s)", "All-Terrain Vehicle(s)", "Jet Ski(s) (up to 2 cbm)", "Aircraft" }));
-
-        jLabel64.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel64.setText("Commodity Description");
-
-        updateCommodityDescriptionTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel65.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel65.setText("Handling Instructions");
-
-        updateHandlingInstructionsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Self-propelled", "Towable", "Static", "MAFI", "Forkliftable", "Static (MAFI)", "Static (Forkliftable)" }));
-
-        jLabel66.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel66.setText("OFT");
-
-        jLabel67.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel67.setText("BAF");
-
-        jLabel68.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel68.setText("ECA");
-
-        jLabel69.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel69.setText("THC");
-
-        jLabel70.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel70.setText("WFG");
-
-        jLabel71.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel71.setText("Documentation Fee");
-
-        updateOFTTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateOFTTextField.setNextFocusableComponent(updateOftUnitComboBox);
-
-        updateBAFTextField.setNextFocusableComponent(updateBafIncludedCheckBox);
-
-        updateEcaBafTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateEcaBafTextField.setNextFocusableComponent(updateEcaComboBox);
-
-        updateTHCTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        updateWfgTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        updateOftUnitComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateOftUnitComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-        updateOftUnitComboBox.setNextFocusableComponent(updateBAFTextField);
-
-        updateBafIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateBafIncludedCheckBox.setText("Included");
-        updateBafIncludedCheckBox.setNextFocusableComponent(updateEcaBafTextField);
-
-        updateDocumentationFeeComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateDocumentationFeeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "$25 per B/L", "$50 per B/L", "$75 per B/L", " " }));
-
-        updateDocFeeIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateDocFeeIncludedCheckBox.setText("Included");
-
-        updateEcaComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateEcaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-
-        updateThcComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateThcComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-
-        updateWfgComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateWfgComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-
-        updateEcaIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateEcaIncludedCheckBox.setText("Included");
-
-        updateThcIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateThcIncludedCheckBox.setText("Included");
-
-        updateWfgIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateWfgIncludedCheckBox.setText("Included");
-
-        updateTradeLane.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateTradeLane.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Trans-Atlantic EB", "Trans-Atlantic WB", "North Atlantic Shuttle EB", "North Atlantic Shuttle WB", "NAX EB", "NAX WB", "ECAMS NB", "ECAMS SB", "Foreign to Foreign" }));
-
-        jLabel76.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel76.setText("Tshp2");
-
-        updateTshp2TextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        updateWarRiskCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateWarRiskCheckBox.setText("War Risk");
 
         updateCommentsTextArea.setColumns(15);
         updateCommentsTextArea.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -1998,100 +2088,10 @@ public class MainMenu extends javax.swing.JFrame {
         updateCommentsTextArea.setLineWrap(true);
         jScrollPane5.setViewportView(updateCommentsTextArea);
 
-        updateSpotRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateSpotRateCheckBox.setText("Spot Rate");
-
-        updateEditQuoteButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        updateEditQuoteButton.setText("Update");
-        updateEditQuoteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateEditQuoteButtonActionPerformed(evt);
-            }
-        });
-
-        updateCancelButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        updateCancelButton.setText("Cancel");
-        updateCancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateCancelButtonActionPerformed(evt);
-            }
-        });
-
-        updateBookedCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateBookedCheckBox.setText("Booked");
-
-        jLabel78.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel78.setText("Quote ID:");
-
-        updateQuoteIDTextArea.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        updateQuoteIDSearchButton.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateQuoteIDSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/search_icon.png"))); // NOI18N
-        updateQuoteIDSearchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateQuoteIDSearchButtonActionPerformed(evt);
-            }
-        });
-
-        updateDeclineCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateDeclineCheckBox.setText("Decline");
-
         jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Internal Comments");
         jLabel15.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        updateEditQuoteCustomerNameLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateEditQuoteCustomerNameLabel.setText("N/A");
-
-        jLabel16.setText("$");
-
-        jLabel18.setText("$");
-
-        jLabel57.setText("$");
-
-        jLabel72.setText("$");
-
-        jLabel73.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel73.setText("%");
-
-        updateThcAttachedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateThcAttachedCheckBox.setText("Attached to Email");
-
-        updateWfgAttachedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateWfgAttachedCheckBox.setText("Attached to Email");
-
-        updateEditQuoteCustomerNameLabel1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateEditQuoteCustomerNameLabel1.setText("Author:");
-
-        updateEditQuoteCustomerNameLabel2.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateEditQuoteCustomerNameLabel2.setText("Last Updated By:");
-
-        authorLabel.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        authorLabel.setText("N/A");
-
-        lastUpdatedByLabel.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        lastUpdatedByLabel.setText("N/A");
-
-        authorLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        authorLabel1.setText("|");
-
-        jLabel124.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel124.setText("Current Alpha Numeral:");
-
-        currentAlphaNumeralLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        currentAlphaNumeralLabel.setText("N/A");
-
-        jLabel129.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel129.setText("Updated Alpha Numeral:");
-
-        updateAlphaNumeralTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        authorLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        authorLabel2.setText("|");
-
-        updateQuoteAccessoriesCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateQuoteAccessoriesCheckBox.setText("Accessories");
 
         updateEditPackingListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2136,158 +2136,6 @@ public class MainMenu extends javax.swing.JFrame {
             updateEditPackingListTable.getColumnModel().getColumn(11).setMaxWidth(-9999);
         }
 
-        jLabel54.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel54.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel54.setText("Packing List");
-        jLabel54.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        updateQuoteMAFIMinimumCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateQuoteMAFIMinimumCheckBox.setText("MAFI Minimum: $");
-
-        updateEditMAFIMinimumTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        updateContractRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateContractRateCheckBox.setText("Contract Rate");
-
-        updateDeclineComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateDeclineComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "No Service", "OFT", "Response", "Schedule", "Space", "Cargo Size", "Operational Restrictions", "Other (See Comments)" }));
-
-        jSeparator10.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator10.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator10.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator11.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator11.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator11.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator12.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator12.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator12.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator13.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator13.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator13.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        updateEditQuoteCustomerNameLabel3.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateEditQuoteCustomerNameLabel3.setText("Company Name:");
-
-        editCustomerButton.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        editCustomerButton.setText("Edit");
-        editCustomerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editCustomerButtonActionPerformed(evt);
-            }
-        });
-
-        quoteFeedbackCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        quoteFeedbackCheckBox.setText("Feedback");
-
-        quoteFeedbackComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Rate Not Competitive", "Scheduling", "Moved with Other Carrier", "No Feedback From Owner", "No Feedback from FF/NVOCC", "Not Enough Space", "Operational Restrictions", "Other" }));
-
-        quoteFeedbackTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jSeparator9.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel80.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel80.setText("Contact Email:");
-
-        updateContactEmailTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel82.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel82.setText("Contact Name:");
-
-        updateContactNameTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jSeparator18.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator18.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator18.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        editQuoteDuplicateRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        editQuoteDuplicateRateCheckBox.setText("Duplicate Rate");
-
-        updateEditQuoteCustomerNameLabel4.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateEditQuoteCustomerNameLabel4.setText("Date Created:");
-
-        quoteCreatedLabel.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        quoteCreatedLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        quoteCreatedLabel.setText("N/A");
-
-        authorLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        authorLabel3.setText("|");
-
-        updateEditQuoteCustomerNameLabel5.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        updateEditQuoteCustomerNameLabel5.setText("Last Updated:");
-
-        quoteLastUpdatedLabel.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        quoteLastUpdatedLabel.setText("N/A");
-
-        updateEditQuoteAddRowButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        updateEditQuoteAddRowButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RORO/add_row_icon.png"))); // NOI18N
-        updateEditQuoteAddRowButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateEditQuoteAddRowButtonActionPerformed(evt);
-            }
-        });
-
-        calculateCubicMetersButtonEditPL.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        calculateCubicMetersButtonEditPL.setForeground(new java.awt.Color(240, 240, 240));
-        calculateCubicMetersButtonEditPL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/math_icon.png"))); // NOI18N
-        calculateCubicMetersButtonEditPL.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        calculateCubicMetersButtonEditPL.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calculateCubicMetersButtonEditPLActionPerformed(evt);
-            }
-        });
-
-        updateEditSailingScheduleTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Vessel/Voyage", "Sail Date", "T/T", "Trans-shipment"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        updateEditSailingScheduleTable.getTableHeader().setReorderingAllowed(false);
-        updateEditSailingScheduleTable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                updateEditSailingScheduleTableKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                updateEditSailingScheduleTableKeyTyped(evt);
-            }
-        });
-        jScrollPane14.setViewportView(updateEditSailingScheduleTable);
-        if (updateEditSailingScheduleTable.getColumnModel().getColumnCount() > 0) {
-            updateEditSailingScheduleTable.getColumnModel().getColumn(0).setMinWidth(150);
-            updateEditSailingScheduleTable.getColumnModel().getColumn(1).setPreferredWidth(50);
-        }
-
-        jLabel84.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel84.setText("Schedule");
-        jLabel84.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        updateEditSailingScheduleAddRowButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        updateEditSailingScheduleAddRowButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RORO/add_row_icon.png"))); // NOI18N
-        updateEditSailingScheduleAddRowButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateEditSailingScheduleAddRowButtonActionPerformed(evt);
-            }
-        });
-
         jLabel95.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel95.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel95.setText("Shipper Comments");
@@ -2302,258 +2150,211 @@ public class MainMenu extends javax.swing.JFrame {
         updateCommentsTextArea.setLineWrap(true);
         jScrollPane17.setViewportView(updateShipperCommentsTextArea);
 
-        javax.swing.GroupLayout updateEditQuotePanelLayout = new javax.swing.GroupLayout(updateEditQuotePanel);
-        updateEditQuotePanel.setLayout(updateEditQuotePanelLayout);
-        updateEditQuotePanelLayout.setHorizontalGroup(
-            updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel82)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateContactNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel80)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateContactEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel64)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateCommodityDescriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel66)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateOFTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateOftUnitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel67)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateBAFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel73)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateBafIncludedCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel68)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel72)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEcaBafTextField)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEcaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEcaIncludedCheckBox))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel69)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel57)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateTHCTextField)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateThcComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateThcIncludedCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateThcAttachedCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel70)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateWfgTextField)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateWfgComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateWfgIncludedCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateWfgAttachedCheckBox))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(updateEditQuoteCustomerNameLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(authorLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(authorLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEditQuoteCustomerNameLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lastUpdatedByLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel124)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(currentAlphaNumeralLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(authorLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel129)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateAlphaNumeralTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEditQuoteCustomerNameLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(quoteCreatedLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(authorLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEditQuoteCustomerNameLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(quoteLastUpdatedLabel))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel63)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateCommodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel65)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateHandlingInstructionsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateQuoteAccessoriesCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateQuoteMAFIMinimumCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEditMAFIMinimumTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel59)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateTradeLane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel60)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updatePOLTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel61)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updatePODTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel62)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateTshp1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel76)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateTshp2TextField))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(updateWarRiskCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel71)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateDocumentationFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateDocFeeIncludedCheckBox)
-                        .addGap(4, 4, 4)
-                        .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateContractRateCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateSpotRateCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editQuoteDuplicateRateCheckBox))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel78)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateQuoteIDTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateQuoteIDSearchButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEditQuoteCustomerNameLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEditQuoteCustomerNameLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editCustomerButton))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(updateBookedCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEditQuoteBookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateDeclineCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateDeclineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(quoteFeedbackCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(quoteFeedbackComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(quoteFeedbackTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                                    .addComponent(editQuoteIncludeSailingScheduleCheckBox)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(updateEditSailingScheduleAddRowButton)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel84, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                                .addComponent(editQuoteIncludeShipperCommentsCheckBox)
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel95, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator5)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateEditQuotePanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(updateEditQuoteButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateCancelButton)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(updateEditQuoteAddRowButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(calculateCubicMetersButtonEditPL)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jToolBar4.setRollover(true);
+        jToolBar4.setFloatable(false);
+
+        jLabel78.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel78.setText("Quote ID: ");
+        jToolBar4.add(jLabel78);
+
+        updateQuoteIDTextArea.setColumns(6);
+        updateQuoteIDTextArea.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jToolBar4.add(updateQuoteIDTextArea);
+
+        updateQuoteIDSearchButton.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateQuoteIDSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/search_icon.png"))); // NOI18N
+        updateQuoteIDSearchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateQuoteIDSearchButtonActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(updateQuoteIDSearchButton);
+
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Contact Information"));
+
+        updateEditQuoteCustomerNameLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateEditQuoteCustomerNameLabel3.setText("Company Name:");
+
+        updateEditQuoteCustomerNameLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateEditQuoteCustomerNameLabel.setText("N/A");
+
+        editCustomerButton.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        editCustomerButton.setText("Edit");
+        editCustomerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editCustomerButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel82.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel82.setText("Contact Name:");
+
+        updateContactNameTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel80.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel80.setText("Contact Email:");
+
+        updateContactEmailTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel100.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel100.setText("Contact Phone:");
+
+        updateQuotePhoneTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel107.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel107.setText("Extension:");
+
+        updateQuoteExtensionTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Type", "Work", "Mobile", "Home", "Other" }));
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel20Layout.createSequentialGroup()
+                            .addComponent(jLabel82)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(updateContactNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel80)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(updateContactEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel20Layout.createSequentialGroup()
+                            .addComponent(updateEditQuoteCustomerNameLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(updateEditQuoteCustomerNameLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(editCustomerButton)))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addComponent(jLabel100)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateQuotePhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel107)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateQuoteExtensionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
-
-        updateEditQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {updatePODTextField, updatePOLTextField, updateTshp1TextField, updateTshp2TextField});
-
-        updateEditQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {updateBAFTextField, updateEcaBafTextField, updateEditQuoteBookingNumberTextField, updateOFTTextField, updateTHCTextField, updateWfgTextField});
-
-        updateEditQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel16, jLabel18, jLabel57, jLabel73});
-
-        updateEditQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {updateEcaComboBox, updateOftUnitComboBox, updateThcComboBox, updateWfgComboBox});
-
-        updateEditQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel54, jScrollPane12});
-
-        updateEditQuotePanelLayout.setVerticalGroup(
-            updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel78)
-                    .addComponent(updateQuoteIDTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateQuoteIDSearchButton)
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(updateEditQuoteCustomerNameLabel3)
                     .addComponent(updateEditQuoteCustomerNameLabel)
                     .addComponent(editCustomerButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGap(0, 0, 0)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel82)
                     .addComponent(updateContactNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel80)
                     .addComponent(updateContactEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel100)
+                    .addComponent(updateQuotePhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel107)
+                    .addComponent(updateQuoteExtensionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jPanel20Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {editCustomerButton, updateEditQuoteCustomerNameLabel, updateEditQuoteCustomerNameLabel3});
+
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Quote User Information"));
+
+        jLabel124.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel124.setText("Current Alpha Numeral:");
+
+        currentAlphaNumeralLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        currentAlphaNumeralLabel.setText("N/A");
+
+        jLabel129.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel129.setText("Updated Alpha Numeral:");
+
+        updateAlphaNumeralTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        authorLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        authorLabel2.setText("|");
+
+        updateEditQuoteCustomerNameLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateEditQuoteCustomerNameLabel1.setText("Author:");
+
+        updateEditQuoteCustomerNameLabel2.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        updateEditQuoteCustomerNameLabel2.setText("Last Updated By:");
+
+        authorLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        authorLabel.setText("N/A");
+
+        updateEditQuoteCustomerNameLabel4.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        updateEditQuoteCustomerNameLabel4.setText("Date Created:");
+
+        lastUpdatedByLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        lastUpdatedByLabel.setText("N/A");
+
+        quoteCreatedLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        quoteCreatedLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        quoteCreatedLabel.setText("N/A");
+
+        authorLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        authorLabel1.setText("|");
+
+        authorLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        authorLabel3.setText("|");
+
+        updateEditQuoteCustomerNameLabel5.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        updateEditQuoteCustomerNameLabel5.setText("Last Updated:");
+
+        quoteLastUpdatedLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        quoteLastUpdatedLabel.setText("N/A");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(updateEditQuoteCustomerNameLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(authorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(authorLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateEditQuoteCustomerNameLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lastUpdatedByLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel124)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(currentAlphaNumeralLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(authorLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel129)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateAlphaNumeralTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateEditQuoteCustomerNameLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(quoteCreatedLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(authorLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateEditQuoteCustomerNameLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(quoteLastUpdatedLabel))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(updateEditQuoteCustomerNameLabel4)
                     .addComponent(quoteLastUpdatedLabel)
                     .addComponent(updateEditQuoteCustomerNameLabel5)
@@ -2569,818 +2370,686 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(jLabel129)
                     .addComponent(updateAlphaNumeralTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(authorLabel3))
+                .addGap(0, 0, 0))
+        );
+
+        jPanel12Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {quoteCreatedLabel, updateEditQuoteCustomerNameLabel4});
+
+        jScrollPane13.setViewportView(jPanel12);
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane13)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+
+        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Quote Status")));
+
+        jLabel21.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel21.setText("MTD Approval:");
+
+        jLabel83.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel83.setText("Space Approval:");
+
+        jLabel84.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel84.setText("Overseas Response:");
+
+        updateQuoteMTDApprovalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "Pending", "Approved", "Declined" }));
+
+        updateQuoteSpaceApprovalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "Pending", "Approved", "Declined" }));
+
+        updateQuoteOverseasResponseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "Pending", "Approved", "Declined" }));
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel84))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel60)
-                    .addComponent(updatePOLTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel61)
-                    .addComponent(updatePODTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel62)
-                    .addComponent(updateTshp1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel76)
-                    .addComponent(updateTshp2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel59)
-                    .addComponent(updateTradeLane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(updateQuoteMTDApprovalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateQuoteSpaceApprovalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateQuoteOverseasResponseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel21, jLabel83, jLabel84});
+
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(updateQuoteMTDApprovalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel83)
+                    .addComponent(updateQuoteSpaceApprovalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel84)
+                    .addComponent(updateQuoteOverseasResponseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
+        );
+
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Port Information"));
+
+        updatePOLTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel62.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel62.setText("Tshp1");
+
+        updateTshp1TextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        updatePODTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        updateTshp2TextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        updateTradeLane.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateTradeLane.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Trans-Atlantic EB", "Trans-Atlantic WB", "North Atlantic Shuttle EB", "North Atlantic Shuttle WB", "NAX EB", "NAX WB", "ECAMS NB", "ECAMS SB", "Foreign to Foreign" }));
+
+        jLabel59.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel59.setText("Trade Lane");
+
+        jLabel60.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel60.setText("POL");
+
+        jLabel76.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel76.setText("Tshp2");
+
+        jLabel61.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel61.setText("POD");
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel59)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(updateTradeLane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel60)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updatePOLTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel61)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updatePODTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel62)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateTshp1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel76)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateTshp2TextField)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel23Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {updatePODTextField, updatePOLTextField, updateTshp1TextField, updateTshp2TextField});
+
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel23Layout.createSequentialGroup()
+                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel60)
+                            .addComponent(jLabel61)
+                            .addComponent(jLabel62)
+                            .addComponent(jLabel76)
+                            .addComponent(jLabel59)
+                            .addComponent(updateTradeLane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(updatePOLTextField)
+                    .addComponent(updatePODTextField)
+                    .addComponent(updateTshp1TextField)
+                    .addComponent(updateTshp2TextField))
+                .addGap(0, 0, 0))
+        );
+
+        jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Commodity Information"));
+
+        jLabel63.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel63.setText("Commodity Class");
+
+        updateCommodityClassComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateCommodityClassComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Automobile/POV", "Automobile/POV (up to 14 cubic meters)", "Automobile/POV (14 - 17 cubic meters)", "Automobile/POV (17 - 25 cubic meters)", "Automobile/POV (up to 16 cubic meters)", "Automobile/POV (16 - 20 cubic meters)", "Automobile/POV (20 - 25 cubic meters)", "New Automobile", "New Automobile (up to 14 cubic meters)", "New Automobile (14 - 17 cubic meters)", "New Automobile (17 - 25 cubic meters)", "New Automobile (up to 16 cubic meters)", "New Automobile (16 - 20 cubic meters)", "New Automobile (20 - 25 cubic meters)", "Motorhome(s)", "Truck(s)", "Bus(es)", "Van(s)", "Chassis", "Travel trailer(s)", "Utility trailer(s)", "5th wheel trailer(s)", "Agriculture Equipment", "Construction Equipment", "Forestry Equipment", "Mining Equipment", "Handling Equipment", "Crane(s)", "Tractor(s)", "Boat(s) on Trailer", "Boat(s) on Cradle", "Static", "Static Machinery", "Special Purpose Vehicles", "Motorcycle(s)", "All-Terrain Vehicle(s)", "Jet Ski(s) (up to 2 cbm)", "Aircraft" }));
+
+        jLabel65.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel65.setText("Handling Instructions");
+
+        updateHandlingInstructionsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Self-propelled", "Towable", "Static", "MAFI", "Forkliftable", "Static (MAFI)", "Static (Forkliftable)" }));
+
+        updateQuoteAccessoriesCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateQuoteAccessoriesCheckBox.setText("Accessories");
+
+        updateCommodityDescriptionTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel64.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel64.setText("Commodity Description");
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel24Layout.createSequentialGroup()
+                        .addComponent(jLabel64)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateCommodityDescriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel24Layout.createSequentialGroup()
+                        .addComponent(jLabel63)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateCommodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel65)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateHandlingInstructionsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateQuoteAccessoriesCheckBox)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel63)
                     .addComponent(updateCommodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel65)
                     .addComponent(updateHandlingInstructionsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateQuoteAccessoriesCheckBox)
-                    .addComponent(updateQuoteMAFIMinimumCheckBox)
-                    .addComponent(updateEditMAFIMinimumTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateQuoteAccessoriesCheckBox))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel64)
                     .addComponent(updateCommodityDescriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGap(0, 0, 0))
+        );
+
+        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rate Quote"));
+
+        jLabel66.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel66.setText("OFT");
+
+        jLabel16.setText("$");
+
+        updateOFTTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateOFTTextField.setNextFocusableComponent(updateOftUnitComboBox);
+
+        updateOftUnitComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateOftUnitComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+        updateOftUnitComboBox.setNextFocusableComponent(updateBAFTextField);
+
+        jLabel67.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel67.setText("BAF");
+
+        updateBAFTextField.setNextFocusableComponent(updateBafIncludedCheckBox);
+
+        jLabel73.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel73.setText("%");
+
+        updateBafIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateBafIncludedCheckBox.setText("Included");
+        updateBafIncludedCheckBox.setNextFocusableComponent(updateEcaBafTextField);
+
+        jLabel68.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel68.setText("ECA");
+
+        jLabel72.setText("$");
+
+        updateEcaBafTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateEcaBafTextField.setNextFocusableComponent(updateEcaComboBox);
+
+        updateEcaComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateEcaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+
+        updateEcaIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateEcaIncludedCheckBox.setText("Included");
+
+        updateQuoteMAFIMinimumCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateQuoteMAFIMinimumCheckBox.setText("MAFI Minimum: $");
+
+        updateEditMAFIMinimumTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel69.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel69.setText("THC");
+
+        jLabel57.setText("$");
+
+        updateTHCTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        updateThcComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateThcComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+
+        updateThcIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateThcIncludedCheckBox.setText("Included");
+
+        updateThcAttachedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateThcAttachedCheckBox.setText("Attached to Email");
+
+        jLabel70.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel70.setText("WFG");
+
+        jLabel18.setText("$");
+
+        updateWfgTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        updateWfgComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateWfgComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+
+        updateWfgIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateWfgIncludedCheckBox.setText("Included");
+
+        updateWfgAttachedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateWfgAttachedCheckBox.setText("Attached to Email");
+
+        jLabel71.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel71.setText("Documentation Fee");
+
+        updateDocumentationFeeComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateDocumentationFeeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "$25 per B/L", "$50 per B/L", "$75 per B/L", " " }));
+
+        updateDocFeeIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateDocFeeIncludedCheckBox.setText("Included");
+
+        updateWarRiskCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateWarRiskCheckBox.setText("War Risk");
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel25Layout.createSequentialGroup()
+                                .addComponent(jLabel68)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel72))
+                            .addGroup(jPanel25Layout.createSequentialGroup()
+                                .addComponent(jLabel69)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel57))
+                            .addGroup(jPanel25Layout.createSequentialGroup()
+                                .addComponent(jLabel70)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel18))
+                            .addGroup(jPanel25Layout.createSequentialGroup()
+                                .addComponent(jLabel66)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel16))
+                            .addComponent(jLabel67))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(updateOFTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateBAFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateEcaBafTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateTHCTextField)
+                            .addComponent(updateWfgTextField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel25Layout.createSequentialGroup()
+                                    .addComponent(jLabel73)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(updateBafIncludedCheckBox))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
+                                    .addComponent(updateOftUnitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(updateQuoteMAFIMinimumCheckBox)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(updateEditMAFIMinimumTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel25Layout.createSequentialGroup()
+                                .addComponent(updateEcaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateEcaIncludedCheckBox))
+                            .addGroup(jPanel25Layout.createSequentialGroup()
+                                .addComponent(updateThcComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateThcIncludedCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateThcAttachedCheckBox))
+                            .addGroup(jPanel25Layout.createSequentialGroup()
+                                .addComponent(updateWfgComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateWfgIncludedCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateWfgAttachedCheckBox))))
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel71)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateDocumentationFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateDocFeeIncludedCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateWarRiskCheckBox)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel25Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {updateBAFTextField, updateEcaBafTextField, updateOFTTextField, updateTHCTextField, updateWfgTextField});
+
+        jPanel25Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel16, jLabel18, jLabel57, jLabel73});
+
+        jPanel25Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {updateEcaComboBox, updateOftUnitComboBox, updateThcComboBox, updateWfgComboBox});
+
+        jPanel25Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel66, jLabel67, jLabel68, jLabel69, jLabel70});
+
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel66)
                     .addComponent(jLabel16)
                     .addComponent(updateOFTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateOftUnitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(updateQuoteMAFIMinimumCheckBox)
+                        .addComponent(updateEditMAFIMinimumTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel67)
                     .addComponent(updateBAFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel73)
-                    .addComponent(updateBafIncludedCheckBox)
+                    .addComponent(updateBafIncludedCheckBox))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel68)
                     .addComponent(jLabel72)
                     .addComponent(updateEcaBafTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateEcaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateEcaIncludedCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGap(0, 0, 0)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel69)
                     .addComponent(jLabel57)
                     .addComponent(updateTHCTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateThcComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateThcIncludedCheckBox)
-                    .addComponent(updateThcAttachedCheckBox)
+                    .addComponent(updateThcAttachedCheckBox))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel70)
                     .addComponent(updateWfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18)
                     .addComponent(updateWfgComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateWfgIncludedCheckBox)
                     .addComponent(updateWfgAttachedCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(updateWarRiskCheckBox)
-                    .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel71)
                     .addComponent(updateDocumentationFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateDocFeeIncludedCheckBox)
-                    .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateContractRateCheckBox)
-                    .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateSpotRateCheckBox)
-                    .addComponent(jSeparator18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editQuoteDuplicateRateCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(updateBookedCheckBox)
-                    .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateDeclineCheckBox)
-                    .addComponent(updateDeclineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(quoteFeedbackCheckBox)
-                    .addComponent(quoteFeedbackComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(quoteFeedbackTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateEditQuoteBookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(editQuoteIncludeSailingScheduleCheckBox)
-                    .addComponent(updateEditSailingScheduleAddRowButton)
-                    .addComponent(jLabel84)
-                    .addComponent(jLabel54))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel95)
-                            .addComponent(editQuoteIncludeShipperCommentsCheckBox))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(updateEditQuoteAddRowButton)
-                        .addComponent(calculateCubicMetersButtonEditPL))
-                    .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(updateCancelButton)
-                        .addComponent(updateEditQuoteButton)))
-                .addContainerGap())
+                    .addComponent(updateWarRiskCheckBox))
+                .addGap(0, 0, 0))
         );
 
-        updateEditQuotePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {authorLabel, authorLabel1, authorLabel2, currentAlphaNumeralLabel, editCustomerButton, jLabel124, jLabel129, jLabel78, lastUpdatedByLabel, updateAlphaNumeralTextField, updateEditQuoteCustomerNameLabel, updateEditQuoteCustomerNameLabel1, updateEditQuoteCustomerNameLabel2, updateEditQuoteCustomerNameLabel3, updateQuoteIDSearchButton, updateQuoteIDTextArea});
+        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rate Type"));
 
-        updateEditQuotePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {quoteCreatedLabel, updateEditQuoteCustomerNameLabel4});
+        updateQuoteTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateQuoteTariffCheckBox.setText("Tariff");
+
+        updateSpotRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateSpotRateCheckBox.setText("Spot");
+
+        updateContractRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateContractRateCheckBox.setText("Contract");
+
+        updateBookedCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateBookedCheckBox.setText("Booking");
+
+        updateQuoteFTFTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateQuoteFTFTariffCheckBox.setText("Foreign to Foreign Tariff");
+
+        updateQuoteInidicitoryCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateQuoteInidicitoryCheckBox.setText("Indicitory");
+
+        updateQuoteFTFSpotCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateQuoteFTFSpotCheckBox.setText("Foreign to Foreign Spot");
+        updateQuoteFTFSpotCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateQuoteFTFSpotCheckBoxActionPerformed(evt);
+            }
+        });
+
+        updateDeclineCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateDeclineCheckBox.setText("Decline");
+        updateDeclineCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateDeclineCheckBoxActionPerformed(evt);
+            }
+        });
+
+        updateDeclineComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updateDeclineComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "No Service", "OFT", "Response", "Schedule", "Space", "Cargo Size", "Operational Restrictions", "Other (See Comments)" }));
+
+        editQuoteDuplicateRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        editQuoteDuplicateRateCheckBox.setText("Duplicate Rate");
+
+        quoteFeedbackCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        quoteFeedbackCheckBox.setText("Feedback");
+
+        quoteFeedbackComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Rate Not Competitive", "Scheduling", "Moved with Other Carrier", "No Feedback From Owner", "No Feedback from FF/NVOCC", "Not Enough Space", "Operational Restrictions", "Other" }));
+
+        quoteFeedbackTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel26Layout.createSequentialGroup()
+                        .addComponent(updateQuoteFTFSpotCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateQuoteFTFTariffCheckBox))
+                    .addGroup(jPanel26Layout.createSequentialGroup()
+                        .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(updateQuoteTariffCheckBox)
+                            .addComponent(updateBookedCheckBox))
+                        .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel26Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(updateSpotRateCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateQuoteInidicitoryCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateContractRateCheckBox))
+                            .addGroup(jPanel26Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateEditQuoteBookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(editQuoteDuplicateRateCheckBox))))
+                    .addGroup(jPanel26Layout.createSequentialGroup()
+                        .addComponent(updateDeclineCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateDeclineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(quoteFeedbackTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel26Layout.createSequentialGroup()
+                            .addComponent(quoteFeedbackCheckBox)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(quoteFeedbackComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateQuoteTariffCheckBox)
+                    .addComponent(updateSpotRateCheckBox)
+                    .addComponent(updateQuoteInidicitoryCheckBox)
+                    .addComponent(updateContractRateCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateQuoteFTFSpotCheckBox)
+                    .addComponent(updateQuoteFTFTariffCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateBookedCheckBox)
+                    .addComponent(updateEditQuoteBookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editQuoteDuplicateRateCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(updateDeclineCheckBox)
+                    .addComponent(updateDeclineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(quoteFeedbackCheckBox)
+                    .addComponent(quoteFeedbackComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(quoteFeedbackTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+
+        jToolBar5.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jToolBar5.setFloatable(false);
+        jToolBar5.setRollover(true);
+
+        updateEditQuoteAddRowButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        updateEditQuoteAddRowButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RORO/add_row_icon.png"))); // NOI18N
+        updateEditQuoteAddRowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateEditQuoteAddRowButtonActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(updateEditQuoteAddRowButton);
+
+        calculateCubicMetersButtonEditPL.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        calculateCubicMetersButtonEditPL.setForeground(new java.awt.Color(240, 240, 240));
+        calculateCubicMetersButtonEditPL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/math_icon.png"))); // NOI18N
+        calculateCubicMetersButtonEditPL.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        calculateCubicMetersButtonEditPL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculateCubicMetersButtonEditPLActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(calculateCubicMetersButtonEditPL);
+
+        jToolBar6.setRollover(true);
+        jToolBar6.setFloatable(false);
+
+        updateEditQuoteButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        updateEditQuoteButton.setText("Update");
+        updateEditQuoteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateEditQuoteButtonActionPerformed(evt);
+            }
+        });
+        jToolBar6.add(updateEditQuoteButton);
+
+        updateCancelButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        updateCancelButton.setText("Cancel");
+        updateCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateCancelButtonActionPerformed(evt);
+            }
+        });
+        jToolBar6.add(updateCancelButton);
+
+        javax.swing.GroupLayout updateEditQuotePanelLayout = new javax.swing.GroupLayout(updateEditQuotePanel);
+        updateEditQuotePanel.setLayout(updateEditQuotePanelLayout);
+        updateEditQuotePanelLayout.setHorizontalGroup(
+            updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
+                .addContainerGap(77, Short.MAX_VALUE)
+                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
+                        .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
+                        .addGap(434, 434, 434)
+                        .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
+                        .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updateEditQuotePanelLayout.createSequentialGroup()
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane17))
+                            .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(editQuoteIncludeShipperCommentsCheckBox)
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel95, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updateEditQuotePanelLayout.createSequentialGroup()
+                            .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+        updateEditQuotePanelLayout.setVerticalGroup(
+            updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
+                .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel95)
+                    .addComponent(editQuoteIncludeShipperCommentsCheckBox))
+                .addGap(0, 0, 0)
+                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         mainPanel.add(updateEditQuotePanel, "card3");
 
-        jLabel100.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel100.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel100.setText("Publishing Center");
-
-        pQuoteIDTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        pQuoteIDButton.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pQuoteIDButton.setText("Go");
-        pQuoteIDButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pQuoteIDButtonActionPerformed(evt);
-            }
-        });
-
-        jSeparator8.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
-
-        jLabel105.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel105.setText("Commodity Class");
-
-        jLabel106.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel106.setText("Commodity Description");
-
-        jLabel107.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel107.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel107.setText("Comments:");
-        jLabel107.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel108.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel108.setText("Bunker Adjustment:");
-
-        jLabel109.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel109.setText("ECA Surcharge:");
-
-        jLabel110.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel110.setText("Terminal Handling:");
-
-        jLabel111.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel111.setText("Wharfage");
-
-        jLabel112.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel112.setText("Documentation Fee");
-
-        pOftTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        pBafTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pBafTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                pBafTextFieldKeyTyped(evt);
-            }
-        });
-
-        pEcaTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pEcaTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                pEcaTextFieldKeyTyped(evt);
-            }
-        });
-
-        pThcTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pThcTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                pThcTextFieldKeyTyped(evt);
-            }
-        });
-
-        pWfgTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pWfgTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                pWfgTextFieldKeyTyped(evt);
-            }
-        });
-
-        jLabel113.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel113.setText("POL");
-
-        jLabel114.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel114.setText("POD");
-
-        pBookingNumberTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel116.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel116.setText("Validity From/To:");
-
-        pOftComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pOftComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-
-        pWfgComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pWfgComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-        pWfgComboBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                pWfgComboBoxItemStateChanged(evt);
-            }
-        });
-
-        pThcComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pThcComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-        pThcComboBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                pThcComboBoxItemStateChanged(evt);
-            }
-        });
-
-        pEcaComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pEcaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-        pEcaComboBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                pEcaComboBoxItemStateChanged(evt);
-            }
-        });
-
-        pDocFeeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "$25 per B/L", "$50 per B/L", "$75 per B/L" }));
-        pDocFeeComboBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                pDocFeeComboBoxItemStateChanged(evt);
-            }
-        });
-        pDocFeeComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pDocFeeComboBoxActionPerformed(evt);
-            }
-        });
-
-        pCommodityClassComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Automobile/POV", "Automobile/POV (up to 14 cubic meters)", "Automobile/POV (14 - 17 cubic meters)", "Automobile/POV (17 - 25 cubic meters)", "Automobile/POV (up to 16 cubic meters)", "Automobile/POV (16 - 20 cubic meters)", "Automobile/POV (20 - 25 cubic meters)", "New Automobile", "New Automobile (up to 14 cubic meters)", "New Automobile (14 - 17 cubic meters)", "New Automobile (17 - 25 cubic meters)", "New Automobile (up to 16 cubic meters)", "New Automobile (16 - 20 cubic meters)", "New Automobile (20 - 25 cubic meters)", "Motorhome(s)", "Truck(s)", "Bus(es)", "Van(s)", "Chassis", "Travel trailer(s)", "Utility trailer(s)", "5th wheel trailer(s)", "Agriculture Equipment", "Construction Equipment", "Forestry Equipment", "Mining Equipment", "Handling Equipment", "Crane(s)", "Tractor(s)", "Boat(s) on Trailer", "Boat(s) on Cradle", "Static", "Static Machinery", "Special Purpose Vehicles", "Motorcycle(s)", "All-Terrain Vehicle(s)", "Jet Ski(s) (up to 2 cbm)" }));
-
-        pWfgIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pWfgIncludedCheckBox.setText("Included");
-        pWfgIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                pWfgIncludedCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        pEcaIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pEcaIncludedCheckBox.setText("Included");
-        pEcaIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                pEcaIncludedCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        pThcIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pThcIncludedCheckBox.setText("Included");
-        pThcIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                pThcIncludedCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        pBafIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pBafIncludedCheckBox.setText("Included");
-        pBafIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                pBafIncludedCheckBoxItemStateChanged(evt);
-            }
-        });
-        pBafIncludedCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pBafIncludedCheckBoxActionPerformed(evt);
-            }
-        });
-
-        pDocFeeIncludedCheckBox.setText("Included");
-        pDocFeeIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                pDocFeeIncludedCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        jLabel119.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel119.setText("Tariff Number(KKLU):");
-
-        jLabel117.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel117.setText("Ocean Freight:");
-
-        pCommentsTextArea.setColumns(20);
-        pCommentsTextArea.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pCommentsTextArea.setRows(5);
-        pCommentsTextArea.setWrapStyleWord(true);
-        pCommentsTextArea.setMaximumSize(new java.awt.Dimension(20, 10));
-        pCommentsTextArea.setLineWrap(true);
-        jScrollPane4.setViewportView(pCommentsTextArea);
-
-        submitToPublishingPDFButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        submitToPublishingPDFButton.setText("Submit");
-        submitToPublishingPDFButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitToPublishingPDFButtonActionPerformed(evt);
-            }
-        });
-
-        cancelSpotFileButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        cancelSpotFileButton.setText("Cancel");
-        cancelSpotFileButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelSpotFileButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel120.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel120.setText("Booking Number:");
-
-        pWarRiskCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        pWarRiskCheckBox.setText("War Risk");
-        pWarRiskCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pWarRiskCheckBoxActionPerformed(evt);
-            }
-        });
-
-        jLabel115.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel115.setText("%");
-
-        jLabel123.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel123.setText("Handling Instructions");
-
-        pHandlingInstructions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Self-propelled", "Towable", "Static", "MAFI", "Forkliftable", "Static (MAFI)", "Static (Forkliftable)" }));
-
-        jLabel125.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel125.setText("Storage:");
-
-        storageTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        storageTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                storageTextFieldKeyTyped(evt);
-            }
-        });
-
-        storageUnitComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        storageUnitComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-        storageUnitComboBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                storageUnitComboBoxItemStateChanged(evt);
-            }
-        });
-
-        storageIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        storageIncludedCheckBox.setText("Included");
-        storageIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                storageIncludedCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        thcSubjectToTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        thcSubjectToTariffCheckBox.setText("Subject to Tariff");
-        thcSubjectToTariffCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                thcSubjectToTariffCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        wfgSubjectToTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        wfgSubjectToTariffCheckBox.setText("Subject to Tariff");
-        wfgSubjectToTariffCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                wfgSubjectToTariffCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        storageSubjectToTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        storageSubjectToTariffCheckBox.setText("Subject to Tariff");
-        storageSubjectToTariffCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                storageSubjectToTariffCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        ecaSubjectToTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        ecaSubjectToTariffCheckBox.setText("Subject to Tariff");
-        ecaSubjectToTariffCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ecaSubjectToTariffCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        bafSubjectToTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        bafSubjectToTariffCheckBox.setText("Subject to Tariff");
-        bafSubjectToTariffCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                bafSubjectToTariffCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        jLabel121.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel121.setText("$");
-
-        jLabel131.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel131.setText("$");
-
-        jLabel132.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel132.setText("$");
-
-        jLabel133.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel133.setText("$");
-
-        jLabel134.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel134.setText("$");
-
-        idTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RQS", "PID" }));
-
-        saveChangesPublishingPDFButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        saveChangesPublishingPDFButton.setText("Update Filing");
-        saveChangesPublishingPDFButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveChangesPublishingPDFButtonActionPerformed(evt);
-            }
-        });
-
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "KAM Publishing Only", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-
-        jLabel138.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel138.setText("Commodity #:");
-
-        jLabel135.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel135.setText("Description:");
-
-        jLabel136.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel136.setText("Expiration:");
-
-        jLabel137.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel137.setText("TLI #:");
-
-        newFilingCompleteButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        newFilingCompleteButton.setText("Save & Send New Filing");
-        newFilingCompleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newFilingCompleteButtonActionPerformed(evt);
-            }
-        });
-
-        newFilingCompleteButton1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        newFilingCompleteButton1.setText("Save & Send Existing Filing");
-        newFilingCompleteButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newFilingCompleteButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel138)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(commodityNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel135)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(descriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel137)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tliNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel136)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(expirationDateTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(381, 381, 381)
-                        .addComponent(newFilingCompleteButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newFilingCompleteButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel136)
-                            .addComponent(expirationDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(newFilingCompleteButton)
-                            .addComponent(newFilingCompleteButton1)))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(tliNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel137))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(commodityNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel138))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(descriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel135)))
-                .addContainerGap())
-        );
-
-        jLabel139.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel139.setText("RQS");
-
-        pQuoteNumberTextField.setEditable(false);
-        pQuoteNumberTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jLabel140.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel140.setText("PID");
-
-        pIDTextField.setEditable(false);
-        pIDTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        validityFromButton.setText("jButton1");
-
-        validityToButton.setText("jButton1");
-
-        jSeparator22.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator22.setForeground(new java.awt.Color(0, 0, 0));
-
-        javax.swing.GroupLayout publishingCenterPanelLayout = new javax.swing.GroupLayout(publishingCenterPanel);
-        publishingCenterPanel.setLayout(publishingCenterPanelLayout);
-        publishingCenterPanelLayout.setHorizontalGroup(
-            publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator8)
-                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel110, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel132))
-                            .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel111, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel133))
-                            .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel125)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel134))
-                            .addComponent(jLabel108)
-                            .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel109, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel121))
-                            .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel117)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel131)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pOftTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pBafTextField)
-                            .addComponent(pEcaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(storageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pThcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pWfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pOftComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                        .addComponent(pThcComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(pThcIncludedCheckBox)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(thcSubjectToTariffCheckBox))
-                                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                        .addComponent(pWfgComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(pWfgIncludedCheckBox)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(wfgSubjectToTariffCheckBox))
-                                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                        .addComponent(storageUnitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(storageIncludedCheckBox)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(storageSubjectToTariffCheckBox))
-                                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                        .addComponent(pEcaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(pEcaIncludedCheckBox)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(ecaSubjectToTariffCheckBox))
-                                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel115)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(pBafIncludedCheckBox)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bafSubjectToTariffCheckBox)))
-                                .addGap(18, 18, 18)
-                                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel107, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel112)
-                        .addGap(18, 18, 18)
-                        .addComponent(pDocFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pDocFeeIncludedCheckBox))
-                    .addComponent(pWarRiskCheckBox)
-                    .addComponent(jSeparator22, javax.swing.GroupLayout.PREFERRED_SIZE, 1145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jLabel100, javax.swing.GroupLayout.PREFERRED_SIZE, 1184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                            .addComponent(submitToPublishingPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(saveChangesPublishingPDFButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cancelSpotFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                            .addComponent(idTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(5, 5, 5)
-                            .addComponent(pQuoteIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(pQuoteIDButton))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, publishingCenterPanelLayout.createSequentialGroup()
-                            .addGap(29, 29, 29)
-                            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel106)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pCommodityDescriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel105)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pCommodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel123)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pHandlingInstructions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel116)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(validityFromButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(validityToButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel119)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(kkluNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel113)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pPolTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel114)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pPodTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel120)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pBookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel139)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pQuoteNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel140)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-
-        publishingCenterPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {pBafTextField, pEcaTextField, pOftTextField, pThcTextField, pWfgTextField, storageTextField});
-
-        publishingCenterPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelSpotFileButton, submitToPublishingPDFButton});
-
-        publishingCenterPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {pDocFeeComboBox, pEcaComboBox, pOftComboBox, pThcComboBox, pWfgComboBox, storageUnitComboBox});
-
-        publishingCenterPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel108, jLabel109, jLabel110, jLabel111, jLabel112, jLabel117, jLabel125});
-
-        publishingCenterPanelLayout.setVerticalGroup(
-            publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel100)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pQuoteIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pQuoteIDButton)
-                    .addComponent(idTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(pBookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel139)
-                    .addComponent(pQuoteNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel140)
-                    .addComponent(pIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel120))
-                .addGap(18, 18, 18)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(validityFromButton)
-                    .addComponent(validityToButton)
-                    .addComponent(jLabel116))
-                .addGap(18, 18, 18)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(kkluNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel113)
-                    .addComponent(pPolTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel114)
-                    .addComponent(jLabel119)
-                    .addComponent(pPodTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel105)
-                    .addComponent(pCommodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel123)
-                    .addComponent(pHandlingInstructions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel106)
-                    .addComponent(pCommodityDescriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(pOftTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pOftComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel131)
-                    .addComponent(jLabel117))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(pBafTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel115)
-                    .addComponent(pBafIncludedCheckBox)
-                    .addComponent(bafSubjectToTariffCheckBox)
-                    .addComponent(jLabel108)
-                    .addComponent(jLabel107))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(pEcaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pEcaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pEcaIncludedCheckBox)
-                            .addComponent(ecaSubjectToTariffCheckBox)
-                            .addComponent(jLabel121)
-                            .addComponent(jLabel109))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(pThcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pThcComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pThcIncludedCheckBox)
-                            .addComponent(thcSubjectToTariffCheckBox)
-                            .addComponent(jLabel132)
-                            .addComponent(jLabel110))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(pWfgComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pWfgIncludedCheckBox)
-                            .addComponent(pWfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(wfgSubjectToTariffCheckBox)
-                            .addComponent(jLabel133)
-                            .addComponent(jLabel111))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(storageUnitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(storageIncludedCheckBox)
-                            .addComponent(storageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(storageSubjectToTariffCheckBox)
-                            .addComponent(jLabel134)
-                            .addComponent(jLabel125)))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel112)
-                    .addComponent(pDocFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pDocFeeIncludedCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pWarRiskCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitToPublishingPDFButton)
-                    .addComponent(cancelSpotFileButton)
-                    .addComponent(saveChangesPublishingPDFButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator22, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        mainPanel.add(publishingCenterPanel, "card7");
-
         searchPanel.setLayout(new java.awt.CardLayout());
-
-        queryTitleLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        queryTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        queryTitleLabel.setText("Search");
 
         searchResultsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3481,12 +3150,11 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+            .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator21)
-                    .addComponent(queryTitleLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane10)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(savedSearchesButton)
@@ -3501,19 +3169,13 @@ public class MainMenu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel56)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(queryTitleLabel)
-                .addGap(1, 1, 1)
-                .addComponent(jSeparator21, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(clearResultTable)
@@ -3523,8 +3185,8 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(jLabel55)
                     .addComponent(jLabel56)
                     .addComponent(savedSearchesButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -3532,48 +3194,648 @@ public class MainMenu extends javax.swing.JFrame {
 
         mainPanel.add(searchPanel, "card4");
 
+        pCommentsTextArea.setColumns(20);
+        pCommentsTextArea.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pCommentsTextArea.setRows(5);
+        pCommentsTextArea.setWrapStyleWord(true);
+        pCommentsTextArea.setMaximumSize(new java.awt.Dimension(20, 10));
+        pCommentsTextArea.setLineWrap(true);
+        jScrollPane4.setViewportView(pCommentsTextArea);
+
+        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Quote Information"));
+
+        jLabel120.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel120.setText("Booking Number:");
+
+        pBookingNumberTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel139.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel139.setText("RQS");
+
+        pQuoteNumberTextField.setEditable(false);
+        pQuoteNumberTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel140.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel140.setText("PID");
+
+        pIDTextField.setEditable(false);
+        pIDTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
+        jPanel27.setLayout(jPanel27Layout);
+        jPanel27Layout.setHorizontalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel27Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel120)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pBookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel139)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pQuoteNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel140)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel27Layout.setVerticalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel27Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(pBookingNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel139)
+                    .addComponent(pQuoteNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel140)
+                    .addComponent(pIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel120))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Quote Validity"));
+        jPanel28.setLayout(new java.awt.GridBagLayout());
+
+        jLabel116.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel116.setText("Validity From/To:");
+        jPanel28.add(jLabel116, new java.awt.GridBagConstraints());
+
+        validityFromButton.setText("Validity From");
+        jPanel28.add(validityFromButton, new java.awt.GridBagConstraints());
+
+        validityToButton.setText("Validity To");
+        jPanel28.add(validityToButton, new java.awt.GridBagConstraints());
+
+        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Tariff Information"));
+
+        jLabel119.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel119.setText("Tariff Number(KKLU):");
+
+        jLabel113.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel113.setText("POL");
+
+        jLabel114.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel114.setText("POD");
+
+        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
+        jPanel29.setLayout(jPanel29Layout);
+        jPanel29Layout.setHorizontalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel119)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(kkluNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel113)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pPolTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel114)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pPodTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel29Layout.setVerticalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(kkluNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel113)
+                    .addComponent(pPolTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel114)
+                    .addComponent(jLabel119)
+                    .addComponent(pPodTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Commodity Information"));
+
+        jLabel105.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel105.setText("Commodity Class");
+
+        pCommodityClassComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Automobile/POV", "Automobile/POV (up to 14 cubic meters)", "Automobile/POV (14 - 17 cubic meters)", "Automobile/POV (17 - 25 cubic meters)", "Automobile/POV (up to 16 cubic meters)", "Automobile/POV (16 - 20 cubic meters)", "Automobile/POV (20 - 25 cubic meters)", "New Automobile", "New Automobile (up to 14 cubic meters)", "New Automobile (14 - 17 cubic meters)", "New Automobile (17 - 25 cubic meters)", "New Automobile (up to 16 cubic meters)", "New Automobile (16 - 20 cubic meters)", "New Automobile (20 - 25 cubic meters)", "Motorhome(s)", "Truck(s)", "Bus(es)", "Van(s)", "Chassis", "Travel trailer(s)", "Utility trailer(s)", "5th wheel trailer(s)", "Agriculture Equipment", "Construction Equipment", "Forestry Equipment", "Mining Equipment", "Handling Equipment", "Crane(s)", "Tractor(s)", "Boat(s) on Trailer", "Boat(s) on Cradle", "Static", "Static Machinery", "Special Purpose Vehicles", "Motorcycle(s)", "All-Terrain Vehicle(s)", "Jet Ski(s) (up to 2 cbm)" }));
+
+        jLabel123.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel123.setText("Handling Instructions");
+
+        pHandlingInstructions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Self-propelled", "Towable", "Static", "MAFI", "Forkliftable", "Static (MAFI)", "Static (Forkliftable)" }));
+
+        jLabel106.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel106.setText("Commodity Description");
+
+        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
+        jPanel30.setLayout(jPanel30Layout);
+        jPanel30Layout.setHorizontalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel30Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel30Layout.createSequentialGroup()
+                        .addComponent(jLabel106)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pCommodityDescriptionTextField))
+                    .addGroup(jPanel30Layout.createSequentialGroup()
+                        .addComponent(jLabel105)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pCommodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel30Layout.createSequentialGroup()
+                        .addComponent(jLabel123)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pHandlingInstructions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel30Layout.setVerticalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel30Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel105)
+                    .addComponent(pCommodityClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel123)
+                    .addComponent(pHandlingInstructions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel106)
+                    .addComponent(pCommodityDescriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
+        );
+
+        jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rate Information"));
+
+        BAF.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        BAF.setText("BAF:");
+
+        jLabel109.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel109.setText("ECA BAF:");
+
+        storageUnitComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        storageUnitComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+        storageUnitComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                storageUnitComboBoxItemStateChanged(evt);
+            }
+        });
+
+        storageIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        storageIncludedCheckBox.setText("Included");
+        storageIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                storageIncludedCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        thcSubjectToTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        thcSubjectToTariffCheckBox.setText("Subject to Tariff");
+        thcSubjectToTariffCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                thcSubjectToTariffCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        wfgSubjectToTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        wfgSubjectToTariffCheckBox.setText("Subject to Tariff");
+        wfgSubjectToTariffCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                wfgSubjectToTariffCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        jLabel110.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel110.setText("O/THC:");
+
+        storageSubjectToTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        storageSubjectToTariffCheckBox.setText("Subject to Tariff");
+        storageSubjectToTariffCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                storageSubjectToTariffCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        jLabel111.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel111.setText("O/WFG:");
+
+        ecaSubjectToTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ecaSubjectToTariffCheckBox.setText("Subject to Tariff");
+        ecaSubjectToTariffCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ecaSubjectToTariffCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        jLabel112.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel112.setText("Documentation Fee");
+
+        bafSubjectToTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bafSubjectToTariffCheckBox.setText("Subject to Tariff");
+        bafSubjectToTariffCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                bafSubjectToTariffCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        jLabel121.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel121.setText("$");
+
+        pOftTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel131.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel131.setText("$");
+
+        pBafTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pBafTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pBafTextFieldKeyTyped(evt);
+            }
+        });
+
+        jLabel132.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel132.setText("$");
+
+        pEcaTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pEcaTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pEcaTextFieldKeyTyped(evt);
+            }
+        });
+
+        pThcTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pThcTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pThcTextFieldKeyTyped(evt);
+            }
+        });
+
+        pWfgTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pWfgTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pWfgTextFieldKeyTyped(evt);
+            }
+        });
+
+        jLabel133.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel133.setText("$");
+
+        jLabel134.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel134.setText("$");
+
+        pOftComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pOftComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+
+        pWfgComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pWfgComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+        pWfgComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                pWfgComboBoxItemStateChanged(evt);
+            }
+        });
+
+        pThcComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pThcComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+        pThcComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                pThcComboBoxItemStateChanged(evt);
+            }
+        });
+
+        pEcaComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pEcaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
+        pEcaComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                pEcaComboBoxItemStateChanged(evt);
+            }
+        });
+
+        pDocFeeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "$25 per B/L", "$50 per B/L", "$75 per B/L" }));
+        pDocFeeComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                pDocFeeComboBoxItemStateChanged(evt);
+            }
+        });
+        pDocFeeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pDocFeeComboBoxActionPerformed(evt);
+            }
+        });
+
+        pWfgIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pWfgIncludedCheckBox.setText("Included");
+        pWfgIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                pWfgIncludedCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        pEcaIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pEcaIncludedCheckBox.setText("Included");
+        pEcaIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                pEcaIncludedCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        pThcIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pThcIncludedCheckBox.setText("Included");
+        pThcIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                pThcIncludedCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        pBafIncludedCheckBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pBafIncludedCheckBox.setText("Included");
+        pBafIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                pBafIncludedCheckBoxItemStateChanged(evt);
+            }
+        });
+        pBafIncludedCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pBafIncludedCheckBoxActionPerformed(evt);
+            }
+        });
+
+        pDocFeeIncludedCheckBox.setText("Included");
+        pDocFeeIncludedCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                pDocFeeIncludedCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        jLabel117.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel117.setText("OFT:");
+
+        pWarRiskCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        pWarRiskCheckBox.setText("War Risk");
+        pWarRiskCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pWarRiskCheckBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel115.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel115.setText("%");
+
+        jLabel125.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel125.setText("Storage:");
+
+        storageTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        storageTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                storageTextFieldKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
+        jPanel31.setLayout(jPanel31Layout);
+        jPanel31Layout.setHorizontalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel31Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel31Layout.createSequentialGroup()
+                        .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel31Layout.createSequentialGroup()
+                                .addComponent(jLabel110)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel132))
+                            .addGroup(jPanel31Layout.createSequentialGroup()
+                                .addComponent(jLabel109)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel121))
+                            .addGroup(jPanel31Layout.createSequentialGroup()
+                                .addComponent(jLabel117)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel131))
+                            .addComponent(BAF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel31Layout.createSequentialGroup()
+                                    .addComponent(jLabel125, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel134))
+                                .addGroup(jPanel31Layout.createSequentialGroup()
+                                    .addComponent(jLabel111, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel133))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pOftTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pBafTextField)
+                            .addComponent(pEcaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(storageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pThcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pWfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pOftComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel31Layout.createSequentialGroup()
+                                .addComponent(pThcComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pThcIncludedCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(thcSubjectToTariffCheckBox))
+                            .addGroup(jPanel31Layout.createSequentialGroup()
+                                .addComponent(pWfgComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pWfgIncludedCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(wfgSubjectToTariffCheckBox))
+                            .addGroup(jPanel31Layout.createSequentialGroup()
+                                .addComponent(storageUnitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(storageIncludedCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(storageSubjectToTariffCheckBox))
+                            .addGroup(jPanel31Layout.createSequentialGroup()
+                                .addComponent(pEcaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pEcaIncludedCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ecaSubjectToTariffCheckBox))
+                            .addGroup(jPanel31Layout.createSequentialGroup()
+                                .addComponent(jLabel115)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pBafIncludedCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bafSubjectToTariffCheckBox))))
+                    .addGroup(jPanel31Layout.createSequentialGroup()
+                        .addComponent(jLabel112)
+                        .addGap(18, 18, 18)
+                        .addComponent(pDocFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pDocFeeIncludedCheckBox))
+                    .addComponent(pWarRiskCheckBox))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel31Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {pBafTextField, pEcaTextField, pOftTextField, pThcTextField, pWfgTextField, storageTextField});
+
+        jPanel31Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {pDocFeeComboBox, pEcaComboBox, pOftComboBox, pThcComboBox, pWfgComboBox, storageUnitComboBox});
+
+        jPanel31Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BAF, jLabel109, jLabel111, jLabel117, jLabel125});
+
+        jPanel31Layout.setVerticalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel31Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(pOftTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pOftComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel131)
+                    .addComponent(jLabel117))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(pBafTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel115)
+                    .addComponent(pBafIncludedCheckBox)
+                    .addComponent(bafSubjectToTariffCheckBox)
+                    .addComponent(BAF))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(pEcaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pEcaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pEcaIncludedCheckBox)
+                    .addComponent(ecaSubjectToTariffCheckBox)
+                    .addComponent(jLabel121)
+                    .addComponent(jLabel109))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(pThcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pThcComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pThcIncludedCheckBox)
+                    .addComponent(thcSubjectToTariffCheckBox)
+                    .addComponent(jLabel132)
+                    .addComponent(jLabel110))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(pWfgComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pWfgIncludedCheckBox)
+                    .addComponent(pWfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wfgSubjectToTariffCheckBox)
+                    .addComponent(jLabel133)
+                    .addComponent(jLabel111))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(storageUnitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(storageIncludedCheckBox)
+                    .addComponent(storageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(storageSubjectToTariffCheckBox)
+                    .addComponent(jLabel134)
+                    .addComponent(jLabel125))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel112)
+                    .addComponent(pDocFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pDocFeeIncludedCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pWarRiskCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jToolBar7.setRollover(true);
+        jToolBar7.setFloatable(false);
+
+        submitToPublishingPDFButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        submitToPublishingPDFButton.setText("Submit");
+        submitToPublishingPDFButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitToPublishingPDFButtonActionPerformed(evt);
+            }
+        });
+        jToolBar7.add(submitToPublishingPDFButton);
+        jToolBar7.add(jSeparator2);
+
+        saveChangesPublishingPDFButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        saveChangesPublishingPDFButton.setText("Update Filing");
+        saveChangesPublishingPDFButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveChangesPublishingPDFButtonActionPerformed(evt);
+            }
+        });
+        jToolBar7.add(saveChangesPublishingPDFButton);
+        jToolBar7.add(jSeparator4);
+
+        cancelSpotFileButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        cancelSpotFileButton.setText("Cancel");
+        cancelSpotFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelSpotFileButtonActionPerformed(evt);
+            }
+        });
+        jToolBar7.add(cancelSpotFileButton);
+
+        jToolBar8.setRollover(true);
+        jToolBar8.setFloatable(false);
+
+        idTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RQS", "PID" }));
+        jToolBar8.add(idTypeComboBox);
+
+        pQuoteIDTextField.setColumns(6);
+        pQuoteIDTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jToolBar8.add(pQuoteIDTextField);
+
+        pQuoteIDButton.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        pQuoteIDButton.setText("Go");
+        pQuoteIDButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pQuoteIDButtonActionPerformed(evt);
+            }
+        });
+        jToolBar8.add(pQuoteIDButton);
+
+        javax.swing.GroupLayout publishingCenterPanelLayout = new javax.swing.GroupLayout(publishingCenterPanel);
+        publishingCenterPanel.setLayout(publishingCenterPanelLayout);
+        publishingCenterPanelLayout.setHorizontalGroup(
+            publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(publishingCenterPanelLayout.createSequentialGroup()
+                .addContainerGap(99, Short.MAX_VALUE)
+                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
+                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4)
+                            .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
+                        .addComponent(jToolBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jToolBar7, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+        publishingCenterPanelLayout.setVerticalGroup(
+            publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(publishingCenterPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(397, 397, 397))
+        );
+
+        mainPanel.add(publishingCenterPanel, "card7");
+
         customerInformationPanel.setLayout(new java.awt.CardLayout());
-
-        newCustomerButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        newCustomerButton.setText("New Customer");
-        newCustomerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newCustomerButtonActionPerformed(evt);
-            }
-        });
-
-        existingCustomerButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        existingCustomerButton.setText("Existing Customer");
-        existingCustomerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                existingCustomerButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel22.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText("New Customer");
-        jLabel22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        submitNewCustomerInformation.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        submitNewCustomerInformation.setText("Submit");
-        submitNewCustomerInformation.setNextFocusableComponent(cancelNewCustomerButton);
-        submitNewCustomerInformation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitNewCustomerInformationActionPerformed(evt);
-            }
-        });
-
-        cancelNewCustomerButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        cancelNewCustomerButton.setText("Cancel ");
-        cancelNewCustomerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelNewCustomerButtonActionPerformed(evt);
-            }
-        });
-
-        jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Primary Contact Information"));
 
@@ -3733,25 +3995,25 @@ public class MainMenu extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Company Information"));
 
-        jLabel25.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel25.setText("Company:");
 
         newCustomerCompanyTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         newCustomerCompanyTextField.setNextFocusableComponent(newCustomerDBATextField);
 
-        jLabel26.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel26.setText("DBA:");
 
         newCustomerDBATextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         newCustomerDBATextField.setNextFocusableComponent(newCustomerOTINumberTextField);
 
-        jLabel30.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel30.setText("OTI Number:");
 
         newCustomerOTINumberTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         newCustomerOTINumberTextField.setNextFocusableComponent(newCustomerContractYesRadioButton);
 
-        jLabel37.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel37.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel37.setText("Contract:");
 
         buttonGroup1.add(newCustomerContractYesRadioButton);
@@ -3774,13 +4036,13 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        jLabel38.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel38.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel38.setText("S/C Number:");
 
         newCustomerContractNumberTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         newCustomerContractNumberTextField.setNextFocusableComponent(newCustomerMainPhoneTextField);
 
-        jLabel43.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel43.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel43.setText("Expiration:");
 
         newCustomerContractExpirationDateTextField.setText("jButton1");
@@ -3802,6 +4064,11 @@ public class MainMenu extends javax.swing.JFrame {
         buttonGroup2.add(newCustomerOtherRadioButton);
         newCustomerOtherRadioButton.setText("Other");
 
+        jLabel53.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel53.setText("Sales Region:");
+
+        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "North East", "South East", "Mid West", "West", "Canada", "Europe", "Asia", "South America", "Central America" }));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -3809,37 +4076,43 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel26)
-                    .addComponent(jLabel30)
-                    .addComponent(jLabel38)
-                    .addComponent(jLabel37))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(newCustomerContractYesRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel26)
+                            .addComponent(jLabel30)
+                            .addComponent(jLabel38)
+                            .addComponent(jLabel37))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newCustomerNoContractRadioButton))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(newCustomerOTINumberTextField)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(newCustomerFreightForwarderRadioButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(newCustomerNVOCCRadioButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(newCustomerBCORadioButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(newCustomerOtherRadioButton))
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(newCustomerContractNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel43)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(newCustomerContractExpirationDateTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
-                        .addComponent(newCustomerCompanyTextField)
-                        .addComponent(newCustomerDBATextField)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(newCustomerContractYesRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(newCustomerNoContractRadioButton))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addComponent(newCustomerOTINumberTextField)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(newCustomerFreightForwarderRadioButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(newCustomerNVOCCRadioButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(newCustomerBCORadioButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(newCustomerOtherRadioButton))
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addComponent(newCustomerContractNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel43)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(newCustomerContractExpirationDateTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                                .addComponent(newCustomerCompanyTextField)
+                                .addComponent(newCustomerDBATextField))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel53)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel25, jLabel26, jLabel30, jLabel38});
@@ -3877,27 +4150,31 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel43)
                         .addComponent(newCustomerContractExpirationDateTextField)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel53)
+                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Company Contact Information"));
 
-        jLabel31.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel31.setText("Street Address:");
 
         newCustomerAddress1.setNextFocusableComponent(newCustomerAddress2);
 
-        jLabel32.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel32.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel32.setText("Suite/Apt.: ");
 
         newCustomerAddress2.setNextFocusableComponent(newCustomerCity);
 
-        jLabel33.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel33.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel33.setText("City:");
 
         newCustomerCity.setNextFocusableComponent(newCustomerState);
 
-        jLabel35.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel35.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel35.setText("Zip:");
 
         newCustomerZipCode.setNextFocusableComponent(newCustomerCountry);
@@ -3912,22 +4189,22 @@ public class MainMenu extends javax.swing.JFrame {
 
         newCustomerCountry.setNextFocusableComponent(newCustomerComments);
 
-        jLabel27.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel27.setText("Main Phone:");
 
         newCustomerMainPhoneTextField.setNextFocusableComponent(newCustomerSecondaryPhoneNumber);
 
-        jLabel28.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel28.setText("Secondary Phone:");
 
         newCustomerSecondaryPhoneNumber.setNextFocusableComponent(newCustomerFaxNumber);
 
-        jLabel29.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel29.setText("FAX:");
 
         newCustomerFaxNumber.setNextFocusableComponent(newCustomerCompanyEmailTextField);
 
-        jLabel58.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel58.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel58.setText("Website:");
 
         newCustomerCompanyEmailTextField.setNextFocusableComponent(newCustomerAddress1);
@@ -3970,7 +4247,7 @@ public class MainMenu extends javax.swing.JFrame {
                                     .addComponent(newCustomerCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(newCustomerSecondaryPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(newCustomerMainPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4011,7 +4288,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(newCustomerZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel36)
                     .addComponent(newCustomerCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {newCustomerAddress1, newCustomerAddress2, newCustomerCity, newCustomerCompanyEmailTextField, newCustomerCountry, newCustomerFaxNumber, newCustomerMainPhoneTextField, newCustomerSecondaryPhoneNumber, newCustomerState, newCustomerZipCode});
@@ -4041,54 +4318,82 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jToolBar9.setRollover(true);
+        jToolBar9.setFloatable(false);
+
+        newCustomerButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        newCustomerButton.setText("New Customer");
+        newCustomerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newCustomerButtonActionPerformed(evt);
+            }
+        });
+        jToolBar9.add(newCustomerButton);
+        jToolBar9.add(jSeparator9);
+
+        existingCustomerButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        existingCustomerButton.setText("Existing Customer");
+        existingCustomerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                existingCustomerButtonActionPerformed(evt);
+            }
+        });
+        jToolBar9.add(existingCustomerButton);
+
+        jToolBar10.setRollover(true);
+        jToolBar10.setFloatable(false);
+
+        submitNewCustomerInformation.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        submitNewCustomerInformation.setText("Submit");
+        submitNewCustomerInformation.setNextFocusableComponent(cancelNewCustomerButton);
+        submitNewCustomerInformation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitNewCustomerInformationActionPerformed(evt);
+            }
+        });
+        jToolBar10.add(submitNewCustomerInformation);
+        jToolBar10.add(jSeparator10);
+
+        cancelNewCustomerButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        cancelNewCustomerButton.setText("Cancel ");
+        cancelNewCustomerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelNewCustomerButtonActionPerformed(evt);
+            }
+        });
+        jToolBar10.add(cancelNewCustomerButton);
+
         javax.swing.GroupLayout newCustomerPanelLayout = new javax.swing.GroupLayout(newCustomerPanel);
         newCustomerPanel.setLayout(newCustomerPanelLayout);
         newCustomerPanelLayout.setHorizontalGroup(
             newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newCustomerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(89, Short.MAX_VALUE)
+                .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jToolBar10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.CENTER, newCustomerPanelLayout.createSequentialGroup()
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(newCustomerPanelLayout.createSequentialGroup()
-                            .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(newCustomerButton)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(existingCustomerButton))))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-            .addGroup(newCustomerPanelLayout.createSequentialGroup()
-                .addGap(455, 455, 455)
-                .addComponent(submitNewCustomerInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelNewCustomerButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(newCustomerPanelLayout.createSequentialGroup()
+                        .addComponent(jToolBar9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(384, 384, 384)))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
-
-        newCustomerPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelNewCustomerButton, submitNewCustomerInformation});
-
-        newCustomerPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {existingCustomerButton, newCustomerButton});
 
         newCustomerPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel3, jPanel4, jPanel5, jPanel6});
 
         newCustomerPanelLayout.setVerticalGroup(
             newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newCustomerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22)
+                .addComponent(jToolBar9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newCustomerButton)
-                    .addComponent(existingCustomerButton))
+                .addComponent(jToolBar10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -4096,58 +4401,13 @@ public class MainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitNewCustomerInformation)
-                    .addComponent(cancelNewCustomerButton))
-                .addContainerGap())
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51))
         );
 
         customerInformationPanel.add(newCustomerPanel, "card2");
 
         existingCustomerPanel.setPreferredSize(new java.awt.Dimension(500, 129));
-
-        jLabel23.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("Existing Customer");
-        jLabel23.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        newCustomerButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        newCustomerButton1.setText("New Customer");
-        newCustomerButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newCustomerButton1ActionPerformed(evt);
-            }
-        });
-
-        existingCustomerButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        existingCustomerButton1.setText("Existing Customer");
-        existingCustomerButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                existingCustomerButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel44.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel44.setText("Company ID or Name");
-
-        searchExistingCustomersButton.setText("Go");
-        searchExistingCustomersButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchExistingCustomersButtonActionPerformed(evt);
-            }
-        });
-
-        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-
-        searchExistingCustomersButton1.setText("Clear");
-        searchExistingCustomersButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchExistingCustomersButton1ActionPerformed(evt);
-            }
-        });
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Primary Contact Information"));
 
@@ -4534,6 +4794,11 @@ public class MainMenu extends javax.swing.JFrame {
         buttonGroup5.add(existingCustomerOtherRadioButton);
         existingCustomerOtherRadioButton.setText("Other");
 
+        jComboBox10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "North East", "South East", "Mid West", "West", "Canada", "Europe", "Asia", "South America", "Central America" }));
+
+        jLabel54.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel54.setText("Sales Region:");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -4541,14 +4806,6 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel164)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(existingCompanyContractNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel168)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                        .addComponent(existingCompanyContractEpirationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel160, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -4577,7 +4834,22 @@ public class MainMenu extends javax.swing.JFrame {
                                         .addComponent(existingCustomerBCORadioButton)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(existingCustomerOtherRadioButton)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 20, Short.MAX_VALUE))))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel164)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(existingCompanyContractNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel168)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(existingCompanyContractEpirationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel54)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -4608,18 +4880,21 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(existingCustomerOtherRadioButton)
                     .addComponent(jLabel162)
                     .addComponent(existingCompanyOTINumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(existingCompanyContractYesRadioButton)
                     .addComponent(existingCompanyNoContractRadioButton)
                     .addComponent(jLabel163))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel164)
                     .addComponent(existingCompanyContractNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel168)
                     .addComponent(existingCompanyContractEpirationTextField))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel54)
+                    .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Comments"));
@@ -4649,97 +4924,122 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        editUpdateCustomerInformationButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jToolBar11.setRollover(true);
+
+        newCustomerButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        newCustomerButton1.setText("New Customer");
+        newCustomerButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newCustomerButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar11.add(newCustomerButton1);
+        jToolBar11.add(jSeparator5);
+
+        existingCustomerButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        existingCustomerButton1.setText("Existing Customer");
+        existingCustomerButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                existingCustomerButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar11.add(existingCustomerButton1);
+
+        jToolBar12.setRollover(true);
+        jToolBar12.setFloatable(false);
+        jToolBar12.add(existingCompanyNameTextField);
+
+        searchExistingCustomersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/search_icon.png"))); // NOI18N
+        searchExistingCustomersButton.setText("Go");
+        searchExistingCustomersButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchExistingCustomersButtonActionPerformed(evt);
+            }
+        });
+        jToolBar12.add(searchExistingCustomersButton);
+
+        jToolBar13.setRollover(true);
+        jToolBar13.setFloatable(false);
+
+        editUpdateCustomerInformationButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         editUpdateCustomerInformationButton.setText("Save Changes");
         editUpdateCustomerInformationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editUpdateCustomerInformationButtonActionPerformed(evt);
             }
         });
+        jToolBar13.add(editUpdateCustomerInformationButton);
+        jToolBar13.add(jSeparator8);
 
-        editUpdateCustomerQuotesButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        searchExistingCustomersButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        searchExistingCustomersButton1.setText("Clear Form");
+        searchExistingCustomersButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchExistingCustomersButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar13.add(searchExistingCustomersButton1);
+        jToolBar13.add(jSeparator7);
+
+        editUpdateCustomerQuotesButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         editUpdateCustomerQuotesButton.setText("Previous Quotes");
         editUpdateCustomerQuotesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editUpdateCustomerQuotesButtonActionPerformed(evt);
             }
         });
+        jToolBar13.add(editUpdateCustomerQuotesButton);
+        jToolBar13.add(jSeparator6);
 
-        editUpdateCustomerBookingsButton.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        editUpdateCustomerBookingsButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         editUpdateCustomerBookingsButton.setText("Previous Bookings");
         editUpdateCustomerBookingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editUpdateCustomerBookingsButtonActionPerformed(evt);
             }
         });
+        jToolBar13.add(editUpdateCustomerBookingsButton);
 
         javax.swing.GroupLayout existingCustomerPanelLayout = new javax.swing.GroupLayout(existingCustomerPanel);
         existingCustomerPanel.setLayout(existingCustomerPanelLayout);
         existingCustomerPanelLayout.setHorizontalGroup(
             existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(existingCustomerPanelLayout.createSequentialGroup()
-                .addComponent(jLabel52)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(existingCustomerPanelLayout.createSequentialGroup()
-                        .addComponent(newCustomerButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(existingCustomerButton1))
-                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(existingCustomerPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel44)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(existingCompanyNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchExistingCustomersButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchExistingCustomersButton1)))
-                .addContainerGap())
-            .addGroup(existingCustomerPanelLayout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(existingCustomerPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, existingCustomerPanelLayout.createSequentialGroup()
-                        .addComponent(editUpdateCustomerInformationButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editUpdateCustomerQuotesButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editUpdateCustomerBookingsButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, existingCustomerPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(existingCustomerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1)
-                .addGap(12, 12, 12))
+                .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel52)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, existingCustomerPanelLayout.createSequentialGroup()
+                        .addContainerGap(88, Short.MAX_VALUE)
+                        .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(existingCustomerPanelLayout.createSequentialGroup()
+                                .addComponent(jToolBar12, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(311, 311, 311)
+                                .addComponent(jToolBar13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addGroup(existingCustomerPanelLayout.createSequentialGroup()
+                                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(7, 7, 7)
+                                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, existingCustomerPanelLayout.createSequentialGroup()
+                                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(88, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, existingCustomerPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToolBar11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        existingCustomerPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {existingCustomerButton1, newCustomerButton1});
 
         existingCustomerPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel10, jPanel7, jPanel8, jPanel9});
 
         existingCustomerPanelLayout.setVerticalGroup(
             existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(existingCustomerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToolBar11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(existingCustomerButton1)
-                    .addComponent(newCustomerButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel44)
-                    .addComponent(searchExistingCustomersButton)
-                    .addComponent(existingCompanyNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchExistingCustomersButton1))
+                .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jToolBar12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(existingCustomerPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -4749,21 +5049,19 @@ public class MainMenu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(editUpdateCustomerInformationButton)
-                            .addComponent(editUpdateCustomerQuotesButton)
-                            .addComponent(editUpdateCustomerBookingsButton)))
+                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(existingCustomerPanelLayout.createSequentialGroup()
-                        .addGap(698, 698, 698)
+                        .addGap(748, 748, 748)
                         .addComponent(jLabel52)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         customerInformationPanel.add(existingCustomerPanel, "card3");
 
         mainPanel.add(customerInformationPanel, "card6");
+
+        jToolBar1.setRollover(true);
+        jToolBar1.setFloatable(false);
 
         UserInformationCenterButton.setText("User Information");
         UserInformationCenterButton.addActionListener(new java.awt.event.ActionListener() {
@@ -4771,6 +5069,8 @@ public class MainMenu extends javax.swing.JFrame {
                 UserInformationCenterButtonActionPerformed(evt);
             }
         });
+        jToolBar1.add(UserInformationCenterButton);
+        jToolBar1.add(jSeparator26);
 
         newQuoteButton.setText("New Quote");
         newQuoteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -4778,6 +5078,8 @@ public class MainMenu extends javax.swing.JFrame {
                 newQuoteButtonActionPerformed(evt);
             }
         });
+        jToolBar1.add(newQuoteButton);
+        jToolBar1.add(jSeparator1);
 
         updateEditQuoteButton1.setText("Update/Edit Quote");
         updateEditQuoteButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -4785,6 +5087,8 @@ public class MainMenu extends javax.swing.JFrame {
                 updateEditQuoteButton1ActionPerformed(evt);
             }
         });
+        jToolBar1.add(updateEditQuoteButton1);
+        jToolBar1.add(jSeparator27);
 
         publishingCenterButton.setText("Publishing Center");
         publishingCenterButton.addActionListener(new java.awt.event.ActionListener() {
@@ -4792,6 +5096,8 @@ public class MainMenu extends javax.swing.JFrame {
                 publishingCenterButtonActionPerformed(evt);
             }
         });
+        jToolBar1.add(publishingCenterButton);
+        jToolBar1.add(jSeparator28);
 
         searchCenterButton.setText("Search Center");
         searchCenterButton.addActionListener(new java.awt.event.ActionListener() {
@@ -4799,6 +5105,8 @@ public class MainMenu extends javax.swing.JFrame {
                 searchCenterButtonActionPerformed(evt);
             }
         });
+        jToolBar1.add(searchCenterButton);
+        jToolBar1.add(jSeparator29);
 
         customerInformationCenterButton.setText("Customer Center");
         customerInformationCenterButton.addActionListener(new java.awt.event.ActionListener() {
@@ -4806,37 +5114,21 @@ public class MainMenu extends javax.swing.JFrame {
                 customerInformationCenterButtonActionPerformed(evt);
             }
         });
+        jToolBar1.add(customerInformationCenterButton);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(UserInformationCenterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(newQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(updateEditQuoteButton1)
-                .addGap(0, 0, 0)
-                .addComponent(publishingCenterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(searchCenterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(customerInformationCenterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(newQuoteButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(updateEditQuoteButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(publishingCenterButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(searchCenterButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(customerInformationCenterButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(UserInformationCenterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -5165,10 +5457,6 @@ public class MainMenu extends javax.swing.JFrame {
         storageIncludedCheckBox.setSelected(false);
         storageSubjectToTariffCheckBox.setSelected(false);
         pCommentsTextArea.setText("");
-        commodityNumberTextField.setText("");
-        descriptionTextField.setText("");
-        tliNumberTextField.setText("");
-        expirationDateTextField.setText("");
     }//GEN-LAST:event_publishingCenterButtonActionPerformed
 
     private void pQuoteIDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pQuoteIDButtonActionPerformed
@@ -5299,10 +5587,6 @@ public class MainMenu extends javax.swing.JFrame {
                     pWarRiskCheckBox.setSelected(warRisk);
                     pCommentsTextArea.setText("");
                     warRiskCheckBox.setSelected(warRisk);
-                    commodityNumberTextField.setText(commodityNumber);
-                    descriptionTextField.setText(description);
-                    tliNumberTextField.setText(tliNumber);
-                    expirationDateTextField.setText(expiration);
                     if (bookingNumber.equals("")) {
                         pBookingNumberTextField.setText("TBA");
                         pBookingNumberTextField.setText(bookingNumber);
@@ -5481,10 +5765,6 @@ public class MainMenu extends javax.swing.JFrame {
                     pDocFeeComboBox.setSelectedItem(documentationFee);
                     pDocFeeIncludedCheckBox.setSelected(documentationFeeIncluded);
                     pWarRiskCheckBox.setSelected(warRisk);
-                    commodityNumberTextField.setText(commodityNumber);
-                    descriptionTextField.setText(description);
-                    tliNumberTextField.setText(tliNumber);
-                    expirationDateTextField.setText(expiration);
                     if (bookingNumber.equals("")) {
                         pBookingNumberTextField.setText("TBA");
                     } else if (!bookingNumber.equals("")) {
@@ -5540,10 +5820,6 @@ public class MainMenu extends javax.swing.JFrame {
         Boolean storageSubjectToTariff = storageSubjectToTariffCheckBox.isSelected();
         Boolean bafSubjectToTariff = bafSubjectToTariffCheckBox.isSelected();
         Boolean ecaSubjectToTariff = ecaSubjectToTariffCheckBox.isSelected();
-        String commodityNumber = commodityNumberTextField.getText();
-        String description = descriptionTextField.getText();
-        String tliNumber = tliNumberTextField.getText();
-        String expiration = expirationDateTextField.getText();
 
         String timeStamp = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(Calendar.getInstance().getTime());
 
@@ -5597,7 +5873,7 @@ public class MainMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "You can only select one");
         }
 
-        String sql = "INSERT INTO spotrates (validityFrom, validityTo, tariffNumber, pol, pod, bookingNumber, commClass, handlingInstructions, commDesc, oft, oftUnit, baf, bafIncluded, bafPerTariff, ecaBaf, ecaBafUnit, ecaIncluded, ecaPerTariff, thc, thcUnit,thcIncluded, thcPerTariff, wfg, wfgUnit, wfgIncluded, wfgPerTariff, storage, storageUnit, storageIncluded, storagePerTariff, docFee, docFeeIncluded, comments, quoteID, warRisk, commodityNumber, description, tliNumber, expiration) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO spotrates (validityFrom, validityTo, tariffNumber, pol, pod, bookingNumber, commClass, handlingInstructions, commDesc, oft, oftUnit, baf, bafIncluded, bafPerTariff, ecaBaf, ecaBafUnit, ecaIncluded, ecaPerTariff, thc, thcUnit,thcIncluded, thcPerTariff, wfg, wfgUnit, wfgIncluded, wfgPerTariff, storage, storageUnit, storageIncluded, storagePerTariff, docFee, docFeeIncluded, comments, quoteID, warRisk) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -5636,10 +5912,6 @@ public class MainMenu extends javax.swing.JFrame {
             ps.setString(33, comments);
             ps.setString(34, quoteID);
             ps.setBoolean(35, warRisk);
-            ps.setString(36, commodityNumber);
-            ps.setString(37, description);
-            ps.setString(38, tliNumber);
-            ps.setString(39, expiration);
             // Execute the update
             ps.executeUpdate();
 
@@ -5650,18 +5922,6 @@ public class MainMenu extends javax.swing.JFrame {
                 lastKey = keys.getInt(1);
             }
             int pid = lastKey;
-
-            String addBookingNumber = "UPDATE allquotes SET bookingNumber=?, publishingID=?, commodityNumber=?, description=?, tliNumber=?, expiration=? WHERE ID=?;";
-            PreparedStatement psAddBookingNumber = conn.prepareStatement(addBookingNumber);
-            psAddBookingNumber.setString(1, bookingNumber);
-            psAddBookingNumber.setInt(2, pid);
-            psAddBookingNumber.setString(3, commodityNumber);
-            psAddBookingNumber.setString(4, description);
-            psAddBookingNumber.setString(5, tliNumber);
-            psAddBookingNumber.setString(6, expiration);
-            psAddBookingNumber.setString(7, quoteID);
-            psAddBookingNumber.executeUpdate();
-            psAddBookingNumber.closeOnCompletion();
 
             Double oft1 = (Double) (Double.parseDouble(oft));
             String eca1 = "";
@@ -5963,11 +6223,11 @@ public class MainMenu extends javax.swing.JFrame {
             Cell comm = row22.createCell(1);
             comm.setCellValue("Commodity #:");
             comm.setCellStyle(redFontStyle);
-            row22.createCell(2).setCellValue(commodityNumber);
+            row22.createCell(2).setCellValue("");
             Cell desc = row22.createCell(3);
             desc.setCellValue("Description:");
             desc.setCellStyle(redFontStyle);
-            row22.createCell(4).setCellValue(description);
+            row22.createCell(4).setCellValue("");
 
             HSSFRow space20 = sheet.createRow((short) 41);
 
@@ -5975,7 +6235,7 @@ public class MainMenu extends javax.swing.JFrame {
             Cell TLI = row24.createCell(1);
             TLI.setCellValue("TLI #:");
             TLI.setCellStyle(redFontStyle);
-            row24.createCell(2).setCellValue(tliNumber);
+            row24.createCell(2).setCellValue("");
 
             HSSFRow space21 = sheet.createRow((short) 43);
 
@@ -5983,7 +6243,7 @@ public class MainMenu extends javax.swing.JFrame {
             Cell exp = row26.createCell(1);
             exp.setCellValue("Expiration: ");
             exp.setCellStyle(redFontStyle);
-            row26.createCell(2).setCellValue(expiration);
+            row26.createCell(2).setCellValue("");
 
             try (FileOutputStream fileOut = new FileOutputStream(filename)) {
                 workbook.write(fileOut);
@@ -6024,10 +6284,6 @@ public class MainMenu extends javax.swing.JFrame {
             storageSubjectToTariffCheckBox.setSelected(false);
             pCommentsTextArea.setText("");
             pBookingNumberTextField.setText("");
-            commodityNumberTextField.setText("");
-            descriptionTextField.setText("");
-            tliNumberTextField.setText("");
-            expirationDateTextField.setText("");
             pQuoteNumberTextField.setText("");
             pIDTextField.setText("");
 
@@ -6090,11 +6346,6 @@ public class MainMenu extends javax.swing.JFrame {
         }
         DefaultTableModel dtm = (DefaultTableModel) packingListTable.getModel();
         dtm.setRowCount(0);
-        for (int r = 0; r < newQuoteSailingScheduleTable.getRowCount(); r++) {
-            for (int c = 0; c < newQuoteSailingScheduleTable.getColumnCount(); c++) {
-                newQuoteSailingScheduleTable.setValueAt("", r, c);
-            }
-        }
         packingListTable.setModel(dtm);
         shipperCommentsTextArea.setText("");
         includeShipperCommentsCheckBox.setSelected(false);
@@ -6104,17 +6355,28 @@ public class MainMenu extends javax.swing.JFrame {
     private void submitNewQuoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitNewQuoteActionPerformed
 
         //Get input from new quote form
+        // Contact Information 
         String newQuoteCompany = newQuoteCustomerNameLabel.getText();
         String newQuoteContactName = contactNameTextField.getText();
         String newQuoteContactEmail = contactEmailTextField.getText();
+        String newQuoteContactPhone = newQuoteContactPhoneTextField.getText();
+        String newQuoteContactExtension = newQuotePhoneExtensionTextField.getText();
+        String newQuoteContactPhoneType = newQuotePhoneTypeTextField.getSelectedItem().toString();
+
+        // Port Information 
         String tradeLane = tradeLaneComboBox.getSelectedItem().toString();
         String pol = polTextField.getText();
         String pod = podTextField.getText();
         String tshp1 = tshp1TextField.getText();
         String tshp2 = tshp2TextField.getText();
+
+        // Commodity Information
         String commodityClass = commodityClassComboBox.getSelectedItem().toString();
         String commodityDescription = commodityDescriptionTextField.getText();
         String handlingInstructions = handlingInstructionsComboBox.getSelectedItem().toString();
+        Boolean accessories = newQuoteAccessoriesCheckBox.isSelected();
+
+        // Rate Quote 
         String OFT = oftTextField.getText();
         String oftMeasurement = oftMeasurementComboBox.getSelectedItem().toString();
         String BAF = bafTextField.getText();
@@ -6133,25 +6395,39 @@ public class MainMenu extends javax.swing.JFrame {
         String documentationFee = documentationFeeComboBox.getSelectedItem().toString();
         Boolean documentationFeeIncluded = documentationFeeIncludedCheckBox.isSelected();
         Boolean warRisk = warRiskCheckBox.isSelected();
-        String comments = commentsTextArea.getText();
+        Boolean mafiMinimum = mafiMinimumCheckBox.isSelected();
+        String mafiMinimumCharge = mafiMinimumTextField.getText();
+
+        // Rate Type
         Boolean denial = newQuoteDenialCheckBox.isSelected();
         Boolean spotRate = spotRateCheckBox.isSelected();
         Boolean booked = newQuoteBookedCheckBox.isSelected();
-        Boolean accessories = newQuoteAccessoriesCheckBox.isSelected();
-        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
-        Boolean mafiMinimum = mafiMinimumCheckBox.isSelected();
-        String mafiMinimumCharge = mafiMinimumTextField.getText();
         String reasonForDecline = declineComboBox.getSelectedItem().toString();
         Boolean contract_rate = contractRateCheckBox.isSelected();
-        String bookingNumber = "";// Cannot be null
-        Boolean includeSailingSchedule = includeSailingScheduleCheckBox.isSelected();
+        Boolean tariffRate = newQuoteTariffCheckBox.isSelected();
+        Boolean ftfSpotRate = newQuoteFTFSpotCheckBox.isSelected();
+        Boolean ftfTariffRate = newQuoteFTFTariffCheckBox.isSelected();
+        Boolean indicatoryRate = newQuoteIndicatoryCheckBox.isSelected();
+        String bookingNumber = bookingNumberTextField.getText();// Cannot be null
+
+        // Quote Status
+        String MTDApproval = newQuoteMTDApprovalComboBox.getSelectedItem().toString();
+        String spaceApproval = newQuoteSpaceApprovalComboBox.getSelectedItem().toString();
+        String overseasResponse = newQuoteOverSeasResponseComboBox.getSelectedItem().toString();
+        
+        // Internal Comments
+        String comments = commentsTextArea.getText();
         Boolean includeCarrierRemarks = includeShipperCommentsCheckBox.isSelected();
         String carrierComments = shipperCommentsTextArea.getText();
-        String bookedUserID = ""; // Cannot be null
 
+        // Timestamp for when the quote is generated YYYY-MM-dd HH:mm
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
+
+        // Booked user id is only applied when the cargo is booked, otherwise it will be false
+        String bookedUserID = ""; // Cannot be null
+        
         //If the quote is marked as booked then get the bookingNumber
         if (booked == true) {
-            bookingNumber = bookingNumberTextField.getText();
             bookedUserID = userID;
         }
 
@@ -6254,34 +6530,6 @@ public class MainMenu extends javax.swing.JFrame {
                 }
             }
 
-            if (includeSailingSchedule == true) {
-                int ssRows = newQuoteSailingScheduleTable.getRowCount();
-                for (int r = 0; r < ssRows; r++) {
-                    String vessel_voyage = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 0));
-                    String sail_date = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 1));
-                    String transit_time = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 2));
-                    String trans_shipment = String.valueOf(newQuoteSailingScheduleTable.getValueAt(r, 3));
-
-                    String sailingScheduleSQL = "INSERT INTO quote_schedule (quote_id, alpha_character, vessel_voyage, sail_date, transit_time, trans_shipment) VALUES(?,?,?,?,?,?)";
-
-                    try {
-                        PreparedStatement psSailingScheduleSQL = conn.prepareStatement(sailingScheduleSQL);
-                        psSailingScheduleSQL.setInt(1, lastKey);
-                        psSailingScheduleSQL.setString(2, " ");
-                        psSailingScheduleSQL.setString(3, vessel_voyage);
-                        psSailingScheduleSQL.setString(4, sail_date);
-                        psSailingScheduleSQL.setString(5, transit_time);
-                        psSailingScheduleSQL.setString(6, trans_shipment);
-                        psSailingScheduleSQL.addBatch();
-                        psSailingScheduleSQL.executeBatch();
-                    } catch (Exception ex) {
-                        System.out.println(ex.getMessage());
-                        JOptionPane.showMessageDialog(null, "There is an error with the sailing schedule.", "Error!", JOptionPane.ERROR_MESSAGE);
-                    }
-
-                }
-            }
-
             //Displays quote ID in window pane
             JOptionPane.showMessageDialog(null, "Quote ID:" + lastKey);
 
@@ -6368,9 +6616,9 @@ public class MainMenu extends javax.swing.JFrame {
             }
 
             // Creates the PDF and saves it to the user's Quotes folder
-            new QuotePDf().QuotePDF(String.valueOf(quoteID), timeStamp, newQuoteContactName, newQuoteCompany, newQuoteContactEmail, quoteStatus, username, pol, pod, tshpPorts, commodityClass, handlingInstructions, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, docFeePDF, warRisk, warRiskPDF, includeCarrierRemarks, includeSailingSchedule, carrierComments, newQuoteSailingScheduleTable, packingListTable, spotRate, contract_rate);
+            new QuotePDf().QuotePDF(String.valueOf(quoteID), timeStamp, newQuoteContactName, newQuoteCompany, newQuoteContactEmail, quoteStatus, username, pol, pod, tshpPorts, commodityClass, handlingInstructions, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, docFeePDF, warRisk, warRiskPDF, includeCarrierRemarks, carrierComments, packingListTable, spotRate, contract_rate);
 
-        } catch (SQLException | HeadlessException | IOException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -6509,7 +6757,7 @@ public class MainMenu extends javax.swing.JFrame {
         customerInformationPanel.setVisible(false);
         publishingCenterPanel.setVisible(false);
 
-        new UserInformationActivity().UpdateUserInformationActivity(userID, username);
+        new UserInformationActivity(userID, username);
     }//GEN-LAST:event_UserInformationCenterButtonActionPerformed
 
     private void searchCenterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCenterButtonActionPerformed
@@ -6739,9 +6987,6 @@ public class MainMenu extends javax.swing.JFrame {
                 //Fill Packing List
                 insertPackingListInformation(conn, quoteID);
 
-                // Fill the sailing schedule table
-                insertSailingScheduleInformation(conn, quoteID, currentAlphaNumeral);
-
                 //Get current alph-numeral from DB and display or display N/A if none exists
                 if (currentAlphaNumeral == null || currentAlphaNumeral.equals("")) {
                     currentAlphaNumeralLabel.setText("N/A");
@@ -6837,7 +7082,7 @@ public class MainMenu extends javax.swing.JFrame {
                 updateContractRateCheckBox.setSelected(contractRate);
                 quoteCreatedLabel.setText(dateQuoted);
                 quoteLastUpdatedLabel.setText(dateUpdated);
-                if (reason_for_decline.equals("") || reason_for_decline == null) {
+                if (reason_for_decline.equals("")) {
                     updateDeclineComboBox.setSelectedIndex(0);
                 } else {
                     updateDeclineComboBox.setSelectedItem(reason_for_decline);
@@ -6870,36 +7115,12 @@ public class MainMenu extends javax.swing.JFrame {
             TableColumnModel tcm = MainMenu.updateEditPackingListTable.getColumnModel();
             tcm.getColumn(11).setMaxWidth(-9999);
             tcm.getColumn(11).setMinWidth(-9999);
+            updateEditPackingListTable.setAutoCreateRowSorter(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error:\n" + e.getMessage(), "Packing List Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private static void insertSailingScheduleInformation(Connection conn, String quoteID, String currentAlphaNumeral) {
-        String getSailingScheduleSQL = "SELECT vessel_voyage AS 'Vessel/Voyage', sail_date AS 'Sail Date', transit_time AS 'T/T', trans_shipment AS 'Transshipment', ID FROM quote_schedule WHERE  quote_ID=? AND alpha_character=?";
-        try {
-            PreparedStatement psGetSailingSchedule = conn.prepareStatement(getSailingScheduleSQL);
-            psGetSailingSchedule.setString(1, quoteID);
-            psGetSailingSchedule.setString(2, currentAlphaNumeral);
-            ResultSet rsGetSailingSchedule = psGetSailingSchedule.executeQuery();
-            updateEditSailingScheduleTable.setModel(DbUtils.resultSetToTableModel(rsGetSailingSchedule));
-            TableColumnModel tcm = updateEditSailingScheduleTable.getColumnModel();
-            tcm.getColumn(4).setMaxWidth(-9999);
-            tcm.getColumn(4).setMinWidth(-9999);
-            if (rsGetSailingSchedule.next()) {
-                TableColumn updateTshipColumn = updateEditSailingScheduleTable.getColumnModel().getColumn(3);
-                JComboBox updateTshipComboBox = new JComboBox();
-                updateTshipComboBox.addItem("");
-                updateTshipComboBox.addItem("Yes");
-                updateTshipComboBox.addItem("No");
-                updateTshipComboBox.setSelectedItem(rsGetSailingSchedule.getString("Transshipment"));
-                updateTshipColumn.setCellEditor(new DefaultCellEditor(updateTshipComboBox));
-            }
-            SailingScheduleTable();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error:\n" + ex.getMessage(), "Sailing Schedule Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
 
     private void updateCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCancelButtonActionPerformed
         // Cancel update & clear all fields
@@ -6959,7 +7180,6 @@ public class MainMenu extends javax.swing.JFrame {
         Boolean feedback = quoteFeedbackCheckBox.isSelected();
         String feedbackType = quoteFeedbackComboBox.getSelectedItem().toString();
         String feedbackDescription = quoteFeedbackTextField.getText();
-        Boolean updateIncludeSailingSchedule = editQuoteIncludeSailingScheduleCheckBox.isSelected();
         Boolean includeCarrierRemarks = editQuoteIncludeShipperCommentsCheckBox.isSelected();
         String carrierComments = updateShipperCommentsTextArea.getText();
 
@@ -7229,32 +7449,6 @@ public class MainMenu extends javax.swing.JFrame {
                             }
 
                         }
-                        if (updateIncludeSailingSchedule == true) {
-                            int ssRows = updateEditSailingScheduleTable.getRowCount();
-                            for (int r = 0; r < ssRows; r++) {
-                                String vessel_voyage = String.valueOf(updateEditSailingScheduleTable.getValueAt(r, 0));
-                                String sail_date = String.valueOf(updateEditSailingScheduleTable.getValueAt(r, 1));
-                                String transit_time = String.valueOf(updateEditSailingScheduleTable.getValueAt(r, 2));
-                                String trans_shipment = String.valueOf(updateEditSailingScheduleTable.getValueAt(r, 3));
-
-                                String updateSailingScheduleSQL = "INSERT INTO quote_schedule (quote_id, alpha_character, vessel_voyage, sail_date, transit_time, trans_shipment) VALUES(?,?,?,?,?,?)";
-
-                                try {
-                                    PreparedStatement psUpdateSailingScheduleSQL = conn.prepareStatement(updateSailingScheduleSQL);
-                                    psUpdateSailingScheduleSQL.setString(1, quoteID);
-                                    psUpdateSailingScheduleSQL.setString(2, updateAlphaNumeral);
-                                    psUpdateSailingScheduleSQL.setString(3, vessel_voyage);
-                                    psUpdateSailingScheduleSQL.setString(4, sail_date);
-                                    psUpdateSailingScheduleSQL.setString(5, transit_time);
-                                    psUpdateSailingScheduleSQL.setString(6, trans_shipment);
-                                    psUpdateSailingScheduleSQL.addBatch();
-                                    psUpdateSailingScheduleSQL.executeBatch();
-                                } catch (Exception ex) {
-                                    System.out.println(ex.getMessage());
-                                    JOptionPane.showMessageDialog(null, "There is an error with the sailing schedule.", "Error!", JOptionPane.ERROR_MESSAGE);
-                                }
-                            }
-                        }
 
                         JOptionPane.showMessageDialog(null, "Quote ID: " + quoteID + updateAlphaNumeral + " has been successfully updated");
 
@@ -7338,7 +7532,7 @@ public class MainMenu extends javax.swing.JFrame {
                             quoteStatus = "Active";
                         }
 
-                        new QuotePDf().QuotePDF(String.valueOf(quoteID + updateAlphaNumeral), timeStamp, contactName, customerName, contactEmail, quoteStatus, username, pol, pod, tshpPorts, commodityClass, handlingInstruction, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, documentationFeePdf, warRisk, warRiskPDF, includeCarrierRemarks, updateIncludeSailingSchedule, carrierComments, updateEditSailingScheduleTable, updateEditPackingListTable, spotRate, contract_rate);
+                        new QuotePDf().QuotePDF(String.valueOf(quoteID + updateAlphaNumeral), timeStamp, contactName, customerName, contactEmail, quoteStatus, username, pol, pod, tshpPorts, commodityClass, handlingInstruction, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, documentationFeePdf, warRisk, warRiskPDF, includeCarrierRemarks, carrierComments, updateEditPackingListTable, spotRate, contract_rate);
 
                     } catch (SQLException | HeadlessException | IOException ex) {
                         System.out.println("Second Try: " + ex.getMessage());
@@ -7466,10 +7660,6 @@ public class MainMenu extends javax.swing.JFrame {
         storageSubjectToTariffCheckBox.setSelected(false);
         pCommentsTextArea.setText("");
         pBookingNumberTextField.setText("");
-        commodityNumberTextField.setText("");
-        descriptionTextField.setText("");
-        tliNumberTextField.setText("");
-        expirationDateTextField.setText("");
         pQuoteNumberTextField.setText("");
         pIDTextField.setText("");
     }//GEN-LAST:event_cancelSpotFileButtonActionPerformed
@@ -7577,7 +7767,6 @@ public class MainMenu extends javax.swing.JFrame {
         searchPanel.setVisible(false);
         customerInformationPanel.setVisible(true);
         publishingCenterPanel.setVisible(false);
-
         newCustomerFirstName.setText("");
         newCustomerLastName.setText("");
         newCustomerOfficePhone.setText("");
@@ -7716,10 +7905,6 @@ public class MainMenu extends javax.swing.JFrame {
         Boolean storageSubjectToTariff = storageSubjectToTariffCheckBox.isSelected();
         Boolean bafSubjectToTariff = bafSubjectToTariffCheckBox.isSelected();
         Boolean ecaSubjectToTariff = ecaSubjectToTariffCheckBox.isSelected();
-        String commodityNumber = commodityNumberTextField.getText();
-        String description = descriptionTextField.getText();
-        String tliNumber = tliNumberTextField.getText();
-        String expiration = expirationDateTextField.getText();
         String ID = pQuoteIDTextField.getText();
 
         String timeStamp = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(Calendar.getInstance().getTime());
@@ -7774,7 +7959,7 @@ public class MainMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "You can only select one");
         }
 
-        String sql = "UPDATE spotrates SET validityFrom=?, validityTo=?, tariffNumber=?, pol=?, pod=?, bookingNumber=?, commClass=?, handlingInstructions=?, commDesc=?, oft=?, oftUnit=?, baf=?,bafIncluded=?, bafPerTariff=?, ecaBaf=?, ecaBafUnit=?, ecaIncluded=?, ecaPerTariff=?, thc=?, thcUnit=?, thcIncluded=?, thcPerTariff=?, wfg=?, wfgUnit=?, wfgIncluded=?, wfgPerTariff=?, storage=?, storageUnit=?, storageIncluded=?, storagePerTariff=?, docFee=?, docFeeIncluded=?, comments=?, quoteID=?, warRisk=?, commodityNumber=?, description=?, tliNumber=?, expiration=? WHERE ID=?";
+        String sql = "UPDATE spotrates SET validityFrom=?, validityTo=?, tariffNumber=?, pol=?, pod=?, bookingNumber=?, commClass=?, handlingInstructions=?, commDesc=?, oft=?, oftUnit=?, baf=?,bafIncluded=?, bafPerTariff=?, ecaBaf=?, ecaBafUnit=?, ecaIncluded=?, ecaPerTariff=?, thc=?, thcUnit=?, thcIncluded=?, thcPerTariff=?, wfg=?, wfgUnit=?, wfgIncluded=?, wfgPerTariff=?, storage=?, storageUnit=?, storageIncluded=?, storagePerTariff=?, docFee=?, docFeeIncluded=?, comments=?, quoteID=?, warRisk=? WHERE ID=?";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -7813,10 +7998,6 @@ public class MainMenu extends javax.swing.JFrame {
             ps.setString(33, comments);
             ps.setString(34, quoteID);
             ps.setBoolean(35, warRisk);
-            ps.setString(36, commodityNumber);
-            ps.setString(37, description);
-            ps.setString(38, tliNumber);
-            ps.setString(39, expiration);
             ps.setString(40, ID);
 
             ps.executeUpdate();
@@ -8124,11 +8305,11 @@ public class MainMenu extends javax.swing.JFrame {
             Cell comm = row22.createCell(1);
             comm.setCellValue("Commodity #:");
             comm.setCellStyle(redFontStyle);
-            row22.createCell(2).setCellValue(commodityNumber);
+            row22.createCell(2).setCellValue("");
             Cell desc = row22.createCell(3);
             desc.setCellValue("Description:");
             desc.setCellStyle(redFontStyle);
-            row22.createCell(4).setCellValue(description);
+            row22.createCell(4).setCellValue("");
 
             HSSFRow space20 = sheet.createRow((short) 41);
 
@@ -8136,7 +8317,7 @@ public class MainMenu extends javax.swing.JFrame {
             Cell TLI = row24.createCell(1);
             TLI.setCellValue("TLI #:");
             TLI.setCellStyle(redFontStyle);
-            row24.createCell(2).setCellValue(tliNumber);
+            row24.createCell(2).setCellValue("");
 
             HSSFRow space21 = sheet.createRow((short) 43);
 
@@ -8144,7 +8325,7 @@ public class MainMenu extends javax.swing.JFrame {
             Cell exp = row26.createCell(1);
             exp.setCellValue("Expiration: ");
             exp.setCellStyle(redFontStyle);
-            row26.createCell(2).setCellValue(expiration);
+            row26.createCell(2).setCellValue("");
 
             try (FileOutputStream fileOut = new FileOutputStream(filename)) {
                 workbook.write(fileOut);
@@ -8188,10 +8369,6 @@ public class MainMenu extends javax.swing.JFrame {
             storageTextField.setText("");
             storageUnitComboBox.setSelectedIndex(0);
             storageIncludedCheckBox.setSelected(false);
-            commodityNumberTextField.setText("");
-            descriptionTextField.setText("");
-            tliNumberTextField.setText("");
-            expirationDateTextField.setText("");
             pQuoteNumberTextField.setText("");
             pIDTextField.setText("");
 
@@ -8200,1131 +8377,6 @@ public class MainMenu extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_saveChangesPublishingPDFButtonActionPerformed
-
-    private void newFilingCompleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFilingCompleteButtonActionPerformed
-        /**
-         * Allows publishing to add TLI, etc. to spot filing Sends confirmation
-         * email to sales upon accept
-         */
-
-        // Connect to databse
-        Connection conn = new DBConnection().connect();
-
-        // Get value from inputs and assign to strings. 
-        String validityFrom = validityFromDatePicker.getJFormattedTextField().getText();
-        String validityTo = validityToDatePicker.getJFormattedTextField().getText();
-        String kkluNumber = kkluNumberTextField.getText();
-        String pol = pPolTextField.getText();
-        String pod = pPodTextField.getText();
-        String commClass = pCommodityClassComboBox.getSelectedItem().toString();
-        String handlingInstructions = pHandlingInstructions.getSelectedItem().toString();
-        String commDesc = pCommodityDescriptionTextField.getText();
-        String oft = pOftTextField.getText();
-        String oftUnit = pOftComboBox.getSelectedItem().toString();
-        String baf = null;
-        String bafText = pBafTextField.getText();
-        Boolean bafIncluded = pBafIncludedCheckBox.isSelected();
-        String eca = null;
-        String ecaText = pEcaTextField.getText();
-        String ecaUnit = pEcaComboBox.getSelectedItem().toString();
-        Boolean ecaIncluded = pEcaIncludedCheckBox.isSelected();
-        String thc = null;
-        String thcText = "$" + pThcTextField.getText();
-        String thcUnit = pThcComboBox.getSelectedItem().toString();
-        Boolean thcIncluded = pThcIncludedCheckBox.isSelected();
-        Boolean thcSubjectToTariff = thcSubjectToTariffCheckBox.isSelected();
-        String wfg = null;
-        String wfgText = pWfgTextField.getText();
-        String wfgUnit = pWfgComboBox.getSelectedItem().toString();
-        Boolean wfgIncluded = pWfgIncludedCheckBox.isSelected();
-        Boolean wfgSubjectToTariff = wfgSubjectToTariffCheckBox.isSelected();
-        String docFee = pDocFeeComboBox.getSelectedItem().toString();
-        Boolean docFeeIncluded = pDocFeeIncludedCheckBox.isSelected();
-        String comments = pCommentsTextArea.getText();
-        Boolean warRisk = pWarRiskCheckBox.isSelected();
-        String quoteID = pQuoteNumberTextField.getText();
-        String bookingNumber = pBookingNumberTextField.getText();
-        String storage = null;
-        String storageText = storageTextField.getText();
-        String storageUnit = storageUnitComboBox.getSelectedItem().toString();
-        Boolean storageIncluded = storageIncludedCheckBox.isSelected();
-        Boolean storageSubjectToTariff = storageSubjectToTariffCheckBox.isSelected();
-        Boolean bafSubjectToTariff = bafSubjectToTariffCheckBox.isSelected();
-        Boolean ecaSubjectToTariff = ecaSubjectToTariffCheckBox.isSelected();
-        String commodityNumber = commodityNumberTextField.getText();
-        String description = descriptionTextField.getText();
-        String tliNumber = tliNumberTextField.getText();
-        String expirationDate = expirationDateTextField.getText();
-        String PID = pIDTextField.getText();
-
-        String timeStamp = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(Calendar.getInstance().getTime());
-
-        if (bafIncluded != true && ecaSubjectToTariff != true) {
-            baf = bafText;
-        } else if (bafIncluded == true) {
-            baf = "Included";
-        } else if (bafSubjectToTariff == true) {
-            baf = "Subject to Tariff";
-        }
-
-        if (ecaIncluded != true && ecaSubjectToTariff != true) {
-            eca = ecaText;
-        } else if (ecaIncluded == true) {
-            eca = "Included";
-        } else if (ecaSubjectToTariff == true) {
-            eca = "Subject to Tariff";
-        } else if (ecaSubjectToTariff == true) {
-            eca = "Subject to Tariff";
-        }
-
-        if (thcSubjectToTariff == true) {
-            thc = "Subject to Tariff";
-        } else if (thcSubjectToTariff != true && thcIncluded != true) {
-            thc = thcText;
-        } else if (thcSubjectToTariff != true && thcIncluded == true) {
-            thc = "Included";
-        } else if (thcIncluded == true && thcSubjectToTariff == true) {
-            JOptionPane.showMessageDialog(null, "You can only select one");
-        }
-
-        if (wfgSubjectToTariff == true) {
-            wfg = "Subject to Tariff";
-            wfgUnit = "N/A";
-        } else if (wfgSubjectToTariff != true && wfgIncluded != true) {
-            wfg = wfgText;
-        } else if (wfgSubjectToTariff != true && wfgIncluded == true) {
-            wfg = "Included";
-        } else if (wfgIncluded == true && wfgSubjectToTariff == true) {
-            JOptionPane.showMessageDialog(null, "You can only select one");
-        }
-
-        if (storageSubjectToTariff == true) {
-            storage = "Subject to Tariff";
-            storageUnit = "N/A";
-        } else if (storageSubjectToTariff != true && storageIncluded != true) {
-            storage = storageText;
-        } else if (storageIncluded == true && storageSubjectToTariff != true) {
-            storage = "Included";
-        } else if (storageIncluded == true && storageSubjectToTariff == true) {
-            JOptionPane.showMessageDialog(null, "You can only select one");
-        }
-
-        String sql = "UPDATE spotrates SET validityFrom=?, validityTo=?, tariffNumber=?, pol=?, pod=?, bookingNumber=?, commClass=?, handlingInstructions=?, commDesc=?, oft=?, oftUnit=?, baf=?,bafIncluded=?, bafPerTariff=?, ecaBaf=?, ecaBafUnit=?, ecaIncluded=?, ecaPerTariff=?, thc=?, thcUnit=?, thcIncluded=?, thcPerTariff=?, wfg=?, wfgUnit=?, wfgIncluded=?, wfgPerTariff=?, storage=?, storageUnit=?, storageIncluded=?, storagePerTariff=?, docFee=?, docFeeIncluded=?, comments=?, quoteID=?, warRisk=?, commodityNumber=?, description=?, tliNumber=?, expiration=? WHERE ID=?";
-
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, validityFrom);
-            ps.setString(2, validityTo);
-            ps.setString(3, kkluNumber);
-            ps.setString(4, pol);
-            ps.setString(5, pod);
-            ps.setString(6, bookingNumber);
-            ps.setString(7, commClass);
-            ps.setString(8, handlingInstructions);
-            ps.setString(9, commDesc);
-            ps.setString(10, oft);
-            ps.setString(11, oftUnit);
-            ps.setString(12, baf);
-            ps.setBoolean(13, bafIncluded);
-            ps.setBoolean(14, bafSubjectToTariff);
-            ps.setString(15, eca);
-            ps.setString(16, ecaUnit);
-            ps.setBoolean(17, ecaIncluded);
-            ps.setBoolean(18, ecaSubjectToTariff);
-            ps.setString(19, thc);
-            ps.setString(20, thcUnit);
-            ps.setBoolean(21, thcIncluded);
-            ps.setBoolean(22, thcSubjectToTariff);
-            ps.setString(23, wfg);
-            ps.setString(24, wfgUnit);
-            ps.setBoolean(25, wfgIncluded);
-            ps.setBoolean(26, wfgSubjectToTariff);
-            ps.setString(27, storage);
-            ps.setString(28, storageUnit);
-            ps.setBoolean(29, storageIncluded);
-            ps.setBoolean(30, storageSubjectToTariff);
-            ps.setString(31, docFee);
-            ps.setBoolean(32, docFeeIncluded);
-            ps.setString(33, comments);
-            ps.setString(34, quoteID);
-            ps.setBoolean(35, warRisk);
-            ps.setString(36, commodityNumber);
-            ps.setString(37, description);
-            ps.setString(38, tliNumber);
-            ps.setString(39, expirationDate);
-            ps.setString(40, PID);
-
-            ps.executeUpdate();
-
-            //Return the auto-generated key
-            ResultSet keys = ps.getGeneratedKeys();
-            int lastKey = 1;
-            while (keys.next()) {
-                lastKey = keys.getInt(1);
-            }
-
-            String addBookingNumber = "UPDATE allquotes SET bookingNumber='" + bookingNumber + "', publishingID='" + lastKey + "', commodityNumber='" + commodityNumber + "', description = '" + description + "', tliNumber='" + tliNumber + "', expiration='" + expirationDate + "' WHERE ID='" + quoteID + "';";
-            PreparedStatement psAddBookingNumber = conn.prepareStatement(addBookingNumber);
-            psAddBookingNumber.executeUpdate(addBookingNumber);
-
-            Double oft1 = (Double) (Double.parseDouble(oft));
-            String eca1 = "";
-            switch (eca) {
-                case "Included":
-                    eca1 = "Included";
-                    break;
-                case "Subject to Tariff":
-                    eca1 = "Subject to Tariff";
-                    break;
-                default:
-                    eca1 = "$" + eca + " " + ecaUnit;
-                    break;
-            }
-            String baf1;
-            switch (baf) {
-                case "Included":
-                    baf1 = "Included";
-                    break;
-                case "Subject To Tariff":
-                    baf1 = "Subject to Tariff";
-                    break;
-                default:
-                    baf1 = baf + "%";
-                    break;
-            }
-
-            String thc1;
-
-            switch (thc) {
-                case "Included":
-                    thc1 = thc;
-                    break;
-                case "Subject to Tariff":
-                    thc1 = "Subject to Tariff";
-                    break;
-                default:
-                    thc1 = "$" + thc + " per " + thcUnit;
-                    break;
-            }
-
-            switch (thcUnit) {
-                case "FAS":
-                    thc1 = thcUnit;
-                    break;
-                case "Subject to local charges":
-                    thc1 = thcUnit;
-                default:
-                    break;
-            }
-
-            String wfg1;
-            switch (wfg) {
-                case "Included":
-                    wfg1 = wfg;
-                    break;
-                case "Subject to Tariff":
-                    wfg1 = "Subject to Tariff";
-                    break;
-                default:
-                    wfg1 = "$" + wfg + " per " + wfgUnit;
-                    break;
-            }
-
-            switch (wfgUnit) {
-                case "FAS":
-                    wfg1 = wfgUnit;
-                    break;
-                case "Subject to local charges":
-                    wfg1 = wfgUnit;
-                default:
-                    break;
-            }
-
-            /*
-             ***************************************
-             ***************************************
-             ***************************************
-             */
-            String filename = userHomeFolder + "\\Desktop\\Publishing\\" + pol + " To " + pod + "; " + commDesc + " PID" + lastKey + ".xls";
-            HSSFWorkbook workbook = new HSSFWorkbook();
-            HSSFSheet sheet = workbook.createSheet("KKLU" + kkluNumber);
-
-            sheet.setColumnWidth(0, 650);
-            sheet.setColumnWidth(1, 5742);
-            sheet.setColumnWidth(2, 5920);
-            sheet.setColumnWidth(3, 3668);
-            sheet.setColumnWidth(4, 5711);
-
-            //Bold Font
-            HSSFFont font = workbook.createFont();
-            font.setBold(true);
-            CellStyle style = workbook.createCellStyle();
-            style.setFont(font);
-
-            //Currency cell type
-            CellStyle currency = workbook.createCellStyle();
-            currency.setDataFormat((short) 7);
-
-            //Percentage cell type
-            CellStyle percentage = workbook.createCellStyle();
-            percentage.setDataFormat((short) 0xa);
-
-            sheet.setDisplayGridlines(false);
-
-            //Black medium sized border around cell
-            CellStyle blackBorder = workbook.createCellStyle();
-            blackBorder.setBorderBottom(CellStyle.BORDER_MEDIUM);
-            blackBorder.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-            blackBorder.setBorderLeft(CellStyle.BORDER_MEDIUM);
-            blackBorder.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-            blackBorder.setBorderRight(CellStyle.BORDER_MEDIUM);
-            blackBorder.setRightBorderColor(IndexedColors.BLACK.getIndex());
-            blackBorder.setBorderTop(CellStyle.BORDER_MEDIUM);
-            blackBorder.setTopBorderColor(IndexedColors.BLACK.getIndex());
-
-            //Red font
-            CellStyle redFontStyle = workbook.createCellStyle();
-            HSSFFont redFont = workbook.createFont();
-            redFont.setColor(HSSFColor.RED.index);
-            redFontStyle.setFont(redFont);
-
-            HSSFRow rowhead = sheet.createRow((short) 0);
-            rowhead.createCell(3).setCellValue(validityFrom);
-
-            HSSFRow row1 = sheet.createRow((short) 1);
-            Cell cell = row1.createCell(1);
-            cell.setCellValue("FILING REQUEST TO RICLFILE");
-            cell.setCellStyle(style);
-
-            sheet.addMergedRegion(new CellRangeAddress(1, 1, 1, 3));
-
-            sheet.setPrintGridlines(false);
-
-            HSSFRow row2 = sheet.createRow((short) 2);
-            row2.createCell(0).setCellValue("A)");
-            row2.createCell(1).setCellValue("Tariff Number(KKLU):");
-            row2.createCell(2).setCellValue(kkluNumber);
-
-            HSSFRow space0 = sheet.createRow((short) 3);
-
-            HSSFRow row4 = sheet.createRow((short) 4);
-            row4.createCell(0).setCellValue("B)");
-            row4.createCell(1).setCellValue("Commodity:");
-            row4.createCell(2).setCellValue(commDesc);
-
-            HSSFRow space2 = sheet.createRow((short) 5);
-
-            HSSFRow row5 = sheet.createRow((short) 6);
-            row5.createCell(0).setCellValue("C)");
-            row5.createCell(1).setCellValue("POL:");
-            row5.createCell(2).setCellValue(pol);
-
-            HSSFRow space3 = sheet.createRow((short) 7);
-
-            HSSFRow row6 = sheet.createRow((short) 8);
-            row6.createCell(0).setCellValue("D)");
-            row6.createCell(1).setCellValue("POD:");
-            row6.createCell(2).setCellValue(pod);
-
-            HSSFRow space4 = sheet.createRow((short) 9);
-
-            HSSFRow row7 = sheet.createRow((short) 10);
-            row7.createCell(0).setCellValue("E)");
-            row7.createCell(1).setCellValue("Rate:");
-            Cell rate = row7.createCell(2);
-            rate.setCellValue(oft1);
-            rate.setCellStyle(currency);
-
-            HSSFRow space5 = sheet.createRow((short) 11);
-
-            HSSFRow row8 = sheet.createRow((short) 12);
-            row8.createCell(0).setCellValue("F)");
-            row8.createCell(1).setCellValue("Rate Basis:");
-            row8.createCell(2).setCellValue(oftUnit);
-
-            HSSFRow space6 = sheet.createRow((short) 13);
-
-            HSSFRow row9 = sheet.createRow((short) 14);
-            row9.createCell(0).setCellValue("G)");
-            row9.createCell(1).setCellValue("BAF:");
-            Cell Baf = row9.createCell(2);
-            switch (baf1) {
-                case "Included":
-                    Baf.setCellValue("Included");
-                    break;
-                case "Subject to Tariff":
-                    Baf.setCellValue("Subject to Tariff");
-                    break;
-                default:
-                    Baf.setCellValue(baf1);
-                    Baf.setCellStyle(percentage);
-                    break;
-            }
-
-            HSSFRow space7 = sheet.createRow((short) 15);
-
-            HSSFRow row10 = sheet.createRow((short) 16);
-            row10.createCell(0).setCellValue("H)");
-            row10.createCell(1).setCellValue("ECA BAF:");
-            Cell ecaBaf = row10.createCell(2);
-            switch (eca) {
-                case "Included":
-                    ecaBaf.setCellValue("Included");
-                    break;
-                case "Subject to Tariff":
-                    ecaBaf.setCellValue("Subject to Tariff");
-                    break;
-                default:
-                    ecaBaf.setCellValue("$" + eca1 + " per " + ecaUnit);
-                    ecaBaf.setCellStyle(currency);
-                    break;
-            }
-
-            HSSFRow space8 = sheet.createRow((short) 17);
-
-            HSSFRow row11 = sheet.createRow((short) 18);
-            row11.createCell(0).setCellValue("I)");
-            row11.createCell(1).setCellValue("THC/WFG:");
-            row11.createCell(2).setCellValue(thc1 + " / " + wfg1);
-
-            HSSFRow space = sheet.createRow((short) 19);
-
-            HSSFRow row12 = sheet.createRow((short) 20);
-            row12.createCell(0).setCellValue("J)");
-            row12.createCell(1).setCellValue("Storage:");
-            row12.createCell(2).setCellValue(storage);
-
-            HSSFRow space10 = sheet.createRow((short) 21);
-
-            HSSFRow row13 = sheet.createRow((short) 22);
-            row13.createCell(0).setCellValue("K)");
-            row13.createCell(1).setCellValue("Doc Fee:");
-            row13.createCell(2).setCellValue(docFee);
-
-            HSSFRow space11 = sheet.createRow((short) 23);
-
-            HSSFRow row14 = sheet.createRow((short) 24);
-            row14.createCell(0).setCellValue("L)");
-            row14.createCell(1).setCellValue("War Risk:");
-
-            HSSFRow space12 = sheet.createRow((short) 25);
-
-            if (warRisk == true) {
-                String warRiskPercentage = "3%";
-                row14.createCell(2).setCellValue(warRiskPercentage);
-            } else if (warRisk != true) {
-                String warRiskPercentage = "N/A";
-                row14.createCell(2).setCellValue(warRiskPercentage);
-            }
-
-            HSSFRow row15 = sheet.createRow((short) 26);
-            row15.createCell(0).setCellValue("M)");
-            row15.createCell(1).setCellValue("Validity");
-            row15.createCell(2).setCellValue("Effective: " + validityFrom);
-
-            HSSFRow row16 = sheet.createRow((short) 27);
-            row16.createCell(2).setCellValue("Expiration: " + validityTo);
-
-            HSSFRow space13 = sheet.createRow((short) 28);
-
-            HSSFRow row17 = sheet.createRow((short) 29);
-            row17.createCell(0).setCellValue("N)");
-            row17.createCell(1).setCellValue("Remarks");
-            row17.createCell(2).setCellValue(comments);
-
-            HSSFRow space14 = sheet.createRow((short) 30);
-
-            HSSFRow row18 = sheet.createRow((short) 31);
-            row18.createCell(0).setCellValue("O)");
-            row18.createCell(1).setCellValue("Booking #:");
-            row18.createCell(2).setCellValue(bookingNumber);
-
-            HSSFRow space15 = sheet.createRow((short) 32);
-
-            HSSFRow row19 = sheet.createRow((short) 33);
-            row19.createCell(0).setCellValue("P)");
-            row19.createCell(1).setCellValue("RQS #:");
-            row19.createCell(2).setCellValue(quoteID);
-
-            HSSFRow space16 = sheet.createRow((short) 34);
-
-            HSSFRow row20 = sheet.createRow((short) 35);
-            row20.createCell(0).setCellValue("Q)");
-            row20.createCell(1).setCellValue("PID #:");
-            row20.createCell(2).setCellValue(lastKey);
-
-            HSSFRow space17 = sheet.createRow((short) 36);
-
-            HSSFRow space18 = sheet.createRow((short) 37);
-
-            HSSFRow row21 = sheet.createRow((short) 38);
-            row21.createCell(0).setCellValue("");
-            row21.createCell(1).setCellValue("For RICLFILE Use Only");
-
-            HSSFRow space19 = sheet.createRow((short) 39);
-
-            HSSFRow row22 = sheet.createRow((short) 40);
-            Cell comm = row22.createCell(1);
-            comm.setCellValue("Commodity #:");
-            comm.setCellStyle(redFontStyle);
-            row22.createCell(2).setCellValue(commodityNumber);
-            Cell desc = row22.createCell(3);
-            desc.setCellValue("Description:");
-            desc.setCellStyle(redFontStyle);
-            row22.createCell(4).setCellValue(description);
-
-            HSSFRow space20 = sheet.createRow((short) 41);
-
-            HSSFRow row24 = sheet.createRow((short) 42);
-            Cell TLI = row24.createCell(1);
-            TLI.setCellValue("TLI #:");
-            TLI.setCellStyle(redFontStyle);
-            row24.createCell(2).setCellValue(tliNumber);
-
-            HSSFRow space21 = sheet.createRow((short) 43);
-
-            HSSFRow row26 = sheet.createRow((short) 44);
-            Cell exp = row26.createCell(1);
-            exp.setCellValue("Expiration: ");
-            exp.setCellStyle(redFontStyle);
-            row26.createCell(2).setCellValue(expirationDate);
-
-            System.out.print("Your excel file has been generate");
-
-            String spotRateId = String.valueOf(lastKey);
-
-            try (FileOutputStream fileOut = new FileOutputStream(filename)) {
-                workbook.write(fileOut);
-            }
-            try {
-
-                // Initialize the properties class for sending SMTP
-                Properties props = new Properties();
-                props.put("mail.smtp.host", "smtp01.us.kline.com"); //Assign the smtp host
-                props.put("mail.smtp.port", "25"); //Assign the port 465 = SSL, 25 != SSL
-
-                //Initialize the Session and assign the properties to the session
-                Session session = Session.getDefaultInstance(props, null);
-
-                // Create the standardized email message sent
-                String msgBody = "Sales,\n\n        Confirm spot rate (PID" + spotRateId + ") for RQS" + quoteID + " has been published.\n\n\nSincerely,\n\n KAM RICBCAR Publishing ";
-                Message msg = new MimeMessage(session);
-                msg.setFrom(new InternetAddress("kamricbcarpublishing@us.kline.com", "RORO Publishing Confirmation"));
-                msg.addRecipient(Message.RecipientType.TO, new InternetAddress("connor.meehan@us.kline.com"));
-                msg.setSubject("RQS New Spot Rate Confirmation");
-                msg.setText(msgBody);
-                Transport.send(msg);
-                System.out.println("Success! " + msg);
-            } catch (MessagingException | UnsupportedEncodingException e) {
-                System.out.println("Error " + e.getMessage());
-            }
-
-            JOptionPane.showMessageDialog(null, "The spot filing for " + quoteID + " has been succsefully generated.");
-            pQuoteIDTextField.setText("");
-            validityFromDatePicker.getJFormattedTextField().setText("");
-            validityToDatePicker.getJFormattedTextField().setText("");
-            kkluNumberTextField.setText("");
-            pPolTextField.setText("");
-            pPodTextField.setText("");
-            pCommodityClassComboBox.setSelectedIndex(0);
-            pHandlingInstructions.setSelectedIndex(0);
-            pCommodityDescriptionTextField.setText("");
-            pOftTextField.setText("");
-            pOftComboBox.setSelectedItem("");
-            bafSubjectToTariffCheckBox.setSelected(false);
-            pBafTextField.setText("");
-            pBafIncludedCheckBox.setSelected(false);
-            pEcaTextField.setText("");
-            pEcaComboBox.setSelectedItem("");
-            pEcaIncludedCheckBox.setSelected(false);
-            ecaSubjectToTariffCheckBox.setSelected(false);
-            pThcTextField.setText("");
-            pThcComboBox.setSelectedIndex(0);
-            pThcIncludedCheckBox.setSelected(false);
-            thcSubjectToTariffCheckBox.setSelected(false);
-            pWfgTextField.setText("");
-            pWfgComboBox.setSelectedIndex(0);
-            pWfgIncludedCheckBox.setSelected(false);
-            wfgSubjectToTariffCheckBox.setSelected(false);
-            pDocFeeComboBox.setSelectedIndex(0);
-            pWarRiskCheckBox.setSelected(false);
-            storageSubjectToTariffCheckBox.setSelected(false);
-            pCommentsTextArea.setText("");
-            pBookingNumberTextField.setText("");
-            commodityNumberTextField.setText("");
-            descriptionTextField.setText("");
-            tliNumberTextField.setText("");
-            expirationDateTextField.setText("");
-            pQuoteNumberTextField.setText("");
-            pIDTextField.setText("");
-
-        } catch (SQLException | IOException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-            System.out.println(e.getMessage());
-            System.out.println(Arrays.toString(e.getStackTrace()));
-        }
-
-
-    }//GEN-LAST:event_newFilingCompleteButtonActionPerformed
-
-    private void newFilingCompleteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFilingCompleteButton1ActionPerformed
-        /**
-         * Allows Publishing to update a spot rate Send confirmation for update
-         * to sales
-         */
-
-        // Connect to databse
-        Connection conn = new DBConnection().connect();
-
-        // Get value from inputs and assign to strings. 
-        String validityFrom = validityFromDatePicker.getJFormattedTextField().getText();
-        String validityTo = validityToDatePicker.getJFormattedTextField().getText();
-        String kkluNumber = kkluNumberTextField.getText();
-        String pol = pPolTextField.getText();
-        String pod = pPodTextField.getText();
-        String commClass = pCommodityClassComboBox.getSelectedItem().toString();
-        String handlingInstructions = pHandlingInstructions.getSelectedItem().toString();
-        String commDesc = pCommodityDescriptionTextField.getText();
-        String oft = pOftTextField.getText();
-        String oftUnit = pOftComboBox.getSelectedItem().toString();
-        String baf = null;
-        String bafText = pBafTextField.getText();
-        Boolean bafIncluded = pBafIncludedCheckBox.isSelected();
-        String eca = null;
-        String ecaText = pEcaTextField.getText();
-        String ecaUnit = pEcaComboBox.getSelectedItem().toString();
-        Boolean ecaIncluded = pEcaIncludedCheckBox.isSelected();
-        String thc = null;
-        String thcText = "$" + pThcTextField.getText();
-        String thcUnit = pThcComboBox.getSelectedItem().toString();
-        Boolean thcIncluded = pThcIncludedCheckBox.isSelected();
-        Boolean thcSubjectToTariff = thcSubjectToTariffCheckBox.isSelected();
-        String wfg = null;
-        String wfgText = pWfgTextField.getText();
-        String wfgUnit = pWfgComboBox.getSelectedItem().toString();
-        Boolean wfgIncluded = pWfgIncludedCheckBox.isSelected();
-        Boolean wfgSubjectToTariff = wfgSubjectToTariffCheckBox.isSelected();
-        String docFee = pDocFeeComboBox.getSelectedItem().toString();
-        Boolean docFeeIncluded = pDocFeeIncludedCheckBox.isSelected();
-        String comments = pCommentsTextArea.getText();
-        Boolean warRisk = pWarRiskCheckBox.isSelected();
-        String quoteID = pQuoteNumberTextField.getText();
-        String bookingNumber = pBookingNumberTextField.getText();
-        String storage = null;
-        String storageText = storageTextField.getText();
-        String storageUnit = storageUnitComboBox.getSelectedItem().toString();
-        Boolean storageIncluded = storageIncludedCheckBox.isSelected();
-        Boolean storageSubjectToTariff = storageSubjectToTariffCheckBox.isSelected();
-        Boolean bafSubjectToTariff = bafSubjectToTariffCheckBox.isSelected();
-        Boolean ecaSubjectToTariff = ecaSubjectToTariffCheckBox.isSelected();
-        String commodityNumber = commodityNumberTextField.getText();
-        String description = descriptionTextField.getText();
-        String tliNumber = tliNumberTextField.getText();
-        String expirationDate = expirationDateTextField.getText();
-        String pid = pIDTextField.getText();
-
-        String timeStamp = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(Calendar.getInstance().getTime());
-
-        if (bafIncluded != true && ecaSubjectToTariff != true) {
-            baf = bafText;
-        } else if (bafIncluded == true) {
-            baf = "Included";
-        } else if (bafSubjectToTariff == true) {
-            baf = "Subject to Tariff";
-        }
-
-        if (ecaIncluded != true && ecaSubjectToTariff != true) {
-            eca = ecaText;
-        } else if (ecaIncluded == true) {
-            eca = "Included";
-        } else if (ecaSubjectToTariff == true) {
-            eca = "Subject to Tariff";
-        } else if (ecaSubjectToTariff == true) {
-            eca = "Subject to Tariff";
-        }
-
-        if (thcSubjectToTariff == true) {
-            thc = "Subject to Tariff";
-        } else if (thcSubjectToTariff != true && thcIncluded != true) {
-            thc = thcText;
-        } else if (thcSubjectToTariff != true && thcIncluded == true) {
-            thc = "Included";
-        } else if (thcIncluded == true && thcSubjectToTariff == true) {
-            JOptionPane.showMessageDialog(null, "You can only select one");
-        }
-
-        if (wfgSubjectToTariff == true) {
-            wfg = "Subject to Tariff";
-            wfgUnit = "N/A";
-        } else if (wfgSubjectToTariff != true && wfgIncluded != true) {
-            wfg = wfgText;
-        } else if (wfgSubjectToTariff != true && wfgIncluded == true) {
-            wfg = "Included";
-        } else if (wfgIncluded == true && wfgSubjectToTariff == true) {
-            JOptionPane.showMessageDialog(null, "You can only select one");
-        }
-
-        if (storageSubjectToTariff == true) {
-            storage = "Subject to Tariff";
-            storageUnit = "N/A";
-        } else if (storageSubjectToTariff != true && storageIncluded != true) {
-            storage = storageText;
-        } else if (storageIncluded == true && storageSubjectToTariff != true) {
-            storage = "Included";
-        } else if (storageIncluded == true && storageSubjectToTariff == true) {
-            JOptionPane.showMessageDialog(null, "You can only select one");
-        }
-
-        String sql = "UPDATE spotrates SET validityFrom=?, validityTo=?, tariffNumber=?, pol=?, pod=?, bookingNumber=?, commClass=?, handlingInstructions=?, commDesc=?, oft=?, oftUnit=?, baf=?, bafIncluded=?, bafPerTariff=?, ecaBaf=?, ecaBafUnit=?, ecaIncluded=?, ecaPerTariff=?, thc=?, thcUnit=?, thcIncluded=?, thcPerTariff=?, wfg=?, wfgUnit=?, wfgIncluded=?, wfgPerTariff=?, storage=?, storageUnit=?, storageIncluded=?, storagePerTariff=?, docFee=?, docFeeIncluded=?, comments=?, quoteID=?, warRisk=?, commodityNumber=?, description=?, tliNumber=?, expiration=?  WHERE ID=?";
-
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, validityFrom);
-            ps.setString(2, validityTo);
-            ps.setString(3, kkluNumber);
-            ps.setString(4, pol);
-            ps.setString(5, pod);
-            ps.setString(6, bookingNumber);
-            ps.setString(7, commClass);
-            ps.setString(8, handlingInstructions);
-            ps.setString(9, commDesc);
-            ps.setString(10, oft);
-            ps.setString(11, oftUnit);
-            ps.setString(12, baf);
-            ps.setBoolean(13, bafIncluded);
-            ps.setBoolean(14, bafSubjectToTariff);
-            ps.setString(15, eca);
-            ps.setString(16, ecaUnit);
-            ps.setBoolean(17, ecaIncluded);
-            ps.setBoolean(18, ecaSubjectToTariff);
-            ps.setString(19, thc);
-            ps.setString(20, thcUnit);
-            ps.setBoolean(21, thcIncluded);
-            ps.setBoolean(22, thcSubjectToTariff);
-            ps.setString(23, wfg);
-            ps.setString(24, wfgUnit);
-            ps.setBoolean(25, wfgIncluded);
-            ps.setBoolean(26, wfgSubjectToTariff);
-            ps.setString(27, storage);
-            ps.setString(28, storageUnit);
-            ps.setBoolean(29, storageIncluded);
-            ps.setBoolean(30, storageSubjectToTariff);
-            ps.setString(31, docFee);
-            ps.setBoolean(32, docFeeIncluded);
-            ps.setString(33, comments);
-            ps.setString(34, quoteID);
-            ps.setBoolean(35, warRisk);
-            ps.setString(36, commodityNumber);
-            ps.setString(37, description);
-            ps.setString(38, tliNumber);
-            ps.setString(39, expirationDate);
-            ps.setString(40, pid);
-
-            ps.executeUpdate();
-
-            String addBookingNumber = "UPDATE allquotes SET bookingNumber='" + bookingNumber + "', publishingID='" + pid + "', commodityNumber='" + commodityNumber + "', description = '" + description + "', tliNumber='" + tliNumber + "', expiration='" + expirationDate + "' WHERE ID='" + quoteID + "';";
-            PreparedStatement psAddBookingNumber = conn.prepareStatement(addBookingNumber);
-            psAddBookingNumber.executeUpdate(addBookingNumber);
-
-            Double oft1 = (Double) (Double.parseDouble(oft));
-            String eca1 = "";
-            switch (eca) {
-                case "Included":
-                    eca1 = "Included";
-                    break;
-                case "Subject to Tariff":
-                    eca1 = "Subject to Tariff";
-                    break;
-                default:
-                    eca1 = "$" + eca + " " + ecaUnit;
-                    break;
-            }
-            String baf1;
-            switch (baf) {
-                case "Included":
-                    baf1 = "Included";
-                    break;
-                case "Subject To Tariff":
-                    baf1 = "Subject to Tariff";
-                    break;
-                default:
-                    baf1 = baf + "%";
-                    break;
-            }
-
-            String thc1;
-
-            switch (thc) {
-                case "Included":
-                    thc1 = thc;
-                    break;
-                case "Subject to Tariff":
-                    thc1 = "Subject to Tariff";
-                    break;
-                default:
-                    thc1 = "$" + thc + " per " + thcUnit;
-                    break;
-            }
-
-            switch (thcUnit) {
-                case "FAS":
-                    thc1 = thcUnit;
-                    break;
-                case "Subject to local charges":
-                    thc1 = thcUnit;
-                default:
-                    break;
-            }
-
-            String wfg1;
-            switch (wfg) {
-                case "Included":
-                    wfg1 = wfg;
-                    break;
-                case "Subject to Tariff":
-                    wfg1 = "Subject to Tariff";
-                    break;
-                default:
-                    wfg1 = "$" + wfg + " per " + wfgUnit;
-                    break;
-            }
-
-            switch (wfgUnit) {
-                case "FAS":
-                    wfg1 = wfgUnit;
-                    break;
-                case "Subject to local charges":
-                    wfg1 = wfgUnit;
-                default:
-                    break;
-            }
-
-            /*
-             ***************************************
-             ***************************************
-             ***************************************
-             */
-            String filename = userHomeFolder + "\\Desktop\\Publishing\\" + pol + " To " + pod + "; " + commDesc + " PID" + pid + ".xls";
-            HSSFWorkbook workbook = new HSSFWorkbook();
-            HSSFSheet sheet = workbook.createSheet("KKLU" + kkluNumber);
-
-            sheet.setColumnWidth(0, 650);
-            sheet.setColumnWidth(1, 5742);
-            sheet.setColumnWidth(2, 5920);
-            sheet.setColumnWidth(3, 3668);
-            sheet.setColumnWidth(4, 5711);
-
-            //Bold Font
-            HSSFFont font = workbook.createFont();
-            font.setBold(true);
-            CellStyle style = workbook.createCellStyle();
-            style.setFont(font);
-
-            //Currency cell type
-            CellStyle currency = workbook.createCellStyle();
-            currency.setDataFormat((short) 7);
-
-            //Percentage cell type
-            CellStyle percentage = workbook.createCellStyle();
-            percentage.setDataFormat((short) 0xa);
-
-            sheet.setDisplayGridlines(false);
-
-            //Black medium sized border around cell
-            CellStyle blackBorder = workbook.createCellStyle();
-            blackBorder.setBorderBottom(CellStyle.BORDER_MEDIUM);
-            blackBorder.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-            blackBorder.setBorderLeft(CellStyle.BORDER_MEDIUM);
-            blackBorder.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-            blackBorder.setBorderRight(CellStyle.BORDER_MEDIUM);
-            blackBorder.setRightBorderColor(IndexedColors.BLACK.getIndex());
-            blackBorder.setBorderTop(CellStyle.BORDER_MEDIUM);
-            blackBorder.setTopBorderColor(IndexedColors.BLACK.getIndex());
-
-            //Red font
-            CellStyle redFontStyle = workbook.createCellStyle();
-            HSSFFont redFont = workbook.createFont();
-            redFont.setColor(HSSFColor.RED.index);
-            redFontStyle.setFont(redFont);
-
-            HSSFRow rowhead = sheet.createRow((short) 0);
-            rowhead.createCell(3).setCellValue(validityFrom);
-
-            HSSFRow row1 = sheet.createRow((short) 1);
-            Cell cell = row1.createCell(1);
-            cell.setCellValue("FILING REQUEST TO RICLFILE");
-            cell.setCellStyle(style);
-
-            sheet.addMergedRegion(new CellRangeAddress(1, 1, 1, 3));
-
-            sheet.setPrintGridlines(false);
-
-            HSSFRow row2 = sheet.createRow((short) 2);
-            row2.createCell(0).setCellValue("A)");
-            row2.createCell(1).setCellValue("Tariff Number(KKLU):");
-            row2.createCell(2).setCellValue(kkluNumber);
-
-            HSSFRow space0 = sheet.createRow((short) 3);
-
-            HSSFRow row4 = sheet.createRow((short) 4);
-            row4.createCell(0).setCellValue("B)");
-            row4.createCell(1).setCellValue("Commodity:");
-            row4.createCell(2).setCellValue(commDesc);
-
-            HSSFRow space2 = sheet.createRow((short) 5);
-
-            HSSFRow row5 = sheet.createRow((short) 6);
-            row5.createCell(0).setCellValue("C)");
-            row5.createCell(1).setCellValue("POL:");
-            row5.createCell(2).setCellValue(pol);
-
-            HSSFRow space3 = sheet.createRow((short) 7);
-
-            HSSFRow row6 = sheet.createRow((short) 8);
-            row6.createCell(0).setCellValue("D)");
-            row6.createCell(1).setCellValue("POD:");
-            row6.createCell(2).setCellValue(pod);
-
-            HSSFRow space4 = sheet.createRow((short) 9);
-
-            HSSFRow row7 = sheet.createRow((short) 10);
-            row7.createCell(0).setCellValue("E)");
-            row7.createCell(1).setCellValue("Rate:");
-            Cell rate = row7.createCell(2);
-            rate.setCellValue(oft1);
-            rate.setCellStyle(currency);
-
-            HSSFRow space5 = sheet.createRow((short) 11);
-
-            HSSFRow row8 = sheet.createRow((short) 12);
-            row8.createCell(0).setCellValue("F)");
-            row8.createCell(1).setCellValue("Rate Basis:");
-            row8.createCell(2).setCellValue(oftUnit);
-
-            HSSFRow space6 = sheet.createRow((short) 13);
-
-            HSSFRow row9 = sheet.createRow((short) 14);
-            row9.createCell(0).setCellValue("G)");
-            row9.createCell(1).setCellValue("BAF:");
-            Cell Baf = row9.createCell(2);
-            switch (baf1) {
-                case "Included":
-                    Baf.setCellValue("Included");
-                    break;
-                case "Subject to Tariff":
-                    Baf.setCellValue("Subject to Tariff");
-                    break;
-                default:
-                    Baf.setCellValue(baf1);
-                    Baf.setCellStyle(percentage);
-                    break;
-            }
-
-            HSSFRow space7 = sheet.createRow((short) 15);
-
-            HSSFRow row10 = sheet.createRow((short) 16);
-            row10.createCell(0).setCellValue("H)");
-            row10.createCell(1).setCellValue("ECA BAF:");
-            Cell ecaBaf = row10.createCell(2);
-            switch (eca) {
-                case "Included":
-                    ecaBaf.setCellValue("Included");
-                    break;
-                case "Subject to Tariff":
-                    ecaBaf.setCellValue("Subject to Tariff");
-                    break;
-                default:
-                    ecaBaf.setCellValue("$" + eca1 + " per " + ecaUnit);
-                    ecaBaf.setCellStyle(currency);
-                    break;
-            }
-
-            HSSFRow space8 = sheet.createRow((short) 17);
-
-            HSSFRow row11 = sheet.createRow((short) 18);
-            row11.createCell(0).setCellValue("I)");
-            row11.createCell(1).setCellValue("THC/WFG:");
-            row11.createCell(2).setCellValue(thc1 + " / " + wfg1);
-
-            HSSFRow space = sheet.createRow((short) 19);
-
-            HSSFRow row12 = sheet.createRow((short) 20);
-            row12.createCell(0).setCellValue("J)");
-            row12.createCell(1).setCellValue("Storage:");
-            row12.createCell(2).setCellValue(storage);
-
-            HSSFRow space10 = sheet.createRow((short) 21);
-
-            HSSFRow row13 = sheet.createRow((short) 22);
-            row13.createCell(0).setCellValue("K)");
-            row13.createCell(1).setCellValue("Doc Fee:");
-            row13.createCell(2).setCellValue(docFee);
-
-            HSSFRow space11 = sheet.createRow((short) 23);
-
-            HSSFRow row14 = sheet.createRow((short) 24);
-            row14.createCell(0).setCellValue("L)");
-            row14.createCell(1).setCellValue("War Risk:");
-
-            HSSFRow space12 = sheet.createRow((short) 25);
-
-            if (warRisk == true) {
-                String warRiskPercentage = "3%";
-                row14.createCell(2).setCellValue(warRiskPercentage);
-            } else if (warRisk != true) {
-                String warRiskPercentage = "N/A";
-                row14.createCell(2).setCellValue(warRiskPercentage);
-            }
-
-            HSSFRow row15 = sheet.createRow((short) 26);
-            row15.createCell(0).setCellValue("M)");
-            row15.createCell(1).setCellValue("Validity");
-            row15.createCell(2).setCellValue("Effective: " + validityFrom);
-
-            HSSFRow row16 = sheet.createRow((short) 27);
-            row16.createCell(2).setCellValue("Expiration: " + validityTo);
-
-            HSSFRow space13 = sheet.createRow((short) 28);
-
-            HSSFRow row17 = sheet.createRow((short) 29);
-            row17.createCell(0).setCellValue("N)");
-            row17.createCell(1).setCellValue("Remarks");
-            row17.createCell(2).setCellValue(comments);
-
-            HSSFRow space14 = sheet.createRow((short) 30);
-
-            HSSFRow row18 = sheet.createRow((short) 31);
-            row18.createCell(0).setCellValue("O)");
-            row18.createCell(1).setCellValue("Booking #:");
-            row18.createCell(2).setCellValue(bookingNumber);
-
-            HSSFRow space15 = sheet.createRow((short) 32);
-
-            HSSFRow row19 = sheet.createRow((short) 33);
-            row19.createCell(0).setCellValue("P)");
-            row19.createCell(1).setCellValue("RQS #:");
-            row19.createCell(2).setCellValue(quoteID);
-
-            HSSFRow space16 = sheet.createRow((short) 34);
-
-            HSSFRow row20 = sheet.createRow((short) 35);
-            row20.createCell(0).setCellValue("Q)");
-            row20.createCell(1).setCellValue("PID #:");
-            row20.createCell(2).setCellValue(pid);
-
-            HSSFRow space17 = sheet.createRow((short) 36);
-
-            HSSFRow space18 = sheet.createRow((short) 37);
-
-            HSSFRow row21 = sheet.createRow((short) 38);
-            row21.createCell(0).setCellValue("");
-            row21.createCell(1).setCellValue("For RICLFILE Use Only");
-
-            HSSFRow space19 = sheet.createRow((short) 39);
-
-            HSSFRow row22 = sheet.createRow((short) 40);
-            Cell comm = row22.createCell(1);
-            comm.setCellValue("Commodity #:");
-            comm.setCellStyle(redFontStyle);
-            row22.createCell(2).setCellValue(commodityNumber);
-            Cell desc = row22.createCell(3);
-            desc.setCellValue("Description:");
-            desc.setCellStyle(redFontStyle);
-            row22.createCell(4).setCellValue(description);
-
-            HSSFRow space20 = sheet.createRow((short) 41);
-
-            HSSFRow row24 = sheet.createRow((short) 42);
-            Cell TLI = row24.createCell(1);
-            TLI.setCellValue("TLI #:");
-            TLI.setCellStyle(redFontStyle);
-            row24.createCell(2).setCellValue(tliNumber);
-
-            HSSFRow space21 = sheet.createRow((short) 43);
-
-            HSSFRow row26 = sheet.createRow((short) 44);
-            Cell exp = row26.createCell(1);
-            exp.setCellValue("Expiration: ");
-            exp.setCellStyle(redFontStyle);
-            row26.createCell(2).setCellValue(expirationDate);
-
-            System.out.print("Your excel file has been generate");
-
-            String spotRateId = String.valueOf(pid);
-
-            try (FileOutputStream fileOut = new FileOutputStream(filename)) {
-                workbook.write(fileOut);
-            }
-            try {
-
-                // Initialize the properties class for sending SMTP
-                Properties props = new Properties();
-                props.put("mail.smtp.host", "smtp01.us.kline.com"); //Assign the smtp host
-                props.put("mail.smtp.port", "25"); //Assign the port 465 = SSL, 25 != SSL
-
-                //Initialize the Session and assign the properties to the session
-                Session session = Session.getDefaultInstance(props, null);
-
-                // Create the standardized email message sent
-                String msgBody = "Sales,\n\n        Confirm spot rate (PID" + spotRateId + ") for RQS" + quoteID + " has been updated.\n\n\nSincerely,\n\n KAM RICBCAR Publishing ";
-                Message msg = new MimeMessage(session);
-                msg.setFrom(new InternetAddress("kamricbcarpublishing@us.kline.com", "RORO Publishing Confirmation"));
-                msg.addRecipient(Message.RecipientType.TO, new InternetAddress("connor.meehan@us.kline.com"));
-                msg.setSubject("RQS" + quoteID + " Updated Spot Rate PID" + spotRateId + " Confirmation");
-                msg.setText(msgBody);
-                Transport.send(msg);
-                System.out.println("Success! " + msg);
-            } catch (MessagingException | UnsupportedEncodingException e) {
-                System.out.println("Error " + e.getMessage());
-            }
-
-            JOptionPane.showMessageDialog(null, "The spot filing for " + quoteID + " has been succsefully updated.");
-            pQuoteIDTextField.setText("");
-            validityFromDatePicker.getJFormattedTextField().setText("");
-            validityToDatePicker.getJFormattedTextField().setText("");
-            kkluNumberTextField.setText("");
-            pPolTextField.setText("");
-            pPodTextField.setText("");
-            pCommodityClassComboBox.setSelectedIndex(0);
-            pHandlingInstructions.setSelectedIndex(0);
-            pCommodityDescriptionTextField.setText("");
-            pOftTextField.setText("");
-            pOftComboBox.setSelectedItem("");
-            bafSubjectToTariffCheckBox.setSelected(false);
-            pBafTextField.setText("");
-            pBafIncludedCheckBox.setSelected(false);
-            pEcaTextField.setText("");
-            pEcaComboBox.setSelectedItem("");
-            pEcaIncludedCheckBox.setSelected(false);
-            ecaSubjectToTariffCheckBox.setSelected(false);
-            pThcTextField.setText("");
-            pThcComboBox.setSelectedIndex(0);
-            pThcIncludedCheckBox.setSelected(false);
-            thcSubjectToTariffCheckBox.setSelected(false);
-            pWfgTextField.setText("");
-            pWfgComboBox.setSelectedIndex(0);
-            pWfgIncludedCheckBox.setSelected(false);
-            wfgSubjectToTariffCheckBox.setSelected(false);
-            pDocFeeComboBox.setSelectedIndex(0);
-            pWarRiskCheckBox.setSelected(false);
-            storageSubjectToTariffCheckBox.setSelected(false);
-            pCommentsTextArea.setText("");
-            pBookingNumberTextField.setText("");
-            commodityNumberTextField.setText("");
-            descriptionTextField.setText("");
-            tliNumberTextField.setText("");
-            expirationDateTextField.setText("");
-            pQuoteIDTextField.setText("");
-            pIDTextField.setText("");
-
-        } catch (SQLException | IOException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-            System.out.println(e.getMessage());
-            System.out.println(Arrays.toString(e.getStackTrace()));
-
-        }
-
-    }//GEN-LAST:event_newFilingCompleteButton1ActionPerformed
 
     private void packingListTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_packingListTableKeyPressed
         // TODO add your handling code here:
@@ -9526,61 +8578,25 @@ public class MainMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_polTextFieldFocusGained
 
-    private void newQuoteSailingScheduleTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newQuoteSailingScheduleTableKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newQuoteSailingScheduleTableKeyPressed
-
-    private void newQuoteSailingScheduleTableKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newQuoteSailingScheduleTableKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newQuoteSailingScheduleTableKeyTyped
-
     private void existingCompanyContractYesRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_existingCompanyContractYesRadioButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_existingCompanyContractYesRadioButtonActionPerformed
 
-    private void updateEditSailingScheduleTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_updateEditSailingScheduleTableKeyPressed
+    private void updateQuoteFTFSpotCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateQuoteFTFSpotCheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_updateEditSailingScheduleTableKeyPressed
+    }//GEN-LAST:event_updateQuoteFTFSpotCheckBoxActionPerformed
 
-    private void updateEditSailingScheduleTableKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_updateEditSailingScheduleTableKeyTyped
+    private void updateDeclineCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDeclineCheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_updateEditSailingScheduleTableKeyTyped
+    }//GEN-LAST:event_updateDeclineCheckBoxActionPerformed
 
-    private void updateEditSailingScheduleAddRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEditSailingScheduleAddRowButtonActionPerformed
+    private void newQuoteOverSeasResponseComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newQuoteOverSeasResponseComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newQuoteOverSeasResponseComboBoxActionPerformed
 
-        /**
-         * This function will allow the user to add rows to the packing list on
-         * the update/edit page
-         */
-        //Get the Quote ID
-        String quote_ID = updateQuoteIDTextArea.getText();
-
-        //Connect to the database
-        Connection conn = new DBConnection().connect();
-
-        /**
-         * When the add row button is clicked a new row will be added to the
-         * update quote schedule table The Quote ID will also be added on the
-         * same line
-         */
-        //SQL to insert a new line in the packinglist table
-        String addLineSql = "INSERT INTO quote_schedule (quote_id) VALUES(?)";
-        try {
-            PreparedStatement ps = conn.prepareStatement(addLineSql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, quote_ID);
-            int rs = ps.executeUpdate();
-            ResultSet keys = ps.getGeneratedKeys();
-            int lastKey = 1;
-            while (keys.next()) {
-                lastKey = keys.getInt(1);
-            }
-            DefaultTableModel ssModel = (DefaultTableModel) updateEditSailingScheduleTable.getModel();
-            ssModel.addRow(new Object[]{"", "", "", "", lastKey});
-            SailingScheduleTable();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }//GEN-LAST:event_updateEditSailingScheduleAddRowButtonActionPerformed
+    private void selectOustandingQuoteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectOustandingQuoteButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectOustandingQuoteButton1ActionPerformed
 
     protected void ClearUpdateQuotePanel() {
         // Clears the update quote panel inputs and resets all the tables to their default values
@@ -9633,19 +8649,6 @@ public class MainMenu extends javax.swing.JFrame {
         quoteFeedbackCheckBox.setSelected(false);
         quoteFeedbackComboBox.setSelectedIndex(0);
         quoteFeedbackTextField.setText("");
-
-        // Reset the sailing schedule table
-        editQuoteIncludeSailingScheduleCheckBox.setSelected(false);
-        int ssRows = updateEditSailingScheduleTable.getRowCount();
-        int ssCols = updateEditSailingScheduleTable.getColumnCount();
-        for (int r = 0; r < ssRows; r++) {
-            for (int c = 0; c < ssCols; c++) {
-                updateEditSailingScheduleTable.setValueAt("", r, c);
-            }
-        }
-        DefaultTableModel uessdtm = (DefaultTableModel) updateEditSailingScheduleTable.getModel();
-        uessdtm.setRowCount(0);
-        updateEditSailingScheduleTable.setModel(uessdtm);
         updateCommentsTextArea.setText("");
         editQuoteIncludeShipperCommentsCheckBox.setSelected(false);
         updateShipperCommentsTextArea.setText("");
@@ -9868,6 +8871,7 @@ public class MainMenu extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JLabel BAF;
     public static javax.swing.JMenu EditMenuItem;
     public static javax.swing.JMenuItem NewCustMenuItem;
     public static javax.swing.JButton UserInformationCenterButton;
@@ -9886,6 +8890,12 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.ButtonGroup buttonGroup11;
     public static javax.swing.ButtonGroup buttonGroup12;
     public static javax.swing.ButtonGroup buttonGroup13;
+    public static javax.swing.ButtonGroup buttonGroup14;
+    public static javax.swing.ButtonGroup buttonGroup15;
+    public static javax.swing.ButtonGroup buttonGroup16;
+    public static javax.swing.ButtonGroup buttonGroup17;
+    public static javax.swing.ButtonGroup buttonGroup18;
+    public static javax.swing.ButtonGroup buttonGroup19;
     public static javax.swing.ButtonGroup buttonGroup2;
     public static javax.swing.ButtonGroup buttonGroup3;
     public static javax.swing.ButtonGroup buttonGroup4;
@@ -9904,7 +8914,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JTextArea commentsTextArea;
     public static javax.swing.JComboBox commodityClassComboBox;
     public static javax.swing.JTextField commodityDescriptionTextField;
-    public static javax.swing.JFormattedTextField commodityNumberTextField;
     public static javax.swing.JTextField contactEmailTextField;
     public static javax.swing.JTextField contactNameTextField;
     public static javax.swing.JCheckBox contractRateCheckBox;
@@ -9915,7 +8924,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JMenuItem cutMenuItem;
     public static javax.swing.JTextField dateTextField;
     public static javax.swing.JComboBox declineComboBox;
-    public static javax.swing.JFormattedTextField descriptionTextField;
     public static javax.swing.JComboBox documentationFeeComboBox;
     public static javax.swing.JCheckBox documentationFeeIncludedCheckBox;
     public static javax.swing.JTextField ecaBAFTextField;
@@ -9924,7 +8932,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JCheckBox ecaSubjectToTariffCheckBox;
     public static javax.swing.JButton editCustomerButton;
     public static javax.swing.JCheckBox editQuoteDuplicateRateCheckBox;
-    public static javax.swing.JCheckBox editQuoteIncludeSailingScheduleCheckBox;
     public static javax.swing.JCheckBox editQuoteIncludeShipperCommentsCheckBox;
     public static javax.swing.JButton editUpdateCustomerBookingsButton;
     public static javax.swing.JButton editUpdateCustomerInformationButton;
@@ -9964,24 +8971,27 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JRadioButton existingCustomerNVOCCRadioButton;
     public static javax.swing.JRadioButton existingCustomerOtherRadioButton;
     public static javax.swing.JPanel existingCustomerPanel;
-    public static javax.swing.JTextField expirationDateTextField;
     public static javax.swing.JButton exportResultsToExcelButton;
     public static javax.swing.JComboBox handlingInstructionsComboBox;
     public static javax.swing.JComboBox idTypeComboBox;
-    public static javax.swing.JCheckBox includeSailingScheduleCheckBox;
     public static javax.swing.JCheckBox includeShipperCommentsCheckBox;
     public static javax.swing.JButton jButton1;
     public static javax.swing.JButton jButton2;
     public static javax.swing.JButton jButton6;
     public static javax.swing.JButton jButton7;
+    public static javax.swing.JComboBox<String> jComboBox10;
+    public static javax.swing.JComboBox<String> jComboBox8;
+    public static javax.swing.JComboBox<String> jComboBox9;
     public static javax.swing.JLabel jLabel1;
     public static javax.swing.JLabel jLabel10;
     public static javax.swing.JLabel jLabel100;
+    public static javax.swing.JLabel jLabel101;
     public static javax.swing.JLabel jLabel102;
+    public static javax.swing.JLabel jLabel103;
+    public static javax.swing.JLabel jLabel104;
     public static javax.swing.JLabel jLabel105;
     public static javax.swing.JLabel jLabel106;
     public static javax.swing.JLabel jLabel107;
-    public static javax.swing.JLabel jLabel108;
     public static javax.swing.JLabel jLabel109;
     public static javax.swing.JLabel jLabel11;
     public static javax.swing.JLabel jLabel110;
@@ -10004,15 +9014,12 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabel128;
     public static javax.swing.JLabel jLabel129;
     public static javax.swing.JLabel jLabel13;
-    public static javax.swing.JLabel jLabel130;
     public static javax.swing.JLabel jLabel131;
     public static javax.swing.JLabel jLabel132;
     public static javax.swing.JLabel jLabel133;
     public static javax.swing.JLabel jLabel134;
     public static javax.swing.JLabel jLabel135;
     public static javax.swing.JLabel jLabel136;
-    public static javax.swing.JLabel jLabel137;
-    public static javax.swing.JLabel jLabel138;
     public static javax.swing.JLabel jLabel139;
     public static javax.swing.JLabel jLabel14;
     public static javax.swing.JLabel jLabel140;
@@ -10066,7 +9073,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabel41;
     public static javax.swing.JLabel jLabel42;
     public static javax.swing.JLabel jLabel43;
-    public static javax.swing.JLabel jLabel44;
     public static javax.swing.JLabel jLabel45;
     public static javax.swing.JLabel jLabel46;
     public static javax.swing.JLabel jLabel47;
@@ -10136,8 +9142,26 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JPanel jPanel11;
     public static javax.swing.JPanel jPanel12;
     public static javax.swing.JPanel jPanel13;
+    public static javax.swing.JPanel jPanel14;
+    public static javax.swing.JPanel jPanel15;
+    public static javax.swing.JPanel jPanel16;
+    public static javax.swing.JPanel jPanel17;
+    public static javax.swing.JPanel jPanel18;
+    public static javax.swing.JPanel jPanel19;
     public static javax.swing.JPanel jPanel2;
+    public static javax.swing.JPanel jPanel20;
+    public static javax.swing.JPanel jPanel21;
+    public static javax.swing.JPanel jPanel22;
+    public static javax.swing.JPanel jPanel23;
+    public static javax.swing.JPanel jPanel24;
+    public static javax.swing.JPanel jPanel25;
+    public static javax.swing.JPanel jPanel26;
+    public static javax.swing.JPanel jPanel27;
+    public static javax.swing.JPanel jPanel28;
+    public static javax.swing.JPanel jPanel29;
     public static javax.swing.JPanel jPanel3;
+    public static javax.swing.JPanel jPanel30;
+    public static javax.swing.JPanel jPanel31;
     public static javax.swing.JPanel jPanel4;
     public static javax.swing.JPanel jPanel5;
     public static javax.swing.JPanel jPanel6;
@@ -10153,6 +9177,7 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JScrollPane jScrollPane13;
     public static javax.swing.JScrollPane jScrollPane14;
     public static javax.swing.JScrollPane jScrollPane15;
+    public static javax.swing.JScrollPane jScrollPane16;
     public static javax.swing.JScrollPane jScrollPane17;
     public static javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JScrollPane jScrollPane3;
@@ -10162,30 +9187,39 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JScrollPane jScrollPane7;
     public static javax.swing.JScrollPane jScrollPane8;
     public static javax.swing.JScrollPane jScrollPane9;
-    public static javax.swing.JSeparator jSeparator1;
-    public static javax.swing.JSeparator jSeparator10;
-    public static javax.swing.JSeparator jSeparator11;
-    public static javax.swing.JSeparator jSeparator12;
-    public static javax.swing.JSeparator jSeparator13;
+    public static javax.swing.JToolBar.Separator jSeparator1;
+    public static javax.swing.JToolBar.Separator jSeparator10;
     public static javax.swing.JSeparator jSeparator14;
-    public static javax.swing.JSeparator jSeparator15;
-    public static javax.swing.JSeparator jSeparator16;
-    public static javax.swing.JSeparator jSeparator17;
-    public static javax.swing.JSeparator jSeparator18;
-    public static javax.swing.JSeparator jSeparator19;
-    public static javax.swing.JSeparator jSeparator2;
-    public static javax.swing.JSeparator jSeparator20;
-    public static javax.swing.JSeparator jSeparator21;
-    public static javax.swing.JSeparator jSeparator22;
-    public static javax.swing.JSeparator jSeparator24;
-    public static javax.swing.JSeparator jSeparator3;
-    public static javax.swing.JSeparator jSeparator4;
-    public static javax.swing.JSeparator jSeparator5;
-    public static javax.swing.JSeparator jSeparator6;
-    public static javax.swing.JSeparator jSeparator7;
-    public static javax.swing.JSeparator jSeparator8;
-    public static javax.swing.JSeparator jSeparator9;
+    public static javax.swing.JToolBar.Separator jSeparator2;
+    public static javax.swing.JToolBar.Separator jSeparator26;
+    public static javax.swing.JToolBar.Separator jSeparator27;
+    public static javax.swing.JToolBar.Separator jSeparator28;
+    public static javax.swing.JToolBar.Separator jSeparator29;
+    public static javax.swing.JToolBar.Separator jSeparator3;
+    public static javax.swing.JToolBar.Separator jSeparator4;
+    public static javax.swing.JToolBar.Separator jSeparator5;
+    public static javax.swing.JToolBar.Separator jSeparator6;
+    public static javax.swing.JToolBar.Separator jSeparator7;
+    public static javax.swing.JToolBar.Separator jSeparator8;
+    public static javax.swing.JToolBar.Separator jSeparator9;
     public static javax.swing.JSlider jSlider1;
+    public static javax.swing.JTable jTable1;
+    public static javax.swing.JToolBar jToolBar1;
+    public static javax.swing.JToolBar jToolBar10;
+    public static javax.swing.JToolBar jToolBar11;
+    public static javax.swing.JToolBar jToolBar12;
+    public static javax.swing.JToolBar jToolBar13;
+    public static javax.swing.JToolBar jToolBar14;
+    public static javax.swing.JToolBar jToolBar15;
+    public static javax.swing.JToolBar jToolBar16;
+    public static javax.swing.JToolBar jToolBar2;
+    public static javax.swing.JToolBar jToolBar3;
+    public static javax.swing.JToolBar jToolBar4;
+    public static javax.swing.JToolBar jToolBar5;
+    public static javax.swing.JToolBar jToolBar6;
+    public static javax.swing.JToolBar jToolBar7;
+    public static javax.swing.JToolBar jToolBar8;
+    public static javax.swing.JToolBar jToolBar9;
     public static javax.swing.JTextField kkluNumberTextField;
     public static javax.swing.JLabel lastUpdatedByLabel;
     public static javax.swing.JCheckBox mafiMinimumCheckBox;
@@ -10224,18 +9258,24 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JTextField newCustomerState;
     public static javax.swing.JTextField newCustomerTitleTextField;
     public static javax.swing.JTextField newCustomerZipCode;
-    public static javax.swing.JButton newFilingCompleteButton;
-    public static javax.swing.JButton newFilingCompleteButton1;
     public static javax.swing.JCheckBox newQuoteAccessoriesCheckBox;
     public static javax.swing.JButton newQuoteAddRow;
     public static javax.swing.JCheckBox newQuoteBookedCheckBox;
     public static javax.swing.JButton newQuoteButton;
+    public static javax.swing.JTextField newQuoteContactPhoneTextField;
     public static javax.swing.JLabel newQuoteCustomerNameLabel;
     public static javax.swing.JCheckBox newQuoteDenialCheckBox;
-    public static javax.swing.JLabel newQuoteLabel;
+    public static javax.swing.JCheckBox newQuoteFTFSpotCheckBox;
+    public static javax.swing.JCheckBox newQuoteFTFTariffCheckBox;
+    public static javax.swing.JCheckBox newQuoteIndicatoryCheckBox;
+    public static javax.swing.JComboBox<String> newQuoteMTDApprovalComboBox;
     public static javax.swing.JMenuItem newQuoteMenuItem;
+    public static javax.swing.JComboBox<String> newQuoteOverSeasResponseComboBox;
     public static javax.swing.JPanel newQuotePanel;
-    public static javax.swing.JTable newQuoteSailingScheduleTable;
+    public static javax.swing.JTextField newQuotePhoneExtensionTextField;
+    public static javax.swing.JComboBox<String> newQuotePhoneTypeTextField;
+    public static javax.swing.JComboBox<String> newQuoteSpaceApprovalComboBox;
+    public static javax.swing.JCheckBox newQuoteTariffCheckBox;
     public static javax.swing.JLabel officeLocationLabel;
     public static javax.swing.JLabel officeLocationLabel1;
     public static javax.swing.JLabel officePhoneLabel;
@@ -10243,6 +9283,7 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JTextField oftTextField;
     public static javax.swing.JLabel outstandingLabel;
     public static javax.swing.JTable outstandingQuotesTable;
+    public static javax.swing.JTable outstandingQuotesTable1;
     public static javax.swing.JCheckBox pBafIncludedCheckBox;
     public static javax.swing.JTextField pBafTextField;
     public static javax.swing.JTextField pBookingNumberTextField;
@@ -10286,7 +9327,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JButton publishingCenterButton;
     public static javax.swing.JPanel publishingCenterPanel;
     public static javax.swing.JTextField queryNameTextField;
-    public static javax.swing.JLabel queryTitleLabel;
     public static javax.swing.JLabel quoteCreatedLabel;
     public static javax.swing.JCheckBox quoteFeedbackCheckBox;
     public static javax.swing.JComboBox quoteFeedbackComboBox;
@@ -10306,6 +9346,7 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JPanel searchPanel;
     public static javax.swing.JTable searchResultsTable;
     public static javax.swing.JButton selectOustandingQuoteButton;
+    public static javax.swing.JButton selectOustandingQuoteButton1;
     public static javax.swing.JButton selectOutstandingQuoteRequireAttentionButton;
     public static javax.swing.JTextArea shipperCommentsTextArea;
     public static javax.swing.JCheckBox spotRateCheckBox;
@@ -10324,7 +9365,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JLabel titleLabel;
     public static javax.swing.JLabel titleLabel1;
     public static javax.swing.JLabel titleLabel3;
-    public static javax.swing.JFormattedTextField tliNumberTextField;
     public static javax.swing.JLabel totalBookingsCYTDLabel;
     public static javax.swing.JLabel totalQuotesCYTDLabel;
     public static javax.swing.JLabel totalQuotesLabel;
@@ -10363,9 +9403,8 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JLabel updateEditQuoteCustomerNameLabel4;
     public static javax.swing.JLabel updateEditQuoteCustomerNameLabel5;
     public static javax.swing.JPanel updateEditQuotePanel;
-    public static javax.swing.JButton updateEditSailingScheduleAddRowButton;
-    public static javax.swing.JTable updateEditSailingScheduleTable;
     public static javax.swing.JComboBox updateHandlingInstructionsComboBox;
+    public static javax.swing.ButtonGroup updateMTDApprovalGroup;
     public static javax.swing.JTextField updateOFTTextField;
     public static javax.swing.JComboBox updateOftUnitComboBox;
     public static javax.swing.JTextField updatePCAddressTextfield;
@@ -10377,9 +9416,18 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JTextField updatePODTextField;
     public static javax.swing.JTextField updatePOLTextField;
     public static javax.swing.JCheckBox updateQuoteAccessoriesCheckBox;
+    public static javax.swing.JTextField updateQuoteExtensionTextField;
+    public static javax.swing.JCheckBox updateQuoteFTFSpotCheckBox;
+    public static javax.swing.JCheckBox updateQuoteFTFTariffCheckBox;
     public static javax.swing.JButton updateQuoteIDSearchButton;
     public static javax.swing.JTextField updateQuoteIDTextArea;
+    public static javax.swing.JCheckBox updateQuoteInidicitoryCheckBox;
     public static javax.swing.JCheckBox updateQuoteMAFIMinimumCheckBox;
+    public static javax.swing.JComboBox<String> updateQuoteMTDApprovalComboBox;
+    public static javax.swing.JComboBox<String> updateQuoteOverseasResponseComboBox;
+    public static javax.swing.JTextField updateQuotePhoneTextField;
+    public static javax.swing.JComboBox<String> updateQuoteSpaceApprovalComboBox;
+    public static javax.swing.JCheckBox updateQuoteTariffCheckBox;
     public static javax.swing.JTextArea updateShipperCommentsTextArea;
     public static javax.swing.JCheckBox updateSpotRateCheckBox;
     public static javax.swing.JTextField updateTHCTextField;
@@ -10395,7 +9443,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JCheckBox updateWfgIncludedCheckBox;
     public static javax.swing.JTextField updateWfgTextField;
     public static javax.swing.JLabel userIDLabel;
-    public static javax.swing.JLabel userInformationLabel;
     public static javax.swing.JPanel userInformationPanel;
     public static javax.swing.JLabel usernameLabel;
     public static javax.swing.JLabel usernameLabel1;

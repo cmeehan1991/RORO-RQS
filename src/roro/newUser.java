@@ -418,7 +418,7 @@ public class newUser extends javax.swing.JDialog {
                     String email = rs.getString("email");
                 //System.out.println(count);
                     //Assign information to labels on userInformation Panel
-                    MainMenu.userInformationLabel.setText(firstName + " " + lastName);
+                    //MainMenu.userInformationLabel.setText(firstName + " " + lastName);
                     MainMenu.userIDLabel.setText(id);
                     MainMenu.titleLabel.setText(title);
                     MainMenu.salesRegionLabel.setText(region);

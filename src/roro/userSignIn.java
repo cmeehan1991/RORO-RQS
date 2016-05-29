@@ -265,7 +265,7 @@ public class userSignIn extends javax.swing.JDialog {
     private void newUserLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newUserLabelMouseClicked
         //go to new user form
         newUser nu = new newUser();
-        nu.setVisible(true);
+       // nu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_newUserLabelMouseClicked
 
@@ -363,7 +363,6 @@ public class userSignIn extends javax.swing.JDialog {
 
             //Assign information to labels on userInformation Panel
             MainMenu.usernameLabel.setText(user);
-            MainMenu.userInformationLabel.setText(firstName + " " + lastName);
             MainMenu.userIDLabel.setText(ID);
             MainMenu.titleLabel.setText(title);
             MainMenu.salesRegionLabel.setText(region);
@@ -371,7 +370,7 @@ public class userSignIn extends javax.swing.JDialog {
             MainMenu.mobilePhoneLabel.setText(mobilePhone);
             MainMenu.officeLocationLabel.setText(officeLocation);
             MainMenu.emailLabel.setText(email);
-            new UserInformationActivity().UpdateUserInformationActivity(ID, user);
+            new UserInformationActivity(ID, user);
 
             // If the user is Emilie then set the heading label color to purple
             if (user.equals("eschoenhut")) {
@@ -379,7 +378,6 @@ public class userSignIn extends javax.swing.JDialog {
                 float hue = hsb[0];
                 float saturation = hsb[1];
                 float brightness = hsb[2];
-                MainMenu.userInformationLabel.setForeground(new Color(217,179,255));
                 MainMenu.jPanel13.setBackground(Color.getHSBColor(hue, saturation, brightness));
                 MainMenu.userInformationPanel.setBackground(Color.getHSBColor(hue, saturation, brightness));
                 MainMenu.jPanel1.setBackground(new Color(217,179,255));

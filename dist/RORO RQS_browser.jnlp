@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="RORO_RQS.jar" size="649341" download="eager" />
+    <jar href="RORO_RQS.jar" size="640161" download="eager" />
     <jar href="lib\commons-codec-1.10.jar" size="284184" download="eager" />
     <jar href="lib\commons-fileupload-1.3.1.jar" size="69002" download="eager" />
     <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
@@ -52,7 +52,7 @@
     <jar href="lib\xmlworker-5.5.9-sources.jar" size="368873" download="eager" />
     <jar href="lib\xmlworker-5.5.9.jar" size="251792" download="eager" />
   </resources>
-  <applet-desc  width="800" height="600" main-class="RORO.userSignIn"  name="RORO RQS" >
+  <applet-desc  width="800" height="600" main-class="RORO.MainMenu"  name="RORO RQS" >
   </applet-desc>
   <update check="always"/>
 </jnlp>

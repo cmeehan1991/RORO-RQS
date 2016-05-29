@@ -34,7 +34,7 @@ public class DBSearchActivity {
         String queryName = DBSearch.queryNameTextField.getText();
         MainMenu.queryNameTextField.setText(queryName);
         MainMenu.dateTextField.setText(DBSearch.dateTextField.getText());
-        MainMenu.queryTitleLabel.setText(queryName);
+        //MainMenu.queryTitleLabel.setText(queryName);
         if (queryName.equals("")) {
             JOptionPane.showMessageDialog(null, "You must enter a query name");
         } else {

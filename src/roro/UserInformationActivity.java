@@ -23,6 +23,12 @@ public class UserInformationActivity {
     private final Calendar calReturn = Calendar.getInstance();
     private String username, userID;
 
+    UserInformationActivity(String userID, String username) {
+        this.userID = userID;
+        this.username = username;
+        UpdateUserInformationActivity(userID, username);
+    }
+
     private String currentDate() {
         //Get today's date
         String today = new SimpleDateFormat("YYYY-MM-dd").format(calReturn.getTime());
@@ -204,7 +210,12 @@ public class UserInformationActivity {
     private String bookingRatio() {
         int quotes = (int) (Integer.parseInt(totalQuotesToDate(userID)));
         int bookings = (int) (Integer.parseInt(totalBookings(userID)));
-        int ratio = quotes / bookings;
+        int ratio; 
+        if(bookings == 0){
+            ratio = 0;
+        }else{
+        ratio = quotes / bookings;
+        }
         String bookingRatio = String.valueOf(ratio) + ":1";
         return bookingRatio;
     }

@@ -37,9 +37,9 @@ public class QuotePDf {
     private final String userHome = System.getProperty("user.home"), accessories_accompanying = "Accessories must move with the main unit for the same rate to apply.";
     private final Connection conn = new DBConnection().connect();
     private OutputStream desktopFile, groupFile;
-    private JTable packingListTable, sailingSchedule;
+    private JTable packingListTable;
     private String quoteID, date, customerName, company, customerEmail, status, user, pol, pod, tship, commodityClass, cargoHandling, description, oft, mafiMinimum, baf, eca, thc, wfg, doc, wRsk, carrierComments, userInformation;
-    private Boolean accessories, spotRate, contractRate, includeMafiMinimum, includeCarrierRemarks, includeSailingSchedule, includeWarRisk;
+    private Boolean accessories, spotRate, contractRate, includeMafiMinimum, includeCarrierRemarks, includeWarRisk;
     private final String groupEmail = "kam-roro-sales@us.kline.com";
     private static final Font labelFont = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD);
     private static final Font tableHeadingFont = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD, BaseColor.WHITE);
@@ -67,7 +67,7 @@ public class QuotePDf {
         }
     }
 
-    public void QuotePDF(String quoteID, String date, String customerName, String company, String customerEmail, String status, String user, String pol, String pod, String tship, String commodityClass, String cargoHandling, Boolean accessories, String description, String oft, Boolean includeMafiMinimum, String mafiMinimum, String baf, String eca, String thc, String wfg, String doc, Boolean includeWarRisk, String wRsk, Boolean includeCarrierRemarks, Boolean includeSailingSchedule, String carrierComments, JTable sailingSchedule, JTable packingList, Boolean spotRate, boolean contractRate) throws IOException {
+    public void QuotePDF(String quoteID, String date, String customerName, String company, String customerEmail, String status, String user, String pol, String pod, String tship, String commodityClass, String cargoHandling, Boolean accessories, String description, String oft, Boolean includeMafiMinimum, String mafiMinimum, String baf, String eca, String thc, String wfg, String doc, Boolean includeWarRisk, String wRsk, Boolean includeCarrierRemarks, String carrierComments, JTable packingList, Boolean spotRate, boolean contractRate) throws IOException {
 
         //
         System.out.println("Executing");
@@ -98,9 +98,7 @@ public class QuotePDf {
         this.spotRate = spotRate;
         this.contractRate = contractRate;
         this.includeCarrierRemarks = includeCarrierRemarks;
-        this.includeSailingSchedule = includeSailingSchedule;
         this.carrierComments = carrierComments;
-        this.sailingSchedule = sailingSchedule;
         this.packingListTable = packingList;
         try {
             GeneratePDF();
@@ -138,7 +136,6 @@ public class QuotePDf {
             //New Page
             document.newPage();
             document.add(packingListTable(packingListTable));
-            document.add(sailingScheduleTable(sailingSchedule, includeSailingSchedule));
 
             // Close the document for editing
             document.close();
