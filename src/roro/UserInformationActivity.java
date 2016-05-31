@@ -23,7 +23,7 @@ public class UserInformationActivity {
     private final Calendar calReturn = Calendar.getInstance();
     private String username, userID;
 
-    UserInformationActivity(String userID, String username) {
+    public void UserInformation(String userID, String username) {
         this.userID = userID;
         this.username = username;
         UpdateUserInformationActivity(userID, username);
@@ -219,6 +219,18 @@ public class UserInformationActivity {
         String bookingRatio = String.valueOf(ratio) + ":1";
         return bookingRatio;
     }
+    
+    private ResultSet pendingResponseTable(){
+        ResultSet rs = null;
+        String SQL = "SELECT ID AS 'Quote ID', IF(DATE_UPDATED = '', IF(DATEDIFF("+currentDate()+",DATE_QUOTED) < '1', '0', DATEDIFF("+currentDate()+",DATE_QUOTED)), IF(DATEDIFF("+currentDate()+",DATE_UPDATED)< '1','0',DATEDIFF("+currentDate()+",DATE_UPDATED))) AS 'Days Stagnant', IF(DATE_UPDATED='', DATE_FORMAT(DATE_QUOTED, '%Y-%m-%d'), DATE_FORMAT(DATE_UPDATED, '%Y-%m-%d')) AS 'Last Updated', customerName AS 'Company Name', comm_class AS 'Commodity Class' FROM allquotes WHERE MTD_APPROVAL = 'Pending' OR SPACE_APPROVAL = 'Pending' OR OVERSEAS_RESPONSE = 'Pending' ORDER BY 'Days Stagnant';";
+        try{
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            rs = ps.executeQuery();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return rs;
+    }
 
     public void UpdateUserInformationActivity(String userID, String username) {
         this.userID = userID;
@@ -233,6 +245,7 @@ public class UserInformationActivity {
         MainMenu.bookingRatioLabel.setText(bookingRatio());
         MainMenu.outstandingQuotesTable.setModel(DbUtils.resultSetToTableModel(outstandingTable()));
         MainMenu.requireAttentionTable.setModel(DbUtils.resultSetToTableModel(requiringAttentionTable(attentionDate)));
+        MainMenu.quotesPendingResponseTable.setModel(DbUtils.resultSetToTableModel(pendingResponseTable()));
     }
 
 }

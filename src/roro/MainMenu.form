@@ -92,7 +92,7 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup18">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup19">
+    <Component class="javax.swing.ButtonGroup" name="newQuoteRateTypeButtonGroup">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane14">
       <AuxValues>
@@ -115,6 +115,10 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup20">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="updateRateTypeButtonGroup">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -257,7 +261,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="9"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,66,0,0,4,-83"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,108,0,0,4,-103"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
@@ -284,9 +288,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="mainPanel" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
+                          <Component id="mainPanel" min="-2" pref="1165" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -296,8 +302,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jToolBar1" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="mainPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                      <Component id="mainPanel" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -341,39 +346,39 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jToolBar14" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel135" min="-2" pref="823" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jToolBar15" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jToolBar16" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel128" min="-2" pref="819" max="-2" attributes="0"/>
-                                                  <Component id="jLabel136" alignment="0" min="-2" pref="822" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="jScrollPane16" linkSize="149" alignment="2" min="-2" pref="870" max="-2" attributes="0"/>
-                                              <Component id="jScrollPane6" linkSize="149" alignment="2" min="-2" pref="870" max="-2" attributes="0"/>
-                                              <Component id="jScrollPane7" linkSize="149" alignment="2" min="-2" pref="882" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                              <EmptySpace pref="141" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jToolBar14" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel135" min="-2" pref="823" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jToolBar15" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jToolBar16" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel128" min="-2" pref="819" max="-2" attributes="0"/>
+                                              <Component id="jLabel136" alignment="0" min="-2" pref="822" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" groupAlignment="2" attributes="0">
+                                          <Component id="jScrollPane16" linkSize="149" alignment="2" min="-2" pref="870" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane6" linkSize="149" alignment="2" min="-2" pref="870" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane7" linkSize="149" alignment="2" min="-2" pref="882" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
+                              <EmptySpace pref="142" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -405,7 +410,7 @@
                                   <Component id="jLabel128" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane7" linkSize="152" min="-2" pref="117" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="180" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1087,22 +1092,28 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="outstandingQuotesTable1">
+                        <Component class="javax.swing.JTable" name="quotesPendingResponseTable">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="0"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="12">
+                              <Table columnCount="6" rowCount="12">
                                 <Column editable="false" title="Quote ID" type="java.lang.Object"/>
+                                <Column editable="true" title="Time Stagnant" type="java.lang.Object"/>
                                 <Column editable="false" title="Date Quoted" type="java.lang.Object"/>
                                 <Column editable="false" title="Company" type="java.lang.Object"/>
                                 <Column editable="false" title="Commodity Description" type="java.lang.Object"/>
-                                <Column editable="false" title="Comodity Description" type="java.lang.Object"/>
+                                <Column editable="false" title="Response Type" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
@@ -1234,52 +1245,52 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace pref="121" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jPanel15" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel16" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jScrollPane11" min="-2" pref="921" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jToolBar3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jLabel19" linkSize="138" alignment="1" pref="457" max="32767" attributes="0"/>
-                                          <Component id="jScrollPane1" linkSize="138" alignment="1" pref="457" max="32767" attributes="0"/>
+                              <EmptySpace pref="105" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jToolBar2" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jPanel15" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jPanel16" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jScrollPane3" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="includeShipperCommentsCheckBox" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jLabel93" min="-2" pref="431" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jScrollPane11" min="-2" pref="921" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jToolBar3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jLabel19" linkSize="138" alignment="1" pref="457" max="32767" attributes="0"/>
+                                              <Component id="jScrollPane1" linkSize="138" alignment="1" pref="457" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jScrollPane3" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="includeShipperCommentsCheckBox" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel93" min="-2" pref="431" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
-                                  </Group>
-                                  <Component id="jPanel14" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jPanel19" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="389" max="-2" attributes="0"/>
-                                      <Component id="jToolBar2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jPanel18" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jPanel14" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jPanel19" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jPanel18" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="121" max="32767" attributes="0"/>
+                              <EmptySpace pref="105" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+                              <Component id="jToolBar2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jPanel17" max="32767" attributes="0"/>
@@ -1320,9 +1331,7 @@
                                       <Component id="jScrollPane3" min="-2" pref="98" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jToolBar2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1807,58 +1816,44 @@
                                           <Component id="mafiMinimumTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="jLabel10" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="bafTextField" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel81" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="bafIncludedCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="jLabel11" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel74" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="ecaBAFTextField" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="ecaBafMeasurementComboBox" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="ecaBafIncludedCheckBox" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="jLabel12" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel75" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="thcTextField" linkSize="132" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="thcMeasurementComboBox" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="thcIncludedCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="wfgIncludedCheckBox" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel77" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="wfgTextField" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="wfgMeasurementComboBox" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="2" attributes="0">
-                                                      <Component id="jLabel14" alignment="2" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="documentationFeeComboBox" alignment="2" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="documentationFeeIncludedCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="warRiskCheckBox" linkSize="44" alignment="2" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="thcAttached" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                          <Component id="wfgAttached" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="jLabel10" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bafTextField" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel81" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bafIncludedCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="jLabel11" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel74" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ecaBAFTextField" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ecaBafMeasurementComboBox" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ecaBafIncludedCheckBox" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="thcAttached" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="thcIncludedCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="thcMeasurementComboBox" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="thcTextField" linkSize="132" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel12" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel75" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="jLabel13" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel77" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="wfgTextField" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="wfgMeasurementComboBox" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="wfgIncludedCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="wfgAttached" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="jLabel14" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="documentationFeeComboBox" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="documentationFeeIncludedCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="warRiskCheckBox" linkSize="44" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1905,7 +1900,7 @@
                               </StringArray>
                             </Property>
                             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                              <ComponentRef name="bafTextField"/>
+                              <ComponentRef name="mafiMinimumCheckBox"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -2158,6 +2153,9 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="0"/>
                             </Property>
+                            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                              <ComponentRef name="bafTextField"/>
+                            </Property>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -2183,33 +2181,32 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="newQuoteTariffCheckBox" linkSize="143" min="-2" pref="103" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                                  <Component id="spotRateCheckBox" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="newQuoteFTFTariffCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="contractRateCheckBox" linkSize="143" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="newQuoteBookedCheckBox" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="bookingNumberTextField" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="newQuoteFTFSpotCheckBox" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="newQuoteIndicatoryCheckBox" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
+                                              <Component id="newQuoteTariffCheckBox" linkSize="143" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                                              <Component id="contractRateCheckBox" linkSize="143" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="spotRateCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="newQuoteBookedCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="bookingNumberTextField" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                                          <Component id="newQuoteDenialCheckBox" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="declineComboBox" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="newQuoteDenialCheckBox" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="declineComboBox" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="newQuoteFTFSpotCheckBox" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="newQuoteIndicatoryCheckBox" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="newQuoteFTFTariffCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -2249,6 +2246,9 @@
                       <SubComponents>
                         <Component class="javax.swing.JCheckBox" name="contractRateCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="newQuoteRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -2257,6 +2257,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="spotRateCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="newQuoteRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -2265,6 +2268,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="newQuoteBookedCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="newQuoteRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -2273,6 +2279,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="newQuoteDenialCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="newQuoteRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -2301,6 +2310,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="newQuoteTariffCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="newQuoteRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -2309,6 +2321,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="newQuoteFTFSpotCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="newQuoteRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -2317,6 +2332,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="newQuoteFTFTariffCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="newQuoteRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -2327,6 +2345,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="newQuoteIndicatoryCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="newQuoteRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -2674,8 +2695,8 @@
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="5">
-                                <StringItem index="0" value="Type"/>
-                                <StringItem index="1" value="Office"/>
+                                <StringItem index="0" value=""/>
+                                <StringItem index="1" value="Work"/>
                                 <StringItem index="2" value="Mobile"/>
                                 <StringItem index="3" value="Home"/>
                                 <StringItem index="4" value="Other"/>
@@ -2862,8 +2883,6 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JToolBar$Separator" name="jSeparator3">
-                        </Component>
                         <Component class="javax.swing.JButton" name="submitNewQuote">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -2874,6 +2893,8 @@
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submitNewQuoteActionPerformed"/>
                           </Events>
+                        </Component>
+                        <Component class="javax.swing.JToolBar$Separator" name="jSeparator12">
                         </Component>
                         <Component class="javax.swing.JButton" name="clearNewQuoteForm">
                           <Properties>
@@ -2962,64 +2983,69 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace pref="77" max="32767" attributes="0"/>
+                              <EmptySpace pref="61" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jToolBar4" min="-2" pref="189" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jPanel25" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jPanel26" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="434" max="-2" attributes="0"/>
-                                      <Component id="jToolBar6" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jScrollPane5" min="-2" pref="460" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jScrollPane17" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel15" min="-2" pref="460" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="editQuoteIncludeShipperCommentsCheckBox" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                              <Component id="jLabel95" max="32767" attributes="0"/>
-                                          </Group>
                                           <Component id="jScrollPane12" min="-2" pref="1009" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="editQuoteIncludeShipperCommentsCheckBox" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel95" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="jScrollPane17" min="-2" pref="493" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jScrollPane5" max="32767" attributes="0"/>
+                                                  <Component id="jLabel15" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jToolBar5" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jPanel21" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jToolBar4" min="-2" pref="189" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="jToolBar6" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <Component id="jPanel24" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jPanel23" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                           <Component id="jPanel22" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="jPanel21" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="77" max="32767" attributes="0"/>
+                              <EmptySpace pref="61" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jToolBar4" min="-2" pref="25" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jPanel22" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel20" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jToolBar4" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="jToolBar6" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jPanel20" linkSize="153" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jPanel22" linkSize="153" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="jPanel23" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                               <Component id="jPanel24" min="-2" max="-2" attributes="0"/>
@@ -3035,18 +3061,16 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel95" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="editQuoteIncludeShipperCommentsCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane5" min="-2" pref="88" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane17" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane5" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jToolBar6" min="-2" pref="25" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -3325,7 +3349,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="updateQuoteExtensionTextField" min="-2" pref="65" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jComboBox8" min="-2" max="-2" attributes="0"/>
+                                          <Component id="updateQuotePhoneTypeComboBox" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace pref="137" max="32767" attributes="0"/>
@@ -3354,7 +3378,7 @@
                                       <Component id="updateQuotePhoneTextField" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel107" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="updateQuoteExtensionTextField" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox8" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="updateQuotePhoneTypeComboBox" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -3466,11 +3490,11 @@
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="jComboBox8">
+                        <Component class="javax.swing.JComboBox" name="updateQuotePhoneTypeComboBox">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="5">
-                                <StringItem index="0" value="Type"/>
+                                <StringItem index="0" value=""/>
                                 <StringItem index="1" value="Work"/>
                                 <StringItem index="2" value="Mobile"/>
                                 <StringItem index="3" value="Home"/>
@@ -3500,7 +3524,7 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane13" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane13" min="-2" max="-2" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -3525,58 +3549,61 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="updateEditQuoteCustomerNameLabel1" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="updateEditQuoteCustomerNameLabel1" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="authorLabel" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="updateEditQuoteCustomerNameLabel2" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="lastUpdatedByLabel" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel124" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel129" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="authorLabel" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="currentAlphaNumeralLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="updateAlphaNumeralTextField" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="updateEditQuoteCustomerNameLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="updateEditQuoteCustomerNameLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="authorLabel1" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="quoteCreatedLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="quoteLastUpdatedLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="updateEditQuoteCustomerNameLabel2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lastUpdatedByLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel124" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="currentAlphaNumeralLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="authorLabel2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel129" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="updateAlphaNumeralTextField" min="-2" pref="34" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="updateEditQuoteCustomerNameLabel4" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="quoteCreatedLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="authorLabel3" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="updateEditQuoteCustomerNameLabel5" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="quoteLastUpdatedLabel" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="updateEditQuoteCustomerNameLabel4" linkSize="136" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="quoteLastUpdatedLabel" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="updateEditQuoteCustomerNameLabel5" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="quoteCreatedLabel" linkSize="136" alignment="2" min="-2" max="-2" attributes="0"/>
                                               <Component id="updateEditQuoteCustomerNameLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
                                               <Component id="authorLabel" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="authorLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="updateEditQuoteCustomerNameLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lastUpdatedByLabel" alignment="2" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel124" alignment="2" min="-2" max="-2" attributes="0"/>
                                               <Component id="currentAlphaNumeralLabel" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="authorLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="updateEditQuoteCustomerNameLabel4" linkSize="136" alignment="2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="quoteCreatedLabel" linkSize="136" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="2" attributes="0">
+                                              <Component id="updateEditQuoteCustomerNameLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lastUpdatedByLabel" alignment="2" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel129" alignment="2" min="-2" max="-2" attributes="0"/>
                                               <Component id="updateAlphaNumeralTextField" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="authorLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="quoteLastUpdatedLabel" alignment="2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="updateEditQuoteCustomerNameLabel5" alignment="2" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                       </Group>
@@ -3620,14 +3647,6 @@
                                   <AuxValues>
                                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                                   </AuxValues>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="authorLabel2">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Tahoma" size="13" style="1"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="|"/>
-                                  </Properties>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="updateEditQuoteCustomerNameLabel1">
                                   <Properties>
@@ -3686,22 +3705,6 @@
                                   <AuxValues>
                                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                                   </AuxValues>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="authorLabel1">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Tahoma" size="13" style="1"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="|"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="authorLabel3">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Tahoma" size="13" style="1"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="|"/>
-                                  </Properties>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="updateEditQuoteCustomerNameLabel5">
                                   <Properties>
@@ -3783,7 +3786,6 @@
                                       <Component id="jLabel84" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="updateQuoteOverseasResponseComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -4069,7 +4071,7 @@
                                           <Component id="updateQuoteAccessoriesCheckBox" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -4424,7 +4426,7 @@
                               </StringArray>
                             </Property>
                             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection component="updateBAFTextField" type="bean"/>
+                              <Connection component="updateQuoteMAFIMinimumCheckBox" type="bean"/>
                             </Property>
                           </Properties>
                           <AuxValues>
@@ -4779,7 +4781,7 @@
                                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                                   <Component id="updateSpotRateCheckBox" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="updateQuoteInidicitoryCheckBox" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="updateQuoteIndicatoryCheckBox" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="updateContractRateCheckBox" min="-2" max="-2" attributes="0"/>
                                               </Group>
@@ -4816,7 +4818,7 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="updateQuoteTariffCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="updateSpotRateCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="updateQuoteInidicitoryCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="updateQuoteIndicatoryCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="updateContractRateCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -4850,6 +4852,9 @@
                       <SubComponents>
                         <Component class="javax.swing.JCheckBox" name="updateQuoteTariffCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="updateRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -4858,6 +4863,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="updateSpotRateCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="updateRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -4869,6 +4877,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="updateContractRateCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="updateRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -4880,6 +4891,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="updateBookedCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="updateRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -4893,22 +4907,31 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="updateQuoteFTFTariffCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="updateRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Foreign to Foreign Tariff"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="updateQuoteInidicitoryCheckBox">
+                        <Component class="javax.swing.JCheckBox" name="updateQuoteIndicatoryCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="updateRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Indicitory"/>
+                            <Property name="text" type="java.lang.String" value="Indicatory"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="updateQuoteFTFSpotCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="updateRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -4920,6 +4943,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="updateDeclineCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="updateRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -4954,6 +4980,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="editQuoteDuplicateRateCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="updateRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -4962,6 +4991,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="quoteFeedbackCheckBox">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="updateRateTypeButtonGroup"/>
+                            </Property>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="1"/>
                             </Property>
@@ -5057,6 +5089,8 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateEditQuoteButtonActionPerformed"/>
                           </Events>
                         </Component>
+                        <Component class="javax.swing.JToolBar$Separator" name="jSeparator11">
+                        </Component>
                         <Component class="javax.swing.JButton" name="updateCancelButton">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -5096,8 +5130,8 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jScrollPane10" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jScrollPane10" min="-2" pref="1154" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -5116,7 +5150,7 @@
                                           <Component id="dateTextField" min="-2" pref="129" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -5266,28 +5300,25 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace pref="99" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jPanel31" max="32767" attributes="0"/>
-                                          <Component id="jPanel29" max="32767" attributes="0"/>
-                                          <Component id="jPanel27" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jPanel30" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                              <EmptySpace pref="90" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jPanel31" max="32767" attributes="0"/>
+                                      <Component id="jPanel29" max="32767" attributes="0"/>
+                                      <Component id="jPanel27" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jToolBar8" min="-2" pref="229" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jToolBar7" min="-2" pref="235" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jToolBar8" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="100" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jPanel30" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jToolBar7" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="89" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -5295,14 +5326,17 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jToolBar8" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="jToolBar7" min="-2" pref="25" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jPanel27" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jToolBar8" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jPanel27" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jToolBar7" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -5313,11 +5347,11 @@
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="jPanel30" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jScrollPane4" min="-2" pref="156" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="397" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -5597,7 +5631,7 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel106" min="-2" max="-2" attributes="0"/>
@@ -5615,7 +5649,6 @@
                                           <Component id="pHandlingInstructions" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -6459,7 +6492,7 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace pref="89" max="32767" attributes="0"/>
+                                  <EmptySpace pref="73" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jToolBar10" min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -6479,7 +6512,7 @@
                                           <EmptySpace min="-2" pref="384" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="89" max="32767" attributes="0"/>
+                                  <EmptySpace pref="73" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -7595,7 +7628,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel52" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace pref="88" max="32767" attributes="0"/>
+                                          <EmptySpace pref="72" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
                                                   <Component id="jToolBar12" min="-2" pref="281" max="-2" attributes="0"/>
@@ -7617,7 +7650,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="88" max="32767" attributes="0"/>
+                                  <EmptySpace pref="72" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>

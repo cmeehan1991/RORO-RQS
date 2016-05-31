@@ -1,5 +1,6 @@
 package RORO;
 
+import Output.QuotePDf;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.sun.glass.events.KeyEvent;
@@ -194,9 +195,11 @@ public class MainMenu extends javax.swing.JFrame {
         buttonGroup14 = new javax.swing.ButtonGroup();
         buttonGroup17 = new javax.swing.ButtonGroup();
         buttonGroup18 = new javax.swing.ButtonGroup();
-        buttonGroup19 = new javax.swing.ButtonGroup();
+        newQuoteRateTypeButtonGroup = new javax.swing.ButtonGroup();
         jScrollPane14 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        buttonGroup20 = new javax.swing.ButtonGroup();
+        updateRateTypeButtonGroup = new javax.swing.ButtonGroup();
         jScrollPane15 = new javax.swing.JScrollPane();
         jPanel13 = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
@@ -241,7 +244,7 @@ public class MainMenu extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         requireAttentionTable = new javax.swing.JTable();
         jScrollPane16 = new javax.swing.JScrollPane();
-        outstandingQuotesTable1 = new javax.swing.JTable();
+        quotesPendingResponseTable = new javax.swing.JTable();
         jLabel135 = new javax.swing.JLabel();
         jLabel136 = new javax.swing.JLabel();
         jToolBar14 = new javax.swing.JToolBar();
@@ -344,8 +347,8 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         tshp2TextField = new javax.swing.JTextField();
         jToolBar2 = new javax.swing.JToolBar();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
         submitNewQuote = new javax.swing.JButton();
+        jSeparator12 = new javax.swing.JToolBar.Separator();
         clearNewQuoteForm = new javax.swing.JButton();
         jToolBar3 = new javax.swing.JToolBar();
         newQuoteAddRow = new javax.swing.JButton();
@@ -377,7 +380,7 @@ public class MainMenu extends javax.swing.JFrame {
         updateQuotePhoneTextField = new javax.swing.JTextField();
         jLabel107 = new javax.swing.JLabel();
         updateQuoteExtensionTextField = new javax.swing.JTextField();
-        jComboBox8 = new javax.swing.JComboBox<>();
+        updateQuotePhoneTypeComboBox = new javax.swing.JComboBox<>();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
         jPanel12 = new javax.swing.JPanel();
@@ -385,15 +388,12 @@ public class MainMenu extends javax.swing.JFrame {
         currentAlphaNumeralLabel = new javax.swing.JLabel();
         jLabel129 = new javax.swing.JLabel();
         updateAlphaNumeralTextField = new javax.swing.JTextField();
-        authorLabel2 = new javax.swing.JLabel();
         updateEditQuoteCustomerNameLabel1 = new javax.swing.JLabel();
         updateEditQuoteCustomerNameLabel2 = new javax.swing.JLabel();
         authorLabel = new javax.swing.JLabel();
         updateEditQuoteCustomerNameLabel4 = new javax.swing.JLabel();
         lastUpdatedByLabel = new javax.swing.JLabel();
         quoteCreatedLabel = new javax.swing.JLabel();
-        authorLabel1 = new javax.swing.JLabel();
-        authorLabel3 = new javax.swing.JLabel();
         updateEditQuoteCustomerNameLabel5 = new javax.swing.JLabel();
         quoteLastUpdatedLabel = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
@@ -461,7 +461,7 @@ public class MainMenu extends javax.swing.JFrame {
         updateBookedCheckBox = new javax.swing.JCheckBox();
         updateEditQuoteBookingNumberTextField = new javax.swing.JTextField();
         updateQuoteFTFTariffCheckBox = new javax.swing.JCheckBox();
-        updateQuoteInidicitoryCheckBox = new javax.swing.JCheckBox();
+        updateQuoteIndicatoryCheckBox = new javax.swing.JCheckBox();
         updateQuoteFTFSpotCheckBox = new javax.swing.JCheckBox();
         updateDeclineCheckBox = new javax.swing.JCheckBox();
         updateDeclineComboBox = new javax.swing.JComboBox();
@@ -474,6 +474,7 @@ public class MainMenu extends javax.swing.JFrame {
         calculateCubicMetersButtonEditPL = new javax.swing.JButton();
         jToolBar6 = new javax.swing.JToolBar();
         updateEditQuoteButton = new javax.swing.JButton();
+        jSeparator11 = new javax.swing.JToolBar.Separator();
         updateCancelButton = new javax.swing.JButton();
         searchPanel = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -1103,36 +1104,36 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jScrollPane7.setViewportView(requireAttentionTable);
 
-        outstandingQuotesTable1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        outstandingQuotesTable1.setModel(new javax.swing.table.DefaultTableModel(
+        quotesPendingResponseTable.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        quotesPendingResponseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Quote ID", "Date Quoted", "Company", "Commodity Description", "Comodity Description"
+                "Quote ID", "Time Stagnant", "Date Quoted", "Company", "Commodity Description", "Response Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, true, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        outstandingQuotesTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane16.setViewportView(outstandingQuotesTable1);
+        quotesPendingResponseTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane16.setViewportView(quotesPendingResponseTable);
 
         jLabel135.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel135.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1180,30 +1181,31 @@ public class MainMenu extends javax.swing.JFrame {
         userInformationPanelLayout.setHorizontalGroup(
             userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userInformationPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(userInformationPanelLayout.createSequentialGroup()
-                            .addComponent(jToolBar14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel135, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(userInformationPanelLayout.createSequentialGroup()
-                                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jToolBar15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jToolBar16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel128, javax.swing.GroupLayout.PREFERRED_SIZE, 819, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(141, Short.MAX_VALUE)
+                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(userInformationPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jToolBar14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel135, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(userInformationPanelLayout.createSequentialGroup()
+                            .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jToolBar15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jToolBar16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel128, javax.swing.GroupLayout.PREFERRED_SIZE, 819, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(142, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userInformationPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1232,7 +1234,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(jToolBar16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel128, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
         userInformationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel1, jPanel2});
@@ -1380,7 +1382,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         oftMeasurementComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         oftMeasurementComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-        oftMeasurementComboBox.setNextFocusableComponent(bafTextField);
+        oftMeasurementComboBox.setNextFocusableComponent(mafiMinimumCheckBox);
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setText("BAF");
@@ -1454,6 +1456,7 @@ public class MainMenu extends javax.swing.JFrame {
         mafiMinimumCheckBox.setText("MAFI minimum: $");
 
         mafiMinimumTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        mafiMinimumTextField.setNextFocusableComponent(bafTextField);
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -1545,76 +1548,75 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(mafiMinimumCheckBox)
                         .addComponent(mafiMinimumTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel10)
-                            .addComponent(bafTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel81)
-                            .addComponent(bafIncludedCheckBox))
-                        .addGap(0, 0, 0)
-                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel74)
-                            .addComponent(ecaBAFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ecaBafMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ecaBafIncludedCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, 0)
-                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel75)
-                            .addComponent(thcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(thcMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(thcIncludedCheckBox))
-                        .addGap(0, 0, 0)
-                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(wfgIncludedCheckBox)
-                            .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel77)
-                                    .addComponent(wfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(wfgMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, 0)
-                                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jLabel14)
-                                    .addComponent(documentationFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(documentationFeeIncludedCheckBox)
-                                    .addComponent(warRiskCheckBox)))))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(thcAttached)
-                        .addGap(0, 0, 0)
-                        .addComponent(wfgAttached)
-                        .addGap(23, 23, 23)))
-                .addGap(0, 0, 0))
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel10)
+                    .addComponent(bafTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel81)
+                    .addComponent(bafIncludedCheckBox))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel74)
+                    .addComponent(ecaBAFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ecaBafMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ecaBafIncludedCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(thcAttached)
+                    .addComponent(thcIncludedCheckBox)
+                    .addComponent(thcMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(thcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel75))
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel77)
+                    .addComponent(wfgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wfgMeasurementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wfgIncludedCheckBox)
+                    .addComponent(wfgAttached))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel14)
+                    .addComponent(documentationFeeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(documentationFeeIncludedCheckBox)
+                    .addComponent(warRiskCheckBox)))
         );
 
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rate Type"));
 
+        newQuoteRateTypeButtonGroup.add(contractRateCheckBox);
         contractRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         contractRateCheckBox.setText("Contract");
 
+        newQuoteRateTypeButtonGroup.add(spotRateCheckBox);
         spotRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         spotRateCheckBox.setText("Spot");
 
+        newQuoteRateTypeButtonGroup.add(newQuoteBookedCheckBox);
         newQuoteBookedCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         newQuoteBookedCheckBox.setText("Booking");
 
+        newQuoteRateTypeButtonGroup.add(newQuoteDenialCheckBox);
         newQuoteDenialCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         newQuoteDenialCheckBox.setText("Decline");
 
         declineComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         declineComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "No Service", "OFT", "Response", "Schedule", "Space", "Cargo Size", "Operational Restrictions", "Other (See Comments)" }));
 
+        newQuoteRateTypeButtonGroup.add(newQuoteTariffCheckBox);
         newQuoteTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         newQuoteTariffCheckBox.setText("Tariff");
 
+        newQuoteRateTypeButtonGroup.add(newQuoteFTFSpotCheckBox);
         newQuoteFTFSpotCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         newQuoteFTFSpotCheckBox.setText("Foreign to Foreign Spot");
 
+        newQuoteRateTypeButtonGroup.add(newQuoteFTFTariffCheckBox);
         newQuoteFTFTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         newQuoteFTFTariffCheckBox.setText("Foreign to Foreign Tariff");
 
+        newQuoteRateTypeButtonGroup.add(newQuoteIndicatoryCheckBox);
         newQuoteIndicatoryCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         newQuoteIndicatoryCheckBox.setText("Indicitory");
 
@@ -1627,27 +1629,26 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addComponent(newQuoteTariffCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(spotRateCheckBox))
-                            .addComponent(newQuoteFTFTariffCheckBox)
-                            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel16Layout.createSequentialGroup()
-                                    .addComponent(contractRateCheckBox)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(newQuoteBookedCheckBox)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(bookingNumberTextField))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
-                                    .addComponent(newQuoteFTFSpotCheckBox)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(newQuoteIndicatoryCheckBox)))))
+                            .addComponent(newQuoteTariffCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(contractRateCheckBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spotRateCheckBox)
+                            .addComponent(newQuoteBookedCheckBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bookingNumberTextField))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(newQuoteDenialCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(declineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                .addComponent(newQuoteDenialCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(declineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                .addComponent(newQuoteFTFSpotCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(newQuoteIndicatoryCheckBox))
+                            .addComponent(newQuoteFTFTariffCheckBox))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1788,7 +1789,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         newQuotePhoneExtensionTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
-        newQuotePhoneTypeTextField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Type", "Office", "Mobile", "Home", "Other" }));
+        newQuotePhoneTypeTextField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Work", "Mobile", "Home", "Other" }));
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -1942,7 +1943,6 @@ public class MainMenu extends javax.swing.JFrame {
 
         jToolBar2.setRollover(true);
         jToolBar2.setFloatable(false);
-        jToolBar2.add(jSeparator3);
 
         submitNewQuote.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         submitNewQuote.setText("Submit");
@@ -1952,6 +1952,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         jToolBar2.add(submitNewQuote);
+        jToolBar2.add(jSeparator12);
 
         clearNewQuoteForm.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         clearNewQuoteForm.setText("Cancel");
@@ -2000,37 +2001,36 @@ public class MainMenu extends javax.swing.JFrame {
         newQuotePanelLayout.setHorizontalGroup(
             newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newQuotePanelLayout.createSequentialGroup()
-                .addContainerGap(121, Short.MAX_VALUE)
-                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                        .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(newQuotePanelLayout.createSequentialGroup()
-                                .addComponent(includeShipperCommentsCheckBox)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
-                        .addGap(389, 389, 389)
-                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(newQuotePanelLayout.createSequentialGroup()
-                        .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE)
+                .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
+                            .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
+                            .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, newQuotePanelLayout.createSequentialGroup()
+                            .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(newQuotePanelLayout.createSequentialGroup()
+                                    .addComponent(includeShipperCommentsCheckBox)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(newQuotePanelLayout.createSequentialGroup()
+                            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         newQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel19, jScrollPane1});
@@ -2038,7 +2038,8 @@ public class MainMenu extends javax.swing.JFrame {
         newQuotePanelLayout.setVerticalGroup(
             newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newQuotePanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -2069,9 +2070,7 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(jLabel93))
                         .addGap(0, 0, 0)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(90, 90, 90))
         );
 
         newQuotePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel15, jPanel16});
@@ -2206,7 +2205,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         updateQuoteExtensionTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Type", "Work", "Mobile", "Home", "Other" }));
+        updateQuotePhoneTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Work", "Mobile", "Home", "Other" }));
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -2239,7 +2238,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(updateQuoteExtensionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(updateQuotePhoneTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(137, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(
@@ -2262,7 +2261,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(updateQuotePhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel107)
                     .addComponent(updateQuoteExtensionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(updateQuotePhoneTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel20Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {editCustomerButton, updateEditQuoteCustomerNameLabel, updateEditQuoteCustomerNameLabel3});
@@ -2279,9 +2278,6 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel129.setText("Updated Alpha Numeral:");
 
         updateAlphaNumeralTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        authorLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        authorLabel2.setText("|");
 
         updateEditQuoteCustomerNameLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateEditQuoteCustomerNameLabel1.setText("Author:");
@@ -2302,12 +2298,6 @@ public class MainMenu extends javax.swing.JFrame {
         quoteCreatedLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         quoteCreatedLabel.setText("N/A");
 
-        authorLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        authorLabel1.setText("|");
-
-        authorLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        authorLabel3.setText("|");
-
         updateEditQuoteCustomerNameLabel5.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         updateEditQuoteCustomerNameLabel5.setText("Last Updated:");
 
@@ -2320,56 +2310,51 @@ public class MainMenu extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(updateEditQuoteCustomerNameLabel1)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(updateEditQuoteCustomerNameLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(authorLabel))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(updateEditQuoteCustomerNameLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lastUpdatedByLabel)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel124)
+                    .addComponent(jLabel129))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(authorLabel)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(currentAlphaNumeralLabel)
+                    .addComponent(updateAlphaNumeralTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(updateEditQuoteCustomerNameLabel5)
+                    .addComponent(updateEditQuoteCustomerNameLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(authorLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(updateEditQuoteCustomerNameLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lastUpdatedByLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel124)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(currentAlphaNumeralLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(authorLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel129)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(updateAlphaNumeralTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(updateEditQuoteCustomerNameLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(quoteCreatedLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(authorLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(updateEditQuoteCustomerNameLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(quoteLastUpdatedLabel))
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(quoteCreatedLabel)
+                    .addComponent(quoteLastUpdatedLabel))
+                .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(updateEditQuoteCustomerNameLabel4)
-                    .addComponent(quoteLastUpdatedLabel)
-                    .addComponent(updateEditQuoteCustomerNameLabel5)
-                    .addComponent(quoteCreatedLabel)
                     .addComponent(updateEditQuoteCustomerNameLabel1)
                     .addComponent(authorLabel)
-                    .addComponent(authorLabel1)
-                    .addComponent(updateEditQuoteCustomerNameLabel2)
-                    .addComponent(lastUpdatedByLabel)
                     .addComponent(jLabel124)
                     .addComponent(currentAlphaNumeralLabel)
-                    .addComponent(authorLabel2)
+                    .addComponent(updateEditQuoteCustomerNameLabel4)
+                    .addComponent(quoteCreatedLabel))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(updateEditQuoteCustomerNameLabel2)
+                    .addComponent(lastUpdatedByLabel)
                     .addComponent(jLabel129)
                     .addComponent(updateAlphaNumeralTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(authorLabel3))
+                    .addComponent(quoteLastUpdatedLabel)
+                    .addComponent(updateEditQuoteCustomerNameLabel5))
                 .addGap(0, 0, 0))
         );
 
@@ -2381,7 +2366,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane13)
+            .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2442,8 +2427,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel84)
-                    .addComponent(updateQuoteOverseasResponseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0))
+                    .addComponent(updateQuoteOverseasResponseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Port Information"));
@@ -2566,7 +2550,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(updateHandlingInstructionsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(updateQuoteAccessoriesCheckBox)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2597,7 +2581,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         updateOftUnitComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         updateOftUnitComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "W/M", "Unit", "CBM", "Short Ton", "Metric Ton", "MAFI", "per 40 cubic ft", "FAS", "Subject to local charges", "Linear Foot" }));
-        updateOftUnitComboBox.setNextFocusableComponent(updateBAFTextField);
+        updateOftUnitComboBox.setNextFocusableComponent(updateQuoteMAFIMinimumCheckBox);
 
         jLabel67.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel67.setText("BAF");
@@ -2808,24 +2792,31 @@ public class MainMenu extends javax.swing.JFrame {
 
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rate Type"));
 
+        updateRateTypeButtonGroup.add(updateQuoteTariffCheckBox);
         updateQuoteTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateQuoteTariffCheckBox.setText("Tariff");
 
+        updateRateTypeButtonGroup.add(updateSpotRateCheckBox);
         updateSpotRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateSpotRateCheckBox.setText("Spot");
 
+        updateRateTypeButtonGroup.add(updateContractRateCheckBox);
         updateContractRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateContractRateCheckBox.setText("Contract");
 
+        updateRateTypeButtonGroup.add(updateBookedCheckBox);
         updateBookedCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateBookedCheckBox.setText("Booking");
 
+        updateRateTypeButtonGroup.add(updateQuoteFTFTariffCheckBox);
         updateQuoteFTFTariffCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateQuoteFTFTariffCheckBox.setText("Foreign to Foreign Tariff");
 
-        updateQuoteInidicitoryCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        updateQuoteInidicitoryCheckBox.setText("Indicitory");
+        updateRateTypeButtonGroup.add(updateQuoteIndicatoryCheckBox);
+        updateQuoteIndicatoryCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        updateQuoteIndicatoryCheckBox.setText("Indicatory");
 
+        updateRateTypeButtonGroup.add(updateQuoteFTFSpotCheckBox);
         updateQuoteFTFSpotCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateQuoteFTFSpotCheckBox.setText("Foreign to Foreign Spot");
         updateQuoteFTFSpotCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -2834,6 +2825,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        updateRateTypeButtonGroup.add(updateDeclineCheckBox);
         updateDeclineCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateDeclineCheckBox.setText("Decline");
         updateDeclineCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -2845,9 +2837,11 @@ public class MainMenu extends javax.swing.JFrame {
         updateDeclineComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         updateDeclineComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "No Service", "OFT", "Response", "Schedule", "Space", "Cargo Size", "Operational Restrictions", "Other (See Comments)" }));
 
+        updateRateTypeButtonGroup.add(editQuoteDuplicateRateCheckBox);
         editQuoteDuplicateRateCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         editQuoteDuplicateRateCheckBox.setText("Duplicate Rate");
 
+        updateRateTypeButtonGroup.add(quoteFeedbackCheckBox);
         quoteFeedbackCheckBox.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         quoteFeedbackCheckBox.setText("Feedback");
 
@@ -2875,7 +2869,7 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addGap(2, 2, 2)
                                 .addComponent(updateSpotRateCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(updateQuoteInidicitoryCheckBox)
+                                .addComponent(updateQuoteIndicatoryCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(updateContractRateCheckBox))
                             .addGroup(jPanel26Layout.createSequentialGroup()
@@ -2902,7 +2896,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateQuoteTariffCheckBox)
                     .addComponent(updateSpotRateCheckBox)
-                    .addComponent(updateQuoteInidicitoryCheckBox)
+                    .addComponent(updateQuoteIndicatoryCheckBox)
                     .addComponent(updateContractRateCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2961,6 +2955,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         jToolBar6.add(updateEditQuoteButton);
+        jToolBar6.add(jSeparator11);
 
         updateCancelButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         updateCancelButton.setText("Cancel");
@@ -2976,52 +2971,54 @@ public class MainMenu extends javax.swing.JFrame {
         updateEditQuotePanelLayout.setHorizontalGroup(
             updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
+                .addContainerGap(61, Short.MAX_VALUE)
                 .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addGap(434, 434, 434)
-                        .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
                         .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updateEditQuotePanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane17))
+                            .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
+                                        .addComponent(editQuoteIncludeShipperCommentsCheckBox)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel95, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(editQuoteIncludeShipperCommentsCheckBox)
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel95, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane5)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
+                            .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jPanel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updateEditQuotePanelLayout.createSequentialGroup()
                             .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(77, Short.MAX_VALUE))
+                            .addGap(0, 0, 0)
+                            .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         updateEditQuotePanelLayout.setVerticalGroup(
             updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0)
+                .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3040,12 +3037,12 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(editQuoteIncludeShipperCommentsCheckBox))
                 .addGap(0, 0, 0)
                 .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
         );
+
+        updateEditQuotePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel20, jPanel22});
 
         mainPanel.add(updateEditQuotePanel, "card3");
 
@@ -3152,8 +3149,8 @@ public class MainMenu extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane10)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 1154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3170,7 +3167,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(jLabel56)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(20, 20, 20))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3330,7 +3327,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel30Layout.setHorizontalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel30Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel30Layout.createSequentialGroup()
                         .addComponent(jLabel106)
@@ -3343,8 +3340,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(jPanel30Layout.createSequentialGroup()
                         .addComponent(jLabel123)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pHandlingInstructions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(pHandlingInstructions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3791,35 +3787,35 @@ public class MainMenu extends javax.swing.JFrame {
         publishingCenterPanelLayout.setHorizontalGroup(
             publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4)
-                            .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
-                        .addComponent(jToolBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jToolBar7, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE)
+                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jToolBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4))
+                    .addComponent(jToolBar7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         publishingCenterPanelLayout.setVerticalGroup(
             publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(publishingCenterPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToolBar7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
+                        .addComponent(jToolBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(publishingCenterPanelLayout.createSequentialGroup()
+                        .addComponent(jToolBar7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(publishingCenterPanelLayout.createSequentialGroup()
@@ -3828,9 +3824,9 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(publishingCenterPanelLayout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(397, 397, 397))
+                .addContainerGap())
         );
 
         mainPanel.add(publishingCenterPanel, "card7");
@@ -4368,7 +4364,7 @@ public class MainMenu extends javax.swing.JFrame {
         newCustomerPanelLayout.setHorizontalGroup(
             newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newCustomerPanelLayout.createSequentialGroup()
-                .addContainerGap(89, Short.MAX_VALUE)
+                .addContainerGap(73, Short.MAX_VALUE)
                 .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jToolBar10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(newCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4383,7 +4379,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(newCustomerPanelLayout.createSequentialGroup()
                         .addComponent(jToolBar9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(384, 384, 384)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         newCustomerPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel3, jPanel4, jPanel5, jPanel6});
@@ -5008,7 +5004,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel52)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, existingCustomerPanelLayout.createSequentialGroup()
-                        .addContainerGap(88, Short.MAX_VALUE)
+                        .addContainerGap(72, Short.MAX_VALUE)
                         .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(existingCustomerPanelLayout.createSequentialGroup()
                                 .addComponent(jToolBar12, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -5023,7 +5019,7 @@ public class MainMenu extends javax.swing.JFrame {
                                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, existingCustomerPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToolBar11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -5120,9 +5116,10 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1165, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -5130,8 +5127,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane15.setViewportView(jPanel13);
@@ -6349,6 +6345,58 @@ public class MainMenu extends javax.swing.JFrame {
         packingListTable.setModel(dtm);
         shipperCommentsTextArea.setText("");
         includeShipperCommentsCheckBox.setSelected(false);
+        newQuoteMTDApprovalComboBox.setSelectedIndex(0);
+        newQuoteSpaceApprovalComboBox.setSelectedIndex(0);
+        newQuoteOverSeasResponseComboBox.setSelectedIndex(0);
+        newQuoteRateTypeButtonGroup.clearSelection();
+        newQuoteTariffCheckBox.setSelected(false);
+        newQuoteIndicatoryCheckBox.setSelected(false);
+        newQuoteFTFSpotCheckBox.setSelected(false);
+        newQuoteFTFTariffCheckBox.setSelected(false);
+        newQuoteContactPhoneTextField.setText("");
+        newQuotePhoneExtensionTextField.setText("");
+        newQuotePhoneTypeTextField.setSelectedIndex(0);
+    }
+
+    // Insert a new packinglist to RQS database
+    private void insertNewPackingList(int lastKey) {
+        // Handle the packing list
+        int rows = packingListTable.getRowCount();
+        for (int row = 0; row < rows; row++) {
+            Object commodity = packingListTable.getValueAt(row, 0);
+            Object quantity = packingListTable.getValueAt(row, 1);
+            Object l = packingListTable.getValueAt(row, 2);
+            Object w = packingListTable.getValueAt(row, 3);
+            Object h = packingListTable.getValueAt(row, 4);
+            Object kgs = packingListTable.getValueAt(row, 5);
+            Object lin = packingListTable.getValueAt(row, 6);
+            Object win = packingListTable.getValueAt(row, 7);
+            Object hin = packingListTable.getValueAt(row, 8);
+            Object cbm = packingListTable.getValueAt(row, 9);
+            Object lbs = packingListTable.getValueAt(row, 10);
+
+            String SQL = "INSERT INTO packinglist (quoteID, commodity, quantity, l, w, h, kgs, length_inches, width_inches, height_inches, cbm, lbs) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+
+            try {
+                PreparedStatement pstmt = conn.prepareStatement(SQL);
+                pstmt.setInt(1, lastKey);
+                pstmt.setString(2, String.valueOf(commodity));
+                pstmt.setString(3, String.valueOf(quantity));
+                pstmt.setString(4, String.valueOf(l));
+                pstmt.setString(5, String.valueOf(w));
+                pstmt.setString(6, String.valueOf(h));
+                pstmt.setString(7, String.valueOf(kgs));
+                pstmt.setString(8, String.valueOf(lin));
+                pstmt.setString(9, String.valueOf(win));
+                pstmt.setString(10, String.valueOf(hin));
+                pstmt.setString(11, String.valueOf(cbm));
+                pstmt.setString(12, String.valueOf(lbs));
+                pstmt.addBatch();
+                pstmt.executeBatch();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
+        }
     }
 
 //New Quote submit button
@@ -6414,7 +6462,7 @@ public class MainMenu extends javax.swing.JFrame {
         String MTDApproval = newQuoteMTDApprovalComboBox.getSelectedItem().toString();
         String spaceApproval = newQuoteSpaceApprovalComboBox.getSelectedItem().toString();
         String overseasResponse = newQuoteOverSeasResponseComboBox.getSelectedItem().toString();
-        
+
         // Internal Comments
         String comments = commentsTextArea.getText();
         Boolean includeCarrierRemarks = includeShipperCommentsCheckBox.isSelected();
@@ -6425,7 +6473,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         // Booked user id is only applied when the cargo is booked, otherwise it will be false
         String bookedUserID = ""; // Cannot be null
-        
+
         //If the quote is marked as booked then get the bookingNumber
         if (booked == true) {
             bookedUserID = userID;
@@ -6436,7 +6484,7 @@ public class MainMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "You must select a reason for declining this cargo");
         }
 
-        String sql = "INSERT INTO allquotes (tradeLane, pol, pod, tshp1, tshp2, comm_class, handling_instructions, comm_description, rate, rate_unit, baf, eca_baf, eca_unit, thc, thc_unit, wfg, wfg_unit, doc_fee, war_risk, spot_rate, user_ID, booked, date, DATE_QUOTED, comments, deny, customerName, thcIncluded, wfgIncluded, thcAttached, wfgAttached, bafIncluded, ecaIncluded, documentationFeeIncluded, accessories, mafiMinimum, mafiMinimumCharge, reason_for_decline, contract_rate, bookedUserID, bookingNumber, contactName, contactEmail, carrierComments)" + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO allquotes (tradeLane, pol, pod, tshp1, tshp2, comm_class, handling_instructions, comm_description, rate, rate_unit, baf, eca_baf, eca_unit, thc, thc_unit, wfg, wfg_unit, doc_fee, war_risk, spot_rate, user_ID, booked, date, DATE_QUOTED, comments, deny, customerName, thcIncluded, wfgIncluded, thcAttached, wfgAttached, bafIncluded, ecaIncluded, documentationFeeIncluded, accessories, mafiMinimum, mafiMinimumCharge, reason_for_decline, contract_rate, bookedUserID, bookingNumber, contactName, contactEmail, carrierComments, MTD_APPROVAL, SPACE_APPROVAL, OVERSEAS_RESPONSE, TARIFF_RATE, FTF_SPOT_RATE, FTF_TARIFF_RATE, INDICATORY_RATE, CONTACT_PHONE, CONTACT_PHONE_EXTENSION, CONTACT_PHONE_TYPE)" + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, tradeLane);
@@ -6483,8 +6531,18 @@ public class MainMenu extends javax.swing.JFrame {
             ps.setString(42, newQuoteContactName);
             ps.setString(43, newQuoteContactEmail);
             ps.setString(44, carrierComments);
+            ps.setString(45, MTDApproval);
+            ps.setString(46, spaceApproval);
+            ps.setString(47, overseasResponse);
+            ps.setBoolean(48, tariffRate);
+            ps.setBoolean(49, ftfSpotRate);
+            ps.setBoolean(50, ftfTariffRate);
+            ps.setBoolean(51, indicatoryRate);
+            ps.setString(52, newQuoteContactPhone);
+            ps.setString(53, newQuoteContactExtension);
+            ps.setString(54, newQuoteContactPhoneType);
 
-            // Execute the INSERT statement and return the ID as lastKey
+            // Insert the quote information into the allquotes DB and return the row ID as lastKey
             ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys();
             int lastKey = 1;
@@ -6492,47 +6550,11 @@ public class MainMenu extends javax.swing.JFrame {
                 lastKey = keys.getInt(1);
             }
 
-            // Handle the packing list
-            int rows = packingListTable.getRowCount();
-            for (int row = 0; row < rows; row++) {
-                Object commodity = packingListTable.getValueAt(row, 0);
-                Object quantity = packingListTable.getValueAt(row, 1);
-                Object l = packingListTable.getValueAt(row, 2);
-                Object w = packingListTable.getValueAt(row, 3);
-                Object h = packingListTable.getValueAt(row, 4);
-                Object kgs = packingListTable.getValueAt(row, 5);
-                Object lin = packingListTable.getValueAt(row, 6);
-                Object win = packingListTable.getValueAt(row, 7);
-                Object hin = packingListTable.getValueAt(row, 8);
-                Object cbm = packingListTable.getValueAt(row, 9);
-                Object lbs = packingListTable.getValueAt(row, 10);
-
-                String SQL = "INSERT INTO packinglist (quoteID, commodity, quantity, l, w, h, kgs, length_inches, width_inches, height_inches, cbm, lbs) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-
-                try {
-                    PreparedStatement pstmt = conn.prepareStatement(SQL);
-                    pstmt.setInt(1, lastKey);
-                    pstmt.setString(2, String.valueOf(commodity));
-                    pstmt.setString(3, String.valueOf(quantity));
-                    pstmt.setString(4, String.valueOf(l));
-                    pstmt.setString(5, String.valueOf(w));
-                    pstmt.setString(6, String.valueOf(h));
-                    pstmt.setString(7, String.valueOf(kgs));
-                    pstmt.setString(8, String.valueOf(lin));
-                    pstmt.setString(9, String.valueOf(win));
-                    pstmt.setString(10, String.valueOf(hin));
-                    pstmt.setString(11, String.valueOf(cbm));
-                    pstmt.setString(12, String.valueOf(lbs));
-                    pstmt.addBatch();
-                    pstmt.executeBatch();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-                }
-            }
+            // Insert the packing list to the PL table
+            insertNewPackingList(lastKey);
 
             //Displays quote ID in window pane
             JOptionPane.showMessageDialog(null, "Quote ID:" + lastKey);
-
 
             /*
                      *
@@ -6607,18 +6629,30 @@ public class MainMenu extends javax.swing.JFrame {
             if (warRisk == true) {
                 warRiskPDF = "3%/OFT";
             }
-            if (booked == true && denial == false) {
-                quoteStatus = "Booked";
-            } else if (denial == true && booked == false) {
-                quoteStatus = "Decline";
-            } else {
-                quoteStatus = "Active";
+
+            String quoteType = null;
+            if (indicatoryRate == true) {
+                quoteType = "Indicatory";
+            } else if (ftfSpotRate == true) {
+                quoteType = "Foreign to Foreign Spot Rate";
+            } else if (ftfTariffRate == true) {
+                quoteType = "Foreign to Foreign Tariff";
+            } else if (spotRate == true) {
+                quoteType = "Spot Rate";
+            } else if (booked == true) {
+                quoteType = "Booking";
+            } else if (contract_rate == true) {
+                quoteType = "Contract Rate";
+            } else if (tariffRate == true) {
+                quoteType = "Tariff";
+            } else if (denial == true) {
+                quoteType = "Decline";
             }
 
             // Creates the PDF and saves it to the user's Quotes folder
-            new QuotePDf().QuotePDF(String.valueOf(quoteID), timeStamp, newQuoteContactName, newQuoteCompany, newQuoteContactEmail, quoteStatus, username, pol, pod, tshpPorts, commodityClass, handlingInstructions, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, docFeePDF, warRisk, warRiskPDF, includeCarrierRemarks, carrierComments, packingListTable, spotRate, contract_rate);
+            new QuotePDf().QuotePDF(String.valueOf(quoteID), timeStamp, newQuoteContactName, newQuoteCompany, newQuoteContactEmail, quoteType, username, pol, pod, tshpPorts, commodityClass, handlingInstructions, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, docFeePDF, warRisk, warRiskPDF, includeCarrierRemarks, carrierComments, packingListTable, spotRate, MTDApproval, spaceApproval, overseasResponse);
 
-        } catch (Exception ex) {
+        } catch (SQLException | HeadlessException | IOException ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -6757,7 +6791,7 @@ public class MainMenu extends javax.swing.JFrame {
         customerInformationPanel.setVisible(false);
         publishingCenterPanel.setVisible(false);
 
-        new UserInformationActivity(userID, username);
+        new UserInformationActivity().UserInformation(userID, username);
     }//GEN-LAST:event_UserInformationCenterButtonActionPerformed
 
     private void searchCenterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCenterButtonActionPerformed
@@ -6983,42 +7017,24 @@ public class MainMenu extends javax.swing.JFrame {
                 String dateQuoted = rs.getString("date");
                 String dateUpdated = rs.getString("dateUpdated");
                 String carrierComments = rs.getString("carrierComments");
-
+                String mtdApproval = rs.getString("MTD_APPROVAL");
+                String spaceApproval = rs.getString("SPACE_APPROVAL");
+                String overseasResponse = rs.getString("OVERSEAS_RESPONSE");
+                Boolean tariffRate = rs.getBoolean("TARIFF_RATE");
+                Boolean ftfSpotRate = rs.getBoolean("FTF_SPOT_RATE");
+                Boolean ftfTariffRate = rs.getBoolean("FTF_TARIFF_RATE");
+                Boolean indicatoryRate = rs.getBoolean("INDICATORY_RATE");
+                String contactPhone = rs.getString("CONTACT_PHONE");
+                String contactPhoneExtension = rs.getString("CONTACT_PHONE_EXTENSION");
+                String contactPhoneType = rs.getString("CONTACT_PHONE_TYPE");
+                
                 //Fill Packing List
-                insertPackingListInformation(conn, quoteID);
+                insertPackingListInformation(quoteID);
 
-                //Get current alph-numeral from DB and display or display N/A if none exists
-                if (currentAlphaNumeral == null || currentAlphaNumeral.equals("")) {
-                    currentAlphaNumeralLabel.setText("N/A");
-                } else if (!currentAlphaNumeral.equals("")) {
-                    currentAlphaNumeralLabel.setText(currentAlphaNumeral);
-                }
-
-                String current = currentAlphaNumeralLabel.getText();
-
-                if (current.equals("") || current.equals("N/A")) {
-                    updateAlphaNumeralTextField.setText("A");
-                } else if (!current.equals("") || current.equals("N/A")) {
-                    int charValue = current.charAt(0);
-                    String next = String.valueOf((char) (charValue + 1));
-                    updateAlphaNumeralTextField.setText(next);
-                }
-
-                if (ecaIncluded == true) {
-                    eca = "";
-                    ecaUnit = "N/A";
-                }
-                if (thcIncluded == true) {
-                    thc = "";
-                    thcUnit = "N/A";
-                }
-                if (wfgIncluded == true) {
-                    wfg = "";
-                    wfgUnit = "N/A";
-                }
-                if (documentationFeeIncluded == true) {
-                    documentationFee = "N/A";
-                }
+                //User Information
+                updateQuotePhoneTextField.setText(contactPhone);
+                updateQuoteExtensionTextField.setText(contactPhoneExtension);
+                updateQuotePhoneTypeComboBox.setSelectedItem(contactPhoneType);
 
                 //Returns the value of the author and displays on authorLabel
                 String sqlAuthor = "SELECT * FROM authorized_users WHERE userID ='" + authorID + "';";
@@ -7041,18 +7057,46 @@ public class MainMenu extends javax.swing.JFrame {
                     String updater = updaterLN + ", " + updaterFN;
                     lastUpdatedByLabel.setText(updater);
                 }
+                quoteCreatedLabel.setText(dateQuoted);
+                quoteLastUpdatedLabel.setText(dateUpdated);
 
-                updateQuoteIDTextArea.setText(quoteID);
+                //Contact Information 
                 updateEditQuoteCustomerNameLabel.setText(customerName);
+                updateContactNameTextField.setText(contactName);
+                updateContactEmailTextField.setText(contactEmail);
+                updateShipperCommentsTextArea.setText(carrierComments);
+//Get current alph-numeral from DB and display or display N/A if none exists
+                if (currentAlphaNumeral == null || currentAlphaNumeral.equals("")) {
+                    currentAlphaNumeralLabel.setText("N/A");
+                } else {
+                    currentAlphaNumeralLabel.setText(currentAlphaNumeral);
+                }
+
+                // Set the next alpha character
+                String current = currentAlphaNumeralLabel.getText();
+                if (current.equals("") || current.equals("N/A")) {
+                    updateAlphaNumeralTextField.setText("A");
+                } else if (!current.equals("") || current.equals("N/A")) {
+                    int charValue = current.charAt(0);
+                    String next = String.valueOf((char) (charValue + 1));
+                    updateAlphaNumeralTextField.setText(next);
+                }
+
+                //Port Information 
                 updateTradeLane.setSelectedItem(tradeLane);
                 updatePOLTextField.setText(pol);
+                updatePOLTextField.setColumns(2);
                 updatePODTextField.setText(pod);
                 updateTshp1TextField.setText(tshp1);
                 updateTshp2TextField.setText(tshp2);
+
+                //Commodity Information 
                 updateCommodityClassComboBox.setSelectedItem(commodityClass);
                 updateCommodityDescriptionTextField.setText(commodityDescription);
                 updateHandlingInstructionsComboBox.setSelectedItem(handlingInstructions);
                 updateQuoteAccessoriesCheckBox.setSelected(accessories);
+
+                //Quote Information 
                 updateOFTTextField.setText(oft);
                 updateOftUnitComboBox.setSelectedItem(oftUnit);
                 updateBAFTextField.setText(baf);
@@ -7071,32 +7115,49 @@ public class MainMenu extends javax.swing.JFrame {
                 updateDocumentationFeeComboBox.setSelectedItem(documentationFee);
                 updateDocFeeIncludedCheckBox.setSelected(documentationFeeIncluded);
                 updateWarRiskCheckBox.setSelected(warRisk);
+                updateQuoteMAFIMinimumCheckBox.setSelected(mafi);
+                updateEditMAFIMinimumTextField.setText(mafiCharge);
+                if (ecaIncluded == true) {
+                    eca = "";
+                    ecaUnit = "N/A";
+                }
+                if (thcIncluded == true) {
+                    thc = "";
+                    thcUnit = "N/A";
+                }
+                if (wfgIncluded == true) {
+                    wfg = "";
+                    wfgUnit = "N/A";
+                }
+                if (documentationFeeIncluded == true) {
+                    documentationFee = "N/A";
+                }
+
+                //Quote Type
                 updateSpotRateCheckBox.setSelected(spotRate);
                 editQuoteDuplicateRateCheckBox.setSelected(duplicate);
                 updateBookedCheckBox.setSelected(booked);
                 updateEditQuoteBookingNumberTextField.setText(bookingNumber);
-                updateCommentsTextArea.setText(comments);
-                updateDeclineCheckBox.setSelected(deny);
-                updateQuoteMAFIMinimumCheckBox.setSelected(mafi);
-                updateEditMAFIMinimumTextField.setText(mafiCharge);
                 updateContractRateCheckBox.setSelected(contractRate);
-                quoteCreatedLabel.setText(dateQuoted);
-                quoteLastUpdatedLabel.setText(dateUpdated);
-                if (reason_for_decline.equals("")) {
-                    updateDeclineComboBox.setSelectedIndex(0);
-                } else {
-                    updateDeclineComboBox.setSelectedItem(reason_for_decline);
-                }
+                updateQuoteTariffCheckBox.setSelected(tariffRate);
+                updateQuoteFTFSpotCheckBox.setSelected(ftfSpotRate);
+                updateQuoteFTFTariffCheckBox.setSelected(ftfTariffRate);
+                updateQuoteIndicatoryCheckBox.setSelected(indicatoryRate);
+                updateDeclineCheckBox.setSelected(deny);
+                updateDeclineComboBox.setSelectedItem(reason_for_decline);
                 quoteFeedbackCheckBox.setSelected(feedback);
-                if (feedbackType == null) {
-                    quoteFeedbackComboBox.setSelectedIndex(0);
-                } else {
-                    quoteFeedbackComboBox.setSelectedItem(feedbackType);
-                }
+                quoteFeedbackComboBox.setSelectedItem(feedbackType);
                 quoteFeedbackTextField.setText(feedbackDescription);
-                updateContactNameTextField.setText(contactName);
-                updateContactEmailTextField.setText(contactEmail);
-                updateShipperCommentsTextArea.setText(carrierComments);
+
+                //Quote Status
+                updateQuoteMTDApprovalComboBox.setSelectedItem(mtdApproval);
+                updateQuoteSpaceApprovalComboBox.setSelectedItem(spaceApproval);
+                updateQuoteOverseasResponseComboBox.setSelectedItem(overseasResponse);
+
+                //Internal Comments
+                updateCommentsTextArea.setText(comments);
+                updateQuoteIDTextArea.setText(quoteID);
+
             }
 
         } catch (SQLException | HeadlessException ex) {
@@ -7104,7 +7165,7 @@ public class MainMenu extends javax.swing.JFrame {
         }
     }
 
-    private static void insertPackingListInformation(Connection conn, String quoteID) {
+    private static void insertPackingListInformation(String quoteID) {
         //SQL to retreive information from the packing list schema based on the quote ID 
         String packingList = "SELECT commodity AS 'Commodity', quantity AS 'Qty', l AS 'L(cm)', w AS 'W(cm)', h AS 'H(cm)', kgs AS 'Kgs', length_inches AS'L(in)', width_inches AS 'W(in)', height_inches AS 'H(in)', cbm AS 'CBM', lbs AS 'Lbs', ID FROM packingList WHERE quoteID =?";
         try {
@@ -7128,23 +7189,78 @@ public class MainMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_updateCancelButtonActionPerformed
 
+    private void updatePackingList(String quoteID) {
+        int rows = updateEditPackingListTable.getRowCount(); //Get the number of rows on the current packing list table
+        int cols = updateEditPackingListTable.getColumnCount(); //Get the number of columns on the current packing list table
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                String commodity = (String) updateEditPackingListTable.getValueAt(row, 0);
+                String quantity = (String) updateEditPackingListTable.getValueAt(row, 1);
+                String l = (String) updateEditPackingListTable.getValueAt(row, 2);
+                String w = (String) updateEditPackingListTable.getValueAt(row, 3);
+                String h = (String) updateEditPackingListTable.getValueAt(row, 4);
+                String kgs = (String) updateEditPackingListTable.getValueAt(row, 5);
+                String lin = (String) updateEditPackingListTable.getValueAt(row, 6);
+                String win = (String) updateEditPackingListTable.getValueAt(row, 7);
+                String hin = (String) updateEditPackingListTable.getValueAt(row, 8);
+                String cbm = (String) updateEditPackingListTable.getValueAt(row, 9);
+                String lbs = (String) updateEditPackingListTable.getValueAt(row, 10);
+                String tableColumnID = String.valueOf(updateEditPackingListTable.getValueAt(row, 11));//String.valueOf(updateEditPackingListTable.getValueAt(row, col));
+
+                String SQL = "UPDATE packinglist SET commodity=?, quantity=?, l=?, w=?, h=?, kgs=?, length_inches=?, width_inches=?, height_inches=?, cbm=?, lbs=?  WHERE quoteID=? AND ID=?";
+
+                try {
+                    PreparedStatement pstmt = conn.prepareStatement(SQL);
+                    pstmt.setString(1, commodity);
+                    pstmt.setString(2, quantity);
+                    pstmt.setString(3, l);
+                    pstmt.setString(4, w);
+                    pstmt.setString(5, h);
+                    pstmt.setString(6, kgs);
+                    pstmt.setString(7, lin);
+                    pstmt.setString(8, win);
+                    pstmt.setString(9, hin);
+                    pstmt.setString(10, cbm);
+                    pstmt.setString(11, lbs);
+                    pstmt.setString(12, quoteID);
+                    pstmt.setString(13, tableColumnID);
+                    pstmt.addBatch();
+                    pstmt.executeBatch();
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Table Error: " + e.getMessage());
+                }
+            }
+
+        }
+    }
+
 //Update quote button
     private void updateEditQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEditQuoteButtonActionPerformed
 
-        //Establish new connection with DB
-        Connection conn = new DBConnection().connect();
-
+        //Quote User Information 
+        //Contact Information 
         String customerName = updateEditQuoteCustomerNameLabel.getText();
         String contactName = updateContactNameTextField.getText();
         String contactEmail = updateContactEmailTextField.getText();
+        String contactPhone = updateQuotePhoneTextField.getText();
+        String contactExtension = updateQuoteExtensionTextField.getText();
+        String contactPhoneType = updateQuotePhoneTypeComboBox.getSelectedItem().toString();
+
+        //Port Information 
         String tradeLane = updateTradeLane.getSelectedItem().toString();
         String pol = updatePOLTextField.getText();
         String pod = updatePODTextField.getText();
         String tshp1 = updateTshp1TextField.getText();
         String tshp2 = updateTshp2TextField.getText();
+
+        //Commodity Information 
         String commodityClass = updateCommodityClassComboBox.getSelectedItem().toString();
         String commodityDescription = updateCommodityDescriptionTextField.getText();
         String handlingInstruction = updateHandlingInstructionsComboBox.getSelectedItem().toString();
+        Boolean accessories = updateQuoteAccessoriesCheckBox.isSelected();
+
+        //Rate Quote
         String oft = updateOFTTextField.getText();
         String oftUnit = updateOftUnitComboBox.getSelectedItem().toString();
         String baf = updateBAFTextField.getText();
@@ -7163,23 +7279,38 @@ public class MainMenu extends javax.swing.JFrame {
         String documentationFee = updateDocumentationFeeComboBox.getSelectedItem().toString();
         Boolean documentationFeeIncluded = updateDocFeeIncludedCheckBox.isSelected();
         Boolean warRisk = updateWarRiskCheckBox.isSelected();
+
+        //Rate Type
         Boolean spotRate = updateSpotRateCheckBox.isSelected();
         Boolean duplicateRate = editQuoteDuplicateRateCheckBox.isSelected();
         Boolean booked = updateBookedCheckBox.isSelected();
         String bookingNumber = "";
-        String comments = updateCommentsTextArea.getText();
         Boolean decline = updateDeclineCheckBox.isSelected();
-        String quoteID = updateQuoteIDTextArea.getText();
-        Boolean accessories = updateQuoteAccessoriesCheckBox.isSelected();
-        String dateUpdated = new SimpleDateFormat("YYYY-MM-dd HH:mm").format(Calendar.getInstance().getTime());
-        String timeStamp = new SimpleDateFormat("YYYY-MM-dd HH:mm").format(Calendar.getInstance().getTime());
-        String updateAlphaNumeral = updateAlphaNumeralTextField.getText();
         String reason_for_decline = "N/A";
         String deny = updateDeclineComboBox.getSelectedItem().toString();
         Boolean contract_rate = updateContractRateCheckBox.isSelected();
         Boolean feedback = quoteFeedbackCheckBox.isSelected();
         String feedbackType = quoteFeedbackComboBox.getSelectedItem().toString();
         String feedbackDescription = quoteFeedbackTextField.getText();
+        Boolean ftfSpotRate = updateQuoteFTFSpotCheckBox.isSelected();
+        Boolean ftfTariff = updateQuoteFTFTariffCheckBox.isSelected();
+        Boolean indicatoryRate = updateQuoteIndicatoryCheckBox.isSelected();
+        Boolean tariffRate = updateQuoteTariffCheckBox.isSelected();
+
+        //Quote Status
+        String mtdApproval = updateQuoteMTDApprovalComboBox.getSelectedItem().toString();
+        String spaceApproval = updateQuoteSpaceApprovalComboBox.getSelectedItem().toString();
+        String overseasResponse = updateQuoteOverseasResponseComboBox.getSelectedItem().toString();
+        //Carrier Comments 
+        //Internal Comments
+        String comments = updateCommentsTextArea.getText();
+
+        String quoteID = updateQuoteIDTextArea.getText();
+
+        String dateUpdated = new SimpleDateFormat("YYYY-MM-dd HH:mm").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat("YYYY-MM-dd HH:mm").format(Calendar.getInstance().getTime());
+        String updateAlphaNumeral = updateAlphaNumeralTextField.getText();
+
         Boolean includeCarrierRemarks = editQuoteIncludeShipperCommentsCheckBox.isSelected();
         String carrierComments = updateShipperCommentsTextArea.getText();
 
@@ -7254,7 +7385,7 @@ public class MainMenu extends javax.swing.JFrame {
                     String ID = rs1.getString("userID");
 
                     //Enter updated quote into allquotes Database with new timestamp and alphanumeral
-                    String sql = "UPDATE allquotes SET tradeLane=?,pol=?, pod=?, tshp1=?, tshp2=?, comm_class=?, handling_instructions=?, comm_description=?, rate=?, rate_unit=?, baf=?, eca_baf=?, eca_unit=?, thc=?, thc_unit=?, wfg=?, wfg_unit=?, doc_fee=?, war_risk=?, spot_rate=?, booked=?, comments=?, dateUpdated=?, DATE_UPDATED=?, deny=?, updateUserID=?, thcIncluded=?, wfgIncluded=?, thcAttached=?, wfgAttached=?, bafIncluded=?, ecaIncluded=?, documentationFeeIncluded=?, alpha_numeral=?, accessories=?, mafiMinimum=?, mafiMinimumCharge=?, reason_for_decline=?,contract_rate=?, customerName=?, feedback=?, feedbackType=?, feedbackDescription=?, bookingNumber=?, contactName=?, contactEmail=?, duplicateRate=?, carrierComments=? WHERE ID=?";
+                    String sql = "UPDATE allquotes SET tradeLane=?,pol=?, pod=?, tshp1=?, tshp2=?, comm_class=?, handling_instructions=?, comm_description=?, rate=?, rate_unit=?, baf=?, eca_baf=?, eca_unit=?, thc=?, thc_unit=?, wfg=?, wfg_unit=?, doc_fee=?, war_risk=?, spot_rate=?, booked=?, comments=?, dateUpdated=?, DATE_UPDATED=?, deny=?, updateUserID=?, thcIncluded=?, wfgIncluded=?, thcAttached=?, wfgAttached=?, bafIncluded=?, ecaIncluded=?, documentationFeeIncluded=?, alpha_numeral=?, accessories=?, mafiMinimum=?, mafiMinimumCharge=?, reason_for_decline=?,contract_rate=?, customerName=?, feedback=?, feedbackType=?, feedbackDescription=?, bookingNumber=?, contactName=?, contactEmail=?, duplicateRate=?, carrierComments=?, MTD_APPROVAL=?, SPACE_APPROVAL=?, OVERSEAS_RESPONSE=?, TARIFF_RATE=?, FTF_SPOT_RATE=?, FTF_TARIFF_RATE=?, INDICATORY_RATE=?, CONTACT_PHONE=?, CONTACT_PHONE_EXTENSION=?, CONTACT_PHONE_TYPE=? WHERE ID=?";
 
                     try {
                         PreparedStatement ps = conn.prepareStatement(sql);
@@ -7306,7 +7437,17 @@ public class MainMenu extends javax.swing.JFrame {
                         ps.setString(46, contactEmail);
                         ps.setBoolean(47, duplicateRate);
                         ps.setString(48, carrierComments);
-                        ps.setString(49, quoteID);
+                        ps.setString(49, mtdApproval);
+                        ps.setString(50, spaceApproval);
+                        ps.setString(51, overseasResponse);
+                        ps.setBoolean(52, tariffRate);
+                        ps.setBoolean(53, ftfSpotRate);
+                        ps.setBoolean(54, ftfTariff);
+                        ps.setBoolean(55, indicatoryRate);
+                        ps.setString(56, contactPhone);
+                        ps.setString(57, contactExtension);
+                        ps.setString(58, contactPhoneType);
+                        ps.setString(59, quoteID);
 
                         // Execute the update
                         ps.executeUpdate();
@@ -7323,7 +7464,7 @@ public class MainMenu extends javax.swing.JFrame {
                                 System.out.println(e.getMessage());
                             }
                         } else {
-                            String bookedSQL = "UPDATE allquotes SET bookedUserID='N/A' WHERE ID='" + quoteID + "';";
+                            String bookedSQL = "UPDATE allquotes SET bookedUserID=? WHERE ID=?;";
                             try {
                                 PreparedStatement psBooked = conn.prepareStatement(bookedSQL);
                                 psBooked.setString(1, "N/A");
@@ -7334,121 +7475,7 @@ public class MainMenu extends javax.swing.JFrame {
                             }
                         }
 
-                        int rows = updateEditPackingListTable.getRowCount(); //Get the number of rows on the current packing list table
-                        int cols = updateEditPackingListTable.getColumnCount(); //Get the number of columns on the current packing list table
-                        for (int row = 0; row < rows; row++) {
-                            for (int col = 0; col < cols; col++) {
-                                String commodity = (String) updateEditPackingListTable.getValueAt(row, 0);
-                                String quantity = (String) updateEditPackingListTable.getValueAt(row, 1);
-                                String l = (String) updateEditPackingListTable.getValueAt(row, 2);
-                                String w = (String) updateEditPackingListTable.getValueAt(row, 3);
-                                String h = (String) updateEditPackingListTable.getValueAt(row, 4);
-                                String kgs = (String) updateEditPackingListTable.getValueAt(row, 5);
-                                String lin = (String) updateEditPackingListTable.getValueAt(row, 6);
-                                String win = (String) updateEditPackingListTable.getValueAt(row, 7);
-                                String hin = (String) updateEditPackingListTable.getValueAt(row, 8);
-                                String cbm = (String) updateEditPackingListTable.getValueAt(row, 9);
-                                String lbs = (String) updateEditPackingListTable.getValueAt(row, 10);
-                                String tableColumnID = String.valueOf(updateEditPackingListTable.getValueAt(row, 11));//String.valueOf(updateEditPackingListTable.getValueAt(row, col));
-                                String c = null;
-                                String q = null;
-                                String L = null;
-                                String W = null;
-                                String H = null;
-                                String Lin = null;
-                                String Hin = null;
-                                String Win = null;
-                                String m3 = null;
-                                String K = null;
-                                String lb = null;
-
-                                if (commodity.equals("null")) {
-                                    c = "";
-                                } else if (!commodity.equals("null")) {
-                                    c = commodity;
-                                }
-                                if (quantity == null) {
-                                    q = "";
-                                } else if (quantity != null) {
-                                    q = quantity;
-                                }
-                                if (l == null) {
-                                    L = "";
-                                } else if (l != null) {
-                                    L = l;
-                                }
-                                if (w == null) {
-                                    W = "";
-                                } else if (w != null) {
-                                    W = w;
-                                }
-                                if (h == null) {
-                                    H = "";
-                                } else if (h != null) {
-                                    H = h;
-                                }
-                                if (w == null) {
-                                    W = "";
-                                } else if (w != null) {
-                                    W = w;
-                                }
-                                if (cbm == null) {
-                                    m3 = "";
-                                } else if (cbm != null) {
-                                    m3 = cbm;
-                                }
-                                if (kgs == null) {
-                                    K = "";
-                                } else if (kgs != null) {
-                                    K = kgs;
-                                }
-                                if (lbs == null) {
-                                    lb = "";
-                                } else if (lbs != null) {
-                                    lb = lbs;
-                                }
-                                if (lin == null) {
-                                    Lin = "";
-                                } else if (lin != null) {
-                                    Lin = lin;
-                                }
-                                if (win == null) {
-                                    Win = "";
-                                } else if (win != null) {
-                                    Win = win;
-                                }
-                                if (hin == null) {
-                                    Hin = "";
-                                } else if (hin != null) {
-                                    Hin = hin;
-                                }
-
-                                String SQL = "UPDATE packinglist SET commodity=?, quantity=?, l=?, w=?, h=?, kgs=?, length_inches=?, width_inches=?, height_inches=?, cbm=?, lbs=?  WHERE quoteID=? AND ID=?";
-
-                                try {
-                                    PreparedStatement pstmt = conn.prepareStatement(SQL);
-                                    pstmt.setString(1, c);
-                                    pstmt.setString(2, q);
-                                    pstmt.setString(3, L);
-                                    pstmt.setString(4, W);
-                                    pstmt.setString(5, H);
-                                    pstmt.setString(6, K);
-                                    pstmt.setString(7, Lin);
-                                    pstmt.setString(8, Win);
-                                    pstmt.setString(9, Hin);
-                                    pstmt.setString(10, m3);
-                                    pstmt.setString(11, lb);
-                                    pstmt.setString(12, quoteID);
-                                    pstmt.setString(13, tableColumnID);
-                                    pstmt.addBatch();
-                                    pstmt.executeBatch();
-
-                                } catch (Exception e) {
-                                    JOptionPane.showMessageDialog(null, "Table Error: " + e.getMessage());
-                                }
-                            }
-
-                        }
+                        updatePackingList(quoteID);
 
                         JOptionPane.showMessageDialog(null, "Quote ID: " + quoteID + updateAlphaNumeral + " has been successfully updated");
 
@@ -7524,21 +7551,32 @@ public class MainMenu extends javax.swing.JFrame {
                             warRiskPDF = "3$/OFT";
                         }
 
-                        if (booked == true) {
-                            quoteStatus = "Booked";
+                        String quoteType = null;
+                        if (indicatoryRate == true) {
+                            quoteType = "Indicatory";
+                        } else if (ftfSpotRate == true) {
+                            quoteType = "Foreign to Foreign Spot Rate";
+                        } else if (ftfTariff == true) {
+                            quoteType = "Foreign to Foreign Tariff";
+                        } else if (spotRate == true) {
+                            quoteType = "Spot Rate";
+                        } else if (booked == true) {
+                            quoteType = "Booking";
+                        } else if (contract_rate == true) {
+                            quoteType = "Contract Rate";
+                        } else if (tariffRate == true) {
+                            quoteType = "Tariff";
                         } else if (decline == true) {
-                            quoteStatus = "Decline";
-                        } else {
-                            quoteStatus = "Active";
+                            quoteType = "Decline";
                         }
 
-                        new QuotePDf().QuotePDF(String.valueOf(quoteID + updateAlphaNumeral), timeStamp, contactName, customerName, contactEmail, quoteStatus, username, pol, pod, tshpPorts, commodityClass, handlingInstruction, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, documentationFeePdf, warRisk, warRiskPDF, includeCarrierRemarks, carrierComments, updateEditPackingListTable, spotRate, contract_rate);
+                        // Creates the PDF and saves it to the user's Quotes folder
+                        new QuotePDf().QuotePDF(String.valueOf(quoteID) + updateAlphaNumeral, timeStamp, contactName, customerName, contactEmail, quoteType, username, pol, pod, tshpPorts, commodityClass, handlingInstruction, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, documentationFeePdf, warRisk, warRiskPDF, includeCarrierRemarks, carrierComments, updateEditPackingListTable, spotRate, mtdApproval, spaceApproval, overseasResponse);
 
                     } catch (SQLException | HeadlessException | IOException ex) {
-                        System.out.println("Second Try: " + ex.getMessage());
-                        JOptionPane.showMessageDialog(null, "Error! \n" + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Error! \n" + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
                     }
-                    JOptionPane.showMessageDialog(null, "Quote Updated", "This quote has been added to the S: Drive", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "This quote has been added to the S: Drive", "Quote Updated", JOptionPane.INFORMATION_MESSAGE);
 
                     // Clear the update quote panel inputs and reset the updqte quote panel
                     ClearUpdateQuotePanel();
@@ -8595,7 +8633,11 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_newQuoteOverSeasResponseComboBoxActionPerformed
 
     private void selectOustandingQuoteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectOustandingQuoteButton1ActionPerformed
-        // TODO add your handling code here:
+        int selectedRowIndex = quotesPendingResponseTable.getSelectedRow();
+        String quoteID = String.valueOf(quotesPendingResponseTable.getValueAt(selectedRowIndex, 0));
+        userInformationPanel.setVisible(false);
+        updateEditQuotePanel.setVisible(true);
+        updateQuoteInformation(quoteID);
     }//GEN-LAST:event_selectOustandingQuoteButton1ActionPerformed
 
     protected void ClearUpdateQuotePanel() {
@@ -8652,6 +8694,16 @@ public class MainMenu extends javax.swing.JFrame {
         updateCommentsTextArea.setText("");
         editQuoteIncludeShipperCommentsCheckBox.setSelected(false);
         updateShipperCommentsTextArea.setText("");
+        updateQuoteMTDApprovalComboBox.setSelectedIndex(0);
+        updateQuoteSpaceApprovalComboBox.setSelectedIndex(0);
+        updateQuoteOverseasResponseComboBox.setSelectedIndex(0);
+        updateQuoteTariffCheckBox.setSelected(false);
+        updateQuoteIndicatoryCheckBox.setSelected(false);
+        updateQuoteFTFSpotCheckBox.setSelected(false);
+        updateQuoteFTFTariffCheckBox.setSelected(false);
+        updateQuotePhoneTextField.setText("");
+        updateQuoteExtensionTextField.setText("");
+        updateQuotePhoneTypeComboBox.setSelectedIndex(0);
 
         // Reset the packing list table
         int Rows = updateEditPackingListTable.getRowCount();
@@ -8876,9 +8928,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JMenuItem NewCustMenuItem;
     public static javax.swing.JButton UserInformationCenterButton;
     public static javax.swing.JLabel authorLabel;
-    public static javax.swing.JLabel authorLabel1;
-    public static javax.swing.JLabel authorLabel2;
-    public static javax.swing.JLabel authorLabel3;
     public static javax.swing.JCheckBox bafIncludedCheckBox;
     public static javax.swing.JCheckBox bafSubjectToTariffCheckBox;
     public static javax.swing.JTextField bafTextField;
@@ -8895,8 +8944,8 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.ButtonGroup buttonGroup16;
     public static javax.swing.ButtonGroup buttonGroup17;
     public static javax.swing.ButtonGroup buttonGroup18;
-    public static javax.swing.ButtonGroup buttonGroup19;
     public static javax.swing.ButtonGroup buttonGroup2;
+    public static javax.swing.ButtonGroup buttonGroup20;
     public static javax.swing.ButtonGroup buttonGroup3;
     public static javax.swing.ButtonGroup buttonGroup4;
     public static javax.swing.ButtonGroup buttonGroup5;
@@ -8980,7 +9029,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JButton jButton6;
     public static javax.swing.JButton jButton7;
     public static javax.swing.JComboBox<String> jComboBox10;
-    public static javax.swing.JComboBox<String> jComboBox8;
     public static javax.swing.JComboBox<String> jComboBox9;
     public static javax.swing.JLabel jLabel1;
     public static javax.swing.JLabel jLabel10;
@@ -9189,13 +9237,14 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JScrollPane jScrollPane9;
     public static javax.swing.JToolBar.Separator jSeparator1;
     public static javax.swing.JToolBar.Separator jSeparator10;
+    public static javax.swing.JToolBar.Separator jSeparator11;
+    public static javax.swing.JToolBar.Separator jSeparator12;
     public static javax.swing.JSeparator jSeparator14;
     public static javax.swing.JToolBar.Separator jSeparator2;
     public static javax.swing.JToolBar.Separator jSeparator26;
     public static javax.swing.JToolBar.Separator jSeparator27;
     public static javax.swing.JToolBar.Separator jSeparator28;
     public static javax.swing.JToolBar.Separator jSeparator29;
-    public static javax.swing.JToolBar.Separator jSeparator3;
     public static javax.swing.JToolBar.Separator jSeparator4;
     public static javax.swing.JToolBar.Separator jSeparator5;
     public static javax.swing.JToolBar.Separator jSeparator6;
@@ -9274,6 +9323,7 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JPanel newQuotePanel;
     public static javax.swing.JTextField newQuotePhoneExtensionTextField;
     public static javax.swing.JComboBox<String> newQuotePhoneTypeTextField;
+    public static javax.swing.ButtonGroup newQuoteRateTypeButtonGroup;
     public static javax.swing.JComboBox<String> newQuoteSpaceApprovalComboBox;
     public static javax.swing.JCheckBox newQuoteTariffCheckBox;
     public static javax.swing.JLabel officeLocationLabel;
@@ -9283,7 +9333,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JTextField oftTextField;
     public static javax.swing.JLabel outstandingLabel;
     public static javax.swing.JTable outstandingQuotesTable;
-    public static javax.swing.JTable outstandingQuotesTable1;
     public static javax.swing.JCheckBox pBafIncludedCheckBox;
     public static javax.swing.JTextField pBafTextField;
     public static javax.swing.JTextField pBookingNumberTextField;
@@ -9332,6 +9381,7 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JComboBox quoteFeedbackComboBox;
     public static javax.swing.JTextField quoteFeedbackTextField;
     public static javax.swing.JLabel quoteLastUpdatedLabel;
+    public static javax.swing.JTable quotesPendingResponseTable;
     public static javax.swing.JLabel regionLabel1;
     public static javax.swing.JLabel regionLabel3;
     public static javax.swing.JLabel regionLabel4;
@@ -9421,13 +9471,15 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JCheckBox updateQuoteFTFTariffCheckBox;
     public static javax.swing.JButton updateQuoteIDSearchButton;
     public static javax.swing.JTextField updateQuoteIDTextArea;
-    public static javax.swing.JCheckBox updateQuoteInidicitoryCheckBox;
+    public static javax.swing.JCheckBox updateQuoteIndicatoryCheckBox;
     public static javax.swing.JCheckBox updateQuoteMAFIMinimumCheckBox;
     public static javax.swing.JComboBox<String> updateQuoteMTDApprovalComboBox;
     public static javax.swing.JComboBox<String> updateQuoteOverseasResponseComboBox;
     public static javax.swing.JTextField updateQuotePhoneTextField;
+    public static javax.swing.JComboBox<String> updateQuotePhoneTypeComboBox;
     public static javax.swing.JComboBox<String> updateQuoteSpaceApprovalComboBox;
     public static javax.swing.JCheckBox updateQuoteTariffCheckBox;
+    public static javax.swing.ButtonGroup updateRateTypeButtonGroup;
     public static javax.swing.JTextArea updateShipperCommentsTextArea;
     public static javax.swing.JCheckBox updateSpotRateCheckBox;
     public static javax.swing.JTextField updateTHCTextField;

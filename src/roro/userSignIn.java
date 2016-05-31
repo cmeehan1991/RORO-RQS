@@ -370,7 +370,7 @@ public class userSignIn extends javax.swing.JDialog {
             MainMenu.mobilePhoneLabel.setText(mobilePhone);
             MainMenu.officeLocationLabel.setText(officeLocation);
             MainMenu.emailLabel.setText(email);
-            new UserInformationActivity(ID, user);
+            new UserInformationActivity().UserInformation(ID, user);
 
             // If the user is Emilie then set the heading label color to purple
             if (user.equals("eschoenhut")) {
