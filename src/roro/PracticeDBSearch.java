@@ -5,12 +5,12 @@
  */
 package RORO;
 
-import RORO.DBConnection;
+import Connections.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import RORO.DBConnection;
+import Connections.DBConnection;
 
 
 /**

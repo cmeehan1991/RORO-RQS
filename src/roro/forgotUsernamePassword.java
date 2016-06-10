@@ -9,6 +9,8 @@ package RORO;
  *
  * @author cmeehan
  */
+import UserAccess.passwordReset;
+import Connections.DBConnection;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;

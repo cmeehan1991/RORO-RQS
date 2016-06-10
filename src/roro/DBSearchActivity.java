@@ -5,6 +5,7 @@
  */
 package RORO;
 
+import Connections.DBConnection;
 import static RORO.DBSearch.includeInResultsTable;
 import static RORO.DBSearch.parametersTable;
 import java.awt.Color;

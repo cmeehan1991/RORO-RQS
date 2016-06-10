@@ -9,6 +9,7 @@ package RORO;
  *
  * @author cmeehan
  */
+import Connections.DBConnection;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

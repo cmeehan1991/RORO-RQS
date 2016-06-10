@@ -1,4 +1,4 @@
-package RORO;
+package UserAccess;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -9,6 +9,8 @@ package RORO;
  *
  * @author cmeehan
  */
+import Connections.DBConnection;
+import RORO.MainMenu;
 import javax.swing.*;
 import java.awt.*;
 import static java.lang.System.exit;
@@ -18,14 +20,8 @@ import java.util.Calendar;
 import javax.swing.table.TableColumnModel;
 import net.proteanit.sql.DbUtils;
 
-public class newUser extends javax.swing.JDialog {
-
-    public newUser() {
-        initComponents();
-        setIcon();
-        setLocationRelativeTo(null);
-
-    }
+public class NewUserArchive extends javax.swing.JDialog {
+    private final Connection CONN = new DBConnection().connect();
 
     /**
      * Creates new form forgotUsernamePassword
@@ -33,10 +29,9 @@ public class newUser extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public newUser(java.awt.Frame parent, boolean modal) {
+    public NewUserArchive(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
         setLocationRelativeTo(this);
         setIcon();
     }
@@ -340,7 +335,6 @@ public class newUser extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // insert new user information
-        Connection conn = new DBConnection().connect();
         String mainEmail = emailTextField.getText();
         String newfirstname = firstNameTextField.getText();
         String newlastname = lastNameTextField.getText();
@@ -360,7 +354,7 @@ public class newUser extends javax.swing.JDialog {
         String SQL = "UPDATE authorized_users SET firstname='" + newfirstname + "', lastname='" + newlastname + "', title='" + newtitle + "', region='" + newregion + "', phone='" + newofficePhone + "', main_primary='" + newofficePrimary + "', mobilePhone='" + newmobilePhone + "', mobile_primary='" + newmobilePrimary + "', officeLocation='" + newlocation + "', email='" + newemail + "', username='" + newusername + "', password='" + newpassword + "', security_question='" + newhint + "', answer='" + newanswer + "' WHERE email='" + mainEmail + "';";
 
         try {
-            PreparedStatement psNew = conn.prepareStatement(SQL);
+            PreparedStatement psNew = CONN.prepareStatement(SQL);
             int rsNew = psNew.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Thank you for signing up. You will now be redirected to the main page.");
@@ -371,7 +365,7 @@ public class newUser extends javax.swing.JDialog {
             //Sql for selecteing the userID based on the username of person logging into application
             String sqlID = "SELECT userID FROM authorized_users WHERE username='" + newusername + "';";
             try {
-                PreparedStatement psID = conn.prepareStatement(sqlID);
+                PreparedStatement psID = CONN.prepareStatement(sqlID);
                 ResultSet rsID = psID.executeQuery();
                 if (rsID.next()) {
                     id = rsID.getString("userID");
@@ -401,7 +395,7 @@ public class newUser extends javax.swing.JDialog {
 
             try {
                 //Log in SQL handling
-                PreparedStatement ps = conn.prepareStatement(sqlLogIn);
+                PreparedStatement ps = CONN.prepareStatement(sqlLogIn);
                 ResultSet rs = ps.executeQuery(sqlLogIn);
                 if (rs.next()) {
                     this.dispose();
@@ -438,7 +432,7 @@ public class newUser extends javax.swing.JDialog {
                      }
                      */
                     //Total quote sql handling
-                    PreparedStatement ps1 = conn.prepareStatement(sqlTotalQuotesToDate);
+                    PreparedStatement ps1 = CONN.prepareStatement(sqlTotalQuotesToDate);
                     ResultSet rs1 = ps1.executeQuery(sqlTotalQuotesToDate);
                     if (rs1.next()) {
                         int count = rs1.getInt("TOTAL");
@@ -449,7 +443,7 @@ public class newUser extends javax.swing.JDialog {
                     }
 
                     //Outstanding quote SQL handling
-                    PreparedStatement ps2 = conn.prepareStatement(sqlOutstanding);
+                    PreparedStatement ps2 = CONN.prepareStatement(sqlOutstanding);
                     ResultSet rs2 = ps2.executeQuery(sqlOutstanding);
                     if (rs2.next()) {
                         int outstandingCount = rs2.getInt("OUTSTANDING");
@@ -459,7 +453,7 @@ public class newUser extends javax.swing.JDialog {
                     }
 
                     //Get bookings to date
-                    PreparedStatement ps3 = conn.prepareStatement(sqlBookings);
+                    PreparedStatement ps3 = CONN.prepareStatement(sqlBookings);
                     ResultSet rs3 = ps3.executeQuery(sqlBookings);
                     if (rs3.next()) {
                         int totalBookingsCount = rs3.getInt("BOOKINGS");
@@ -467,7 +461,7 @@ public class newUser extends javax.swing.JDialog {
                         System.out.println(totalBookings);
                         MainMenu.bookedToDateLabel.setText(totalBookings);
                     }
-                    PreparedStatement ps4 = conn.prepareStatement(sqlOutstandingTable);
+                    PreparedStatement ps4 = CONN.prepareStatement(sqlOutstandingTable);
                     ResultSet rs4 = ps4.executeQuery(sqlOutstandingTable);
 
                     MainMenu.outstandingQuotesTable.setModel(DbUtils.resultSetToTableModel(rs4));
@@ -478,7 +472,7 @@ public class newUser extends javax.swing.JDialog {
                     tcm.getColumn(3).setHeaderValue("Commodity Description");
                     System.out.println(rs);
 
-                    PreparedStatement ps5 = conn.prepareStatement(sqlRequiringAttention);
+                    PreparedStatement ps5 = CONN.prepareStatement(sqlRequiringAttention);
                     ResultSet rs5 = ps5.executeQuery(sqlRequiringAttention);
                     int columns1 = rs5.getMetaData().getColumnCount();
 
@@ -518,14 +512,12 @@ public class newUser extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Connection conn = new DBConnection().connect();
-
         String email = emailTextField.getText();
 
         String SQL = "SELECT * FROM authorized_users WHERE email='" + email + "';";
 
         try {
-            PreparedStatement ps = conn.prepareStatement(SQL);
+            PreparedStatement ps = CONN.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery(SQL);
             if (rs.next()) {
                 String username = rs.getString("username");
@@ -574,8 +566,32 @@ public class newUser extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(newUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewUserArchive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -590,7 +606,7 @@ public class newUser extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
 
-            newUser dialog = new newUser(new javax.swing.JFrame(), true);
+            NewUserArchive dialog = new NewUserArchive(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {

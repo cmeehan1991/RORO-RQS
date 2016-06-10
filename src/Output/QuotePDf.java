@@ -5,6 +5,7 @@
  */
 package Output;
 
+import Connections.DBConnection;
 import RORO.*;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;

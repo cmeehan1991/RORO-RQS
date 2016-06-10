@@ -12,7 +12,7 @@ package CustomerService;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
-import RORO.DBConnection;
+import Connections.DBConnection;
 import RORO.*;
 
 public class csExistingCustomer extends javax.swing.JDialog {

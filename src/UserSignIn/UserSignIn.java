@@ -1,4 +1,4 @@
-package RORO;
+package UserSignIn;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -9,8 +9,14 @@ package RORO;
  *
  * @author cmeehan
  */
+import Connections.DBConnection;
+import UserAccess.NewUserArchive;
+import Administrator.AdministratorMenu;
 import CustomerService.CustomerService;
-import static RORO.userSignIn.submitButton;
+import RORO.MainMenu;
+import RORO.UserInformationActivity;
+import RORO.forgotUsernamePassword;
+import static UserSignIn.UserSignIn.submitButton;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -24,7 +30,7 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 
-public class userSignIn extends javax.swing.JDialog {
+public class UserSignIn extends javax.swing.JDialog {
 
     private final Calendar calReturn = Calendar.getInstance();
     private final Connection conn = new DBConnection().connect();
@@ -32,7 +38,7 @@ public class userSignIn extends javax.swing.JDialog {
     Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
     Window frame;
 
-    public userSignIn(String totalOutstanding) {
+    public UserSignIn(String totalOutstanding) {
         initComponents();
         setIcon();
     }
@@ -43,7 +49,7 @@ public class userSignIn extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public userSignIn(java.awt.Frame parent, boolean modal) {
+    public UserSignIn(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
@@ -71,7 +77,6 @@ public class userSignIn extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
         username = new javax.swing.JLabel();
         password = new javax.swing.JLabel();
         usernameTextField = new javax.swing.JTextField();
@@ -80,7 +85,6 @@ public class userSignIn extends javax.swing.JDialog {
         Exit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        newUserLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Log-In \"K\" Line RORO Quoting");
@@ -88,16 +92,6 @@ public class userSignIn extends javax.swing.JDialog {
         setIconImage(null);
         setIconImages(null);
         setResizable(false);
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("|");
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-        });
 
         username.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         username.setText("Username:");
@@ -159,17 +153,6 @@ public class userSignIn extends javax.swing.JDialog {
             }
         });
 
-        newUserLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        newUserLabel.setForeground(new java.awt.Color(0, 51, 255));
-        newUserLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        newUserLabel.setText("New User");
-        newUserLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        newUserLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                newUserLabelMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,21 +169,14 @@ public class userSignIn extends javax.swing.JDialog {
                             .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(newUserLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(password)
-                                    .addComponent(username))
-                                .addGap(5, 5, 5)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(password)
+                            .addComponent(username))
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -221,12 +197,9 @@ public class userSignIn extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(password)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(newUserLabel)
-                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitButton)
                     .addComponent(Exit))
@@ -235,10 +208,6 @@ public class userSignIn extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel4MouseClicked
 
     private void usernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextFieldActionPerformed
         // TODO add your handling code here:
@@ -261,13 +230,6 @@ public class userSignIn extends javax.swing.JDialog {
         fup.setVisible(true);
 
     }//GEN-LAST:event_jLabel2MouseClicked
-
-    private void newUserLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newUserLabelMouseClicked
-        //go to new user form
-        newUser nu = new newUser();
-       // nu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_newUserLabelMouseClicked
 
     private void submitButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_submitButtonKeyPressed
         // TODO add your handling code here:
@@ -448,8 +410,40 @@ public class userSignIn extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(userSignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserSignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -488,7 +482,7 @@ public class userSignIn extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
 
-            userSignIn dialog = new userSignIn(new javax.swing.JFrame(), true);
+            UserSignIn dialog = new UserSignIn(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -503,8 +497,6 @@ public class userSignIn extends javax.swing.JDialog {
     private javax.swing.JButton Exit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel newUserLabel;
     private javax.swing.JLabel password;
     public static javax.swing.JPasswordField passwordField;
     public static javax.swing.JButton submitButton;

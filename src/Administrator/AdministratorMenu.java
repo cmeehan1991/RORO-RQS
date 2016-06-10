@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RORO;
+package Administrator;
 
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -19,6 +19,8 @@ import static java.util.Calendar.YEAR;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumnModel;
 import net.proteanit.sql.DbUtils;
+import Connections.DBConnection;
+import RORO.MainMenu;
 
 /**
  *
