@@ -137,8 +137,6 @@ public class QuotePDf {
             document.add(rateTable());
             document.add(disclaimerTable(spotRate, mtdApproval, spaceApproval, overseasResponse));
             document.add(carrierComments(includeCarrierRemarks, carrierComments));
-            //New Page
-            document.newPage();
             document.add(packingListTable(packingListTable));
 
             // Close the document for editing

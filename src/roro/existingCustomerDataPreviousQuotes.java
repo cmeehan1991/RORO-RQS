@@ -5,7 +5,6 @@
  */
 package RORO;
 
-
 import java.awt.HeadlessException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -124,8 +123,8 @@ public class existingCustomerDataPreviousQuotes extends javax.swing.JFrame {
         MainMenu.updateEditQuotePanel.setVisible(true);
         MainMenu.publishingCenterPanel.setVisible(false);
         MainMenu.searchPanel.setVisible(false);
-        
-       
+
+
     }//GEN-LAST:event_viewSelectedQuoteButtonActionPerformed
 
     private void exportTableToExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportTableToExcelActionPerformed
@@ -159,7 +158,7 @@ public class existingCustomerDataPreviousQuotes extends javax.swing.JFrame {
         } catch (IOException | HeadlessException e) {
             System.out.println(e.getMessage());
         }
-       
+
     }//GEN-LAST:event_exportTableToExcelActionPerformed
 
     /**
@@ -185,7 +184,7 @@ public class existingCustomerDataPreviousQuotes extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
 

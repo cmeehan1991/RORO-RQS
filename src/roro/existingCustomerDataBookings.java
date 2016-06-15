@@ -8,6 +8,9 @@ package RORO;
 import java.awt.HeadlessException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import org.apache.poi.ss.usermodel.Row;
@@ -115,6 +118,7 @@ public class existingCustomerDataBookings extends javax.swing.JFrame {
         String selectedRowID = customerBookingTable.getValueAt(selectedRow, 0).toString();
         MainMenu.updateQuoteInformation(selectedRowID);
         this.dispose();
+        
         MainMenu.customerInformationPanel.setVisible(false);
         MainMenu.userInformationPanel.setVisible(false);
         MainMenu.newQuotePanel.setVisible(false);

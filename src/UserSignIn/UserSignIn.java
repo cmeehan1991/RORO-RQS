@@ -27,6 +27,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Calendar;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 
@@ -40,7 +41,6 @@ public class UserSignIn extends javax.swing.JDialog {
 
     public UserSignIn(String totalOutstanding) {
         initComponents();
-        setIcon();
     }
 
     /**
@@ -55,7 +55,6 @@ public class UserSignIn extends javax.swing.JDialog {
 
         // Set the location of the window to cent of the screen
         setLocationRelativeTo(null);
-        setIcon();
     }
 
     public String user() {
@@ -251,10 +250,6 @@ public class UserSignIn extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_usernameTextFieldKeyPressed
 
-    private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.jpg")));
-    }
-
     private String userID(String user, String pass) {
         String ID = null;
         String SQL = "SELECT userID FROM authorized_users WHERE username=? AND password=?";
@@ -340,10 +335,10 @@ public class UserSignIn extends javax.swing.JDialog {
                 float hue = hsb[0];
                 float saturation = hsb[1];
                 float brightness = hsb[2];
-                MainMenu.jPanel13.setBackground(Color.getHSBColor(hue, saturation, brightness));
-                MainMenu.userInformationPanel.setBackground(Color.getHSBColor(hue, saturation, brightness));
-                MainMenu.jPanel1.setBackground(new Color(217,179,255));
-                MainMenu.jPanel2.setBackground(new Color(217,179,255));
+                MainMenu.jPanel1.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
+                MainMenu.jPanel2.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
+                MainMenu.jLabel126.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue,saturation,brightness)));
+                MainMenu.jLabel127.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue,saturation,brightness)));
             }
         } else if (rights.equals("None")) {
             JOptionPane.showMessageDialog(null, "You do not have access to this software. Please contact your supervisor or \nthe system administrator to gain access.");
@@ -400,7 +395,7 @@ public class UserSignIn extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

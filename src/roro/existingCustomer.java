@@ -18,16 +18,10 @@ public class existingCustomer extends javax.swing.JDialog {
 
     public existingCustomer() {
         initComponents();
+        setLocationRelativeTo(this);
         setIcon();
 
     }
-
-    protected int tf;
-
-    public existingCustomer(int tf) {
-        this.tf = tf;
-    }
-
     /**
      * Creates new form logIn
      *
@@ -54,7 +48,9 @@ public class existingCustomer extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         existingCustomerTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
         cancelCustomerButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -76,7 +72,12 @@ public class existingCustomer extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(existingCustomerTable);
 
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Customers");
+
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
 
         jButton1.setText("Select");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -84,6 +85,8 @@ public class existingCustomer extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
+        jToolBar1.add(jButton1);
+        jToolBar1.add(jSeparator1);
 
         cancelCustomerButton.setText("Cancel");
         cancelCustomerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -91,34 +94,28 @@ public class existingCustomer extends javax.swing.JDialog {
                 cancelCustomerButtonActionPerformed(evt);
             }
         });
+        jToolBar1.add(cancelCustomerButton);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelCustomerButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
-                    .addComponent(jLabel1))
-                .addContainerGap())
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(cancelCustomerButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -174,6 +171,7 @@ public class existingCustomer extends javax.swing.JDialog {
                 String contractnumber = rs.getString("contractnumber");
                 String comments = rs.getString("comments");
                 String contractExpirationDate = rs.getString("contractExpiration");
+                String salesRegion = rs.getString("region");
                 String ID = selectedRowID.toString();
 
                 MainMenu.existingCompanyFirstNameTextField.setText(firstname);
@@ -210,29 +208,19 @@ public class existingCustomer extends javax.swing.JDialog {
                 MainMenu.existingCompanyCommentsTextArea.setText(comments);
                 MainMenu.existingCompanyIDTextField.setText(ID);
                 MainMenu.existingCompanyNameTextField.setText(company);
-
-                System.out.println(firstname);
-
-                String corrTableSql = "SELECT ID, firstname, date , subject FROM customer_correspondence WHERE customerID=" + selectedRowID + ";";
-
-                try {
-                    PreparedStatement ct = conn.prepareStatement(corrTableSql);
-                    ResultSet corrTable = ct.executeQuery(corrTableSql);
-
-                    
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
-
+                MainMenu.updateCustomerSalesRegionComboBox.setSelectedItem(salesRegion);
+                if(contract == true){
+                    MainMenu.existingCompanyContractYesRadioButton.setSelected(true);
+                    MainMenu.existingCompanyNoContractRadioButton.setSelected(false);
+                }else{
+                    MainMenu.existingCompanyContractYesRadioButton.setSelected(false);
+                    MainMenu.existingCompanyNoContractRadioButton.setSelected(true);                    
+                }                
             }
             System.out.println(ps);
         } catch (SQLException | HeadlessException e) {
             System.out.println(e.getMessage());
         }
-        //MainMenu.existingCompanyFirstNameTextField.setText("Hello");
-
-        System.out.println(selectedRowID);
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cancelCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelCustomerButtonActionPerformed
@@ -244,7 +232,7 @@ public class existingCustomer extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelCustomerButtonActionPerformed
 
     private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.jpg")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/icon.jpg")));
     }
 
     /**
@@ -292,6 +280,8 @@ public class existingCustomer extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -236,7 +236,7 @@ public class newQuoteCustomerName extends javax.swing.JDialog {
     }//GEN-LAST:event_existingCustomerTableMouseClicked
 
     private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.jpg")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/drive_green_project.jpg")));
     }
 
     /**

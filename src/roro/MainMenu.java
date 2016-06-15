@@ -21,7 +21,11 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import static javafx.application.Platform.exit;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
@@ -62,26 +66,19 @@ import org.jdatepicker.impl.UtilDateModel;
  */
 public class MainMenu extends javax.swing.JFrame {
 
-    private String username, userID;
-    protected static final Connection conn = new DBConnection().connect();
-    private static final String userHomeFolder = System.getProperty("user.home");
-    private static final Font labelFont = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD);
-    private static final Font tableHeadingFont = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD, BaseColor.WHITE);
-    private static final Font textFont = new Font(Font.FontFamily.TIMES_ROMAN, 10);
-    private static final Font emailTextFont = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.UNDERLINE, BaseColor.BLUE);
-    private static final Font rowLabelFont = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.BOLD);
-    private static final Font subjectToFont = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.BOLDITALIC);
-    private static final Font disclaimerFont = new Font(Font.FontFamily.TIMES_ROMAN, 7, Font.BOLDITALIC);
-    private static final Font fmcFont = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.UNDERLINE);
-    private static final Font plLabelFont = new Font(Font.FontFamily.TIMES_ROMAN, 6, Font.BOLD);
+    private static String username, userID, quoteID;
+    private static String customerName, tradeLane, pol, pod, tshp1, tshp2, commodityClass, commodityDescription, handlingInstructions, oft, oftUnit, baf, eca, ecaUnit, thc, thcUnit, wfg, wfgUnit, documentationFee, bookingNumber, comments, authorID, updaterID, currentAlphaNumeral, mafiCharge, reasonForDecline, feedbackType, feedbackDescription, contactName, contactEmail, mtdApproval, spaceApproval, overseasResponse, contactPhone, contactPhoneExtension, contactPhoneType, dateQuoted, dateUpdated, carrierComments, deny, updateAlphaNumeral, bookedDate, bookedUserID, mafiMinimumCharge;
+    private static Boolean accessories, bafIncluded, ecaIncluded, thcIncluded, wfgIncluded, documentationFeeIncluded, warRisk, spotRate, booked, thcAttachedToEmail, wfgAttachedToEmail, decline, mafi, contractRate, feedback, duplicate, tariffRate, ftfSpotRate, ftfTariffRate, indicatoryRate, duplicateRate, includeCarrierRemarks, mafiMinimum;
+    private static final String TIME_STAMP = new SimpleDateFormat("YYYY-MM-dd HH:mm").format(Calendar.getInstance().getTime());
+    protected static final Connection CONN = new DBConnection().connect();
+    private static final String USER_HOME_FOLDER = System.getProperty("user.home");
     protected static JFileChooser jChooser;
-    private static final DecimalFormat df = new DecimalFormat(".###");
-    private Object l_centimeters_cell, w_centimeters_cell, h_centimeters_cell, l_inches_cell, w_inches_cell, h_inches_cell;
-    private double l_centimeters, w_centimeters, h_centimeters, l_inches, w_inches, h_inches, cubic_meters;
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(".###");
+    private static Object l_centimeters_cell, w_centimeters_cell, h_centimeters_cell, l_inches_cell, w_inches_cell, h_inches_cell;
+    private static double l_centimeters, w_centimeters, h_centimeters, l_inches, w_inches, h_inches, cubic_meters;
     protected static JDatePickerImpl newCustomerContractExpirationDatePicker, existingCustomerContractExpirationDatePicker, validityToDatePicker, validityFromDatePicker;
     private static JDatePanelImpl datePanel1, datePanel2, datePanel3, datePanel4;
     private static UtilDateModel model1, model2, model3, model4;
-    private static String totalOutstanding;
 
     // This object sets the date pickers used
     private static void DatePicker() {
@@ -611,7 +608,7 @@ public class MainMenu extends javax.swing.JFrame {
         newCustomerBCORadioButton = new javax.swing.JRadioButton();
         newCustomerOtherRadioButton = new javax.swing.JRadioButton();
         jLabel53 = new javax.swing.JLabel();
-        jComboBox9 = new javax.swing.JComboBox<>();
+        newCustomerSalesRegion = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         newCustomerAddress1 = new javax.swing.JTextField();
@@ -712,7 +709,7 @@ public class MainMenu extends javax.swing.JFrame {
         existingCustomerNVOCCRadioButton = new javax.swing.JRadioButton();
         existingCustomerBCORadioButton = new javax.swing.JRadioButton();
         existingCustomerOtherRadioButton = new javax.swing.JRadioButton();
-        jComboBox10 = new javax.swing.JComboBox<>();
+        updateCustomerSalesRegionComboBox = new javax.swing.JComboBox<>();
         jLabel54 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -866,29 +863,26 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(jLabel126, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(phoneLabel1)
-                                    .addComponent(phoneLabel4)
-                                    .addComponent(regionLabel1)
-                                    .addComponent(titleLabel1)
-                                    .addComponent(usernameLabel1)
-                                    .addComponent(officeLocationLabel1)
-                                    .addComponent(jLabel39))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(officePhoneLabel)
-                                    .addComponent(salesRegionLabel)
-                                    .addComponent(titleLabel)
-                                    .addComponent(userIDLabel)
-                                    .addComponent(mobilePhoneLabel)
-                                    .addComponent(officeLocationLabel)
-                                    .addComponent(usernameLabel)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(emailLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(emailLabel)))
-                        .addGap(0, 0, 0)))
+                            .addComponent(phoneLabel1)
+                            .addComponent(phoneLabel4)
+                            .addComponent(regionLabel1)
+                            .addComponent(titleLabel1)
+                            .addComponent(usernameLabel1)
+                            .addComponent(officeLocationLabel1)
+                            .addComponent(jLabel39))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(officePhoneLabel)
+                            .addComponent(salesRegionLabel)
+                            .addComponent(titleLabel)
+                            .addComponent(userIDLabel)
+                            .addComponent(mobilePhoneLabel)
+                            .addComponent(officeLocationLabel)
+                            .addComponent(usernameLabel)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(emailLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(emailLabel)))
                 .addContainerGap())
         );
 
@@ -988,9 +982,9 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(phoneLabel3)
                             .addComponent(regionLabel3)
@@ -1007,7 +1001,8 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(totalBookingsCYTDLabel)
                             .addComponent(totalQuotesLabel)
                             .addComponent(totalQuotesCYTDLabel)
-                            .addComponent(outstandingLabel)))
+                            .addComponent(outstandingLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jLabel127, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1232,26 +1227,24 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel135, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToolBar14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToolBar15, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToolBar16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel128, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         userInformationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel1, jPanel2});
-
-        userInformationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane16, jScrollPane6, jScrollPane7});
 
         mainPanel.add(userInformationPanel, "card5");
 
@@ -1979,7 +1972,7 @@ public class MainMenu extends javax.swing.JFrame {
         jToolBar3.setFloatable(false);
 
         newQuoteAddRow.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        newQuoteAddRow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RORO/add_row_icon.png"))); // NOI18N
+        newQuoteAddRow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/add_row_icon.png"))); // NOI18N
         newQuoteAddRow.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         newQuoteAddRow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2223,34 +2216,35 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel20Layout.createSequentialGroup()
-                            .addComponent(jLabel82)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(updateContactNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel80)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(updateContactEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel20Layout.createSequentialGroup()
-                            .addComponent(updateEditQuoteCustomerNameLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(updateEditQuoteCustomerNameLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(editCustomerButton)))
                     .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addComponent(jLabel100)
+                        .addContainerGap()
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel82)
+                            .addComponent(jLabel100))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateQuotePhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(updateContactNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateQuotePhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel107)
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel80)
+                            .addComponent(jLabel107))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateQuoteExtensionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(updateContactEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addComponent(updateQuoteExtensionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateQuotePhoneTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(updateEditQuoteCustomerNameLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateQuotePhoneTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(137, Short.MAX_VALUE))
+                        .addComponent(updateEditQuoteCustomerNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editCustomerButton)))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2932,7 +2926,7 @@ public class MainMenu extends javax.swing.JFrame {
         jToolBar5.setRollover(true);
 
         updateEditQuoteAddRowButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        updateEditQuoteAddRowButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RORO/add_row_icon.png"))); // NOI18N
+        updateEditQuoteAddRowButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/add_row_icon.png"))); // NOI18N
         updateEditQuoteAddRowButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateEditQuoteAddRowButtonActionPerformed(evt);
@@ -2954,7 +2948,7 @@ public class MainMenu extends javax.swing.JFrame {
         jToolBar6.setRollover(true);
         jToolBar6.setFloatable(false);
 
-        updateEditQuoteButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        updateEditQuoteButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateEditQuoteButton.setText("Update");
         updateEditQuoteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2964,7 +2958,7 @@ public class MainMenu extends javax.swing.JFrame {
         jToolBar6.add(updateEditQuoteButton);
         jToolBar6.add(jSeparator11);
 
-        updateCancelButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        updateCancelButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateCancelButton.setText("Cancel");
         updateCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2978,7 +2972,7 @@ public class MainMenu extends javax.swing.JFrame {
         updateEditQuotePanelLayout.setHorizontalGroup(
             updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3012,7 +3006,7 @@ public class MainMenu extends javax.swing.JFrame {
                             .addGap(0, 0, 0)
                             .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         updateEditQuotePanelLayout.setVerticalGroup(
             updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4072,7 +4066,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel53.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel53.setText("Sales Region:");
 
-        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "North East", "South East", "Mid West", "West", "Canada", "Europe", "Asia", "South America", "Central America" }));
+        newCustomerSalesRegion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "North East", "South East", "Mid West", "West", "Canada", "Europe", "Asia", "South America", "Central America" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -4116,7 +4110,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel53)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(newCustomerSalesRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -4158,7 +4152,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel53)
-                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(newCustomerSalesRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -4799,7 +4793,7 @@ public class MainMenu extends javax.swing.JFrame {
         buttonGroup5.add(existingCustomerOtherRadioButton);
         existingCustomerOtherRadioButton.setText("Other");
 
-        jComboBox10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "North East", "South East", "Mid West", "West", "Canada", "Europe", "Asia", "South America", "Central America" }));
+        updateCustomerSalesRegionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "North East", "South East", "Mid West", "West", "Canada", "Europe", "Asia", "South America", "Central America" }));
 
         jLabel54.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel54.setText("Sales Region:");
@@ -4853,7 +4847,7 @@ public class MainMenu extends javax.swing.JFrame {
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel54)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(updateCustomerSalesRegionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -4899,7 +4893,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel54)
-                    .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(updateCustomerSalesRegionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Comments"));
@@ -5017,7 +5011,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel52)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, existingCustomerPanelLayout.createSequentialGroup()
-                        .addContainerGap(72, Short.MAX_VALUE)
+                        .addContainerGap(80, Short.MAX_VALUE)
                         .addGroup(existingCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(existingCustomerPanelLayout.createSequentialGroup()
                                 .addComponent(jToolBar12, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -5032,7 +5026,7 @@ public class MainMenu extends javax.swing.JFrame {
                                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, existingCustomerPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToolBar11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -5072,6 +5066,7 @@ public class MainMenu extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
         jToolBar1.setFloatable(false);
 
+        UserInformationCenterButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         UserInformationCenterButton.setText("User Information");
         UserInformationCenterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5081,6 +5076,7 @@ public class MainMenu extends javax.swing.JFrame {
         jToolBar1.add(UserInformationCenterButton);
         jToolBar1.add(jSeparator26);
 
+        newQuoteButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         newQuoteButton.setText("New Quote");
         newQuoteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5090,6 +5086,7 @@ public class MainMenu extends javax.swing.JFrame {
         jToolBar1.add(newQuoteButton);
         jToolBar1.add(jSeparator1);
 
+        updateEditQuoteButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         updateEditQuoteButton1.setText("Update/Edit Quote");
         updateEditQuoteButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5099,6 +5096,7 @@ public class MainMenu extends javax.swing.JFrame {
         jToolBar1.add(updateEditQuoteButton1);
         jToolBar1.add(jSeparator27);
 
+        publishingCenterButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         publishingCenterButton.setText("Publishing Center");
         publishingCenterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5108,6 +5106,7 @@ public class MainMenu extends javax.swing.JFrame {
         jToolBar1.add(publishingCenterButton);
         jToolBar1.add(jSeparator28);
 
+        searchCenterButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         searchCenterButton.setText("Search Center");
         searchCenterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5117,6 +5116,7 @@ public class MainMenu extends javax.swing.JFrame {
         jToolBar1.add(searchCenterButton);
         jToolBar1.add(jSeparator29);
 
+        customerInformationCenterButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         customerInformationCenterButton.setText("Customer Center");
         customerInformationCenterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5283,6 +5283,23 @@ public class MainMenu extends javax.swing.JFrame {
         ClearExistingCustomerPanel();
     }//GEN-LAST:event_newCustomerButtonActionPerformed
 
+    private boolean checkForExistingCustomer(String companyName) {
+        boolean customerExists = false;
+        String SQL = "SELECT company, dba, FROM rorocustomers WHERE company = ? OR dba = ?";
+        try {
+            PreparedStatement ps = CONN.prepareStatement(SQL);
+            ps.setString(1, companyName);
+            ps.setString(2, companyName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                customerExists = true;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return customerExists;
+    }
+
     private void submitNewCustomerInformationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitNewCustomerInformationActionPerformed
         // TODO add your handling code here:
         String customerFirstName = newCustomerFirstName.getText();
@@ -5317,7 +5334,7 @@ public class MainMenu extends javax.swing.JFrame {
         Boolean contractNo = newCustomerNoContractRadioButton.isSelected();
         String contractNumber = newCustomerContractNumberTextField.getText();
         String contractExpirationDate = newCustomerContractExpirationDatePicker.getJFormattedTextField().getText();
-        String comments = newCustomerComments.getText();
+        String additionalCustomerInformation = newCustomerComments.getText();
         Boolean contract = null;
         if (contractYes == true && contractNo == false) {
             contract = true;
@@ -5326,70 +5343,59 @@ public class MainMenu extends javax.swing.JFrame {
         } else if (contractNo == false && contractYes == false) {
             contract = false;
         }
+        String region = newCustomerSalesRegion.getSelectedItem().toString();
+        if (checkForExistingCustomer(company)) {
+            JOptionPane.showMessageDialog(this, company + " already exists in the RQS database.", "New Customer Information", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            String SQL = "INSERT INTO rorocustomers (firstname, lastname, officephone, mobilephone, email, title, contact_office_address, contact_office_address2, contact_office_city, contact_office_state, contact_office_zip_code, contact_office_country, company, dba, oti, freight_forwarder, NVOCC, BCO, Other, mainphone, secondaryphone, fax, address1, address2, city, state, zip, country, contract, contractnumber, contractExpiration, comments, region) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            try {
+                PreparedStatement ps = CONN.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+                ps.setString(1, customerFirstName);
+                ps.setString(2, customerLastName);
+                ps.setString(3, officePhone);
+                ps.setString(4, mobilePhone);
+                ps.setString(5, email);
+                ps.setString(6, title);
+                ps.setString(7, contact_office_address);
+                ps.setString(8, contact_office_suite);
+                ps.setString(9, contact_office_city);
+                ps.setString(10, contact_office_state);
+                ps.setString(11, contact_office_zip_code);
+                ps.setString(12, contact_office_country);
+                ps.setString(13, company);
+                ps.setString(14, dba);
+                ps.setString(15, oti);
+                ps.setBoolean(16, freight_forwarder);
+                ps.setBoolean(17, NVOCC);
+                ps.setBoolean(18, BCO);
+                ps.setBoolean(19, other);
+                ps.setString(20, mainPhone);
+                ps.setString(21, secondaryPhone);
+                ps.setString(22, fax);
+                ps.setString(23, address1);
+                ps.setString(24, address2);
+                ps.setString(25, city);
+                ps.setString(26, state);
+                ps.setString(27, zip);
+                ps.setString(28, country);
+                ps.setBoolean(29, contract);
+                ps.setString(30, contractNumber);
+                ps.setString(31, contractExpirationDate);
+                ps.setString(32, additionalCustomerInformation);
+                ps.setString(33, region);
 
-        Connection conn = new DBConnection().connect();
-        String checkSql = "SELECT * FROM rorocustomers WHERE company='" + company + "';";
-
-        try {
-            PreparedStatement ps1 = conn.prepareStatement(checkSql);
-            ResultSet rs1 = ps1.executeQuery(checkSql);
-            if (rs1.next()) {
-                JOptionPane.showMessageDialog(null, company + " already exists");
-            } else {
-
-                String sql = "INSERT INTO rorocustomers (firstname, lastname, officephone, mobilephone, email, title, contact_office_address, contact_office_address2, contact_office_city, contact_office_state, contact_office_zip_code, contact_office_country, company, dba, oti, freight_forwarder, NVOCC, BCO, Other, mainphone, secondaryphone, fax, address1, address2, city, state, zip, country, contract, contractnumber, contractExpiration, comments) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                try {
-                    PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                    ps.setString(1, customerFirstName);
-                    ps.setString(2, customerLastName);
-                    ps.setString(3, officePhone);
-                    ps.setString(4, mobilePhone);
-                    ps.setString(5, email);
-                    ps.setString(6, title);
-                    ps.setString(7, contact_office_address);
-                    ps.setString(8, contact_office_suite);
-                    ps.setString(9, contact_office_city);
-                    ps.setString(10, contact_office_state);
-                    ps.setString(11, contact_office_zip_code);
-                    ps.setString(12, contact_office_country);
-                    ps.setString(13, company);
-                    ps.setString(14, dba);
-                    ps.setString(15, oti);
-                    ps.setBoolean(16, freight_forwarder);
-                    ps.setBoolean(17, NVOCC);
-                    ps.setBoolean(18, BCO);
-                    ps.setBoolean(19, other);
-                    ps.setString(20, mainPhone);
-                    ps.setString(21, secondaryPhone);
-                    ps.setString(22, fax);
-                    ps.setString(23, address1);
-                    ps.setString(24, address2);
-                    ps.setString(25, city);
-                    ps.setString(26, state);
-                    ps.setString(27, zip);
-                    ps.setString(28, country);
-                    ps.setBoolean(29, contract);
-                    ps.setString(30, contractNumber);
-                    ps.setString(31, contractExpirationDate);
-                    ps.setString(32, comments);
-
-                    ps.executeUpdate();
-                    ResultSet keys = ps.getGeneratedKeys();
-                    int lastKey = 1;
-                    while (keys.next()) {
-                        lastKey = keys.getInt(1);
-                    }
-                    JOptionPane.showMessageDialog(null, company + " has been successfully uploaded to the database. ID: " + lastKey);
-
-                    ClearExistingCustomerPanel();
-                } catch (SQLException | HeadlessException e) {
-                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                ps.executeUpdate();
+                ResultSet keys = ps.getGeneratedKeys();
+                int lastKey = 1;
+                while (keys.next()) {
+                    lastKey = keys.getInt(1);
                 }
+                JOptionPane.showMessageDialog(this, company + " has been successfully uploaded to the database. ID: " + lastKey, "New Customer Information", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException | HeadlessException e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
             }
-            ClearNewCustomerPanel();
-        } catch (SQLException | HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "Error submitting new customer:\n" + e.getMessage());
         }
+        ClearNewCustomerPanel();
     }//GEN-LAST:event_submitNewCustomerInformationActionPerformed
 
     private void cancelNewCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelNewCustomerButtonActionPerformed
@@ -5831,7 +5837,7 @@ public class MainMenu extends javax.swing.JFrame {
         Boolean bafSubjectToTariff = bafSubjectToTariffCheckBox.isSelected();
         Boolean ecaSubjectToTariff = ecaSubjectToTariffCheckBox.isSelected();
 
-        String timeStamp = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(Calendar.getInstance().getTime());
+        String TIME_STAMP = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(Calendar.getInstance().getTime());
 
         if (bafIncluded != true && bafSubjectToTariff != true) {
             baf = bafText;
@@ -5886,7 +5892,7 @@ public class MainMenu extends javax.swing.JFrame {
         String sql = "INSERT INTO spotrates (validityFrom, validityTo, tariffNumber, pol, pod, bookingNumber, commClass, handlingInstructions, commDesc, oft, oftUnit, baf, bafIncluded, bafPerTariff, ecaBaf, ecaBafUnit, ecaIncluded, ecaPerTariff, thc, thcUnit,thcIncluded, thcPerTariff, wfg, wfgUnit, wfgIncluded, wfgPerTariff, storage, storageUnit, storageIncluded, storagePerTariff, docFee, docFeeIncluded, comments, quoteID, warRisk) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
-            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = CONN.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, validityFrom);
             ps.setString(2, validityTo);
             ps.setString(3, kkluNumber);
@@ -6011,7 +6017,7 @@ public class MainMenu extends javax.swing.JFrame {
              ***************************************
              ***************************************
              */
-            String filename = userHomeFolder + "\\Desktop\\Publishing\\" + pol + " To " + pod + "; " + commDesc + " PID" + lastKey + ".xls";
+            String filename = USER_HOME_FOLDER + "\\Desktop\\Publishing\\" + pol + " To " + pod + "; " + commDesc + " PID" + lastKey + ".xls";
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet("KKLU" + kkluNumber);
 
@@ -6392,7 +6398,7 @@ public class MainMenu extends javax.swing.JFrame {
             String SQL = "INSERT INTO packinglist (quoteID, commodity, quantity, l, w, h, kgs, length_inches, width_inches, height_inches, cbm, lbs) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
             try {
-                PreparedStatement pstmt = conn.prepareStatement(SQL);
+                PreparedStatement pstmt = CONN.prepareStatement(SQL);
                 pstmt.setInt(1, lastKey);
                 pstmt.setString(2, String.valueOf(commodity));
                 pstmt.setString(3, String.valueOf(quantity));
@@ -6483,7 +6489,7 @@ public class MainMenu extends javax.swing.JFrame {
         String carrierComments = shipperCommentsTextArea.getText();
 
         // Timestamp for when the quote is generated YYYY-MM-dd HH:mm
-        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
+        String TIME_STAMP = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 
         // Booked user id is only applied when the cargo is booked, otherwise it will be false
         String bookedUserID = ""; // Cannot be null
@@ -6500,7 +6506,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         String sql = "INSERT INTO allquotes (tradeLane, pol, pod, tshp1, tshp2, comm_class, handling_instructions, comm_description, rate, rate_unit, baf, eca_baf, eca_unit, thc, thc_unit, wfg, wfg_unit, doc_fee, war_risk, spot_rate, user_ID, booked, date, DATE_QUOTED, comments, deny, customerName, thcIncluded, wfgIncluded, thcAttached, wfgAttached, bafIncluded, ecaIncluded, documentationFeeIncluded, accessories, mafiMinimum, mafiMinimumCharge, reason_for_decline, contract_rate, bookedUserID, bookingNumber, contactName, contactEmail, carrierComments, MTD_APPROVAL, SPACE_APPROVAL, OVERSEAS_RESPONSE, TARIFF_RATE, FTF_SPOT_RATE, FTF_TARIFF_RATE, INDICATORY_RATE, CONTACT_PHONE, CONTACT_PHONE_EXTENSION, CONTACT_PHONE_TYPE)" + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = CONN.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, tradeLane);
             ps.setString(2, pol);
             ps.setString(3, pod);
@@ -6523,8 +6529,8 @@ public class MainMenu extends javax.swing.JFrame {
             ps.setBoolean(20, spotRate);
             ps.setString(21, userID);
             ps.setBoolean(22, booked);
-            ps.setString(23, timeStamp);
-            ps.setString(24, timeStamp);
+            ps.setString(23, TIME_STAMP);
+            ps.setString(24, TIME_STAMP);
             ps.setString(25, comments);
             ps.setBoolean(26, denial);
             ps.setString(27, newQuoteCompany);
@@ -6664,7 +6670,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
 
             // Creates the PDF and saves it to the user's Quotes folder
-            new QuotePDf().QuotePDF(String.valueOf(quoteID), timeStamp, newQuoteContactName, newQuoteCompany, newQuoteContactEmail, quoteType, username, pol, pod, tshpPorts, commodityClass, handlingInstructions, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, docFeePDF, warRisk, warRiskPDF, includeCarrierRemarks, carrierComments, packingListTable, spotRate, MTDApproval, spaceApproval, overseasResponse);
+            new QuotePDf().QuotePDF(String.valueOf(quoteID), TIME_STAMP, newQuoteContactName, newQuoteCompany, newQuoteContactEmail, quoteType, username, pol, pod, tshpPorts, commodityClass, handlingInstructions, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, docFeePDF, warRisk, warRiskPDF, includeCarrierRemarks, carrierComments, packingListTable, spotRate, MTDApproval, spaceApproval, overseasResponse);
 
         } catch (SQLException | HeadlessException | IOException ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
@@ -6680,40 +6686,37 @@ public class MainMenu extends javax.swing.JFrame {
 
 
     private void searchExistingCustomersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchExistingCustomersButtonActionPerformed
-        //Connect to DB
-        Connection conn = new DBConnection().connect();
 
         String searchInput = existingCompanyNameTextField.getText();
         //String sql = "select ID, firstname, company from rorocustomers WHERE company='Uni International';";
 
-        String sql = "SELECT ID, firstname, lastname, company FROM rorocustomers WHERE company LIKE ? OR ID LIKE ?;";
+        String[] inputArray = searchInput.split("");
+        List<String> inputList = Arrays.asList(inputArray);
+        String searchTerms = inputList.stream().map(i -> i).collect(Collectors.joining("%"));
+
+        String sql = "SELECT ID AS 'Customer ID', CONCAT(firstname, ' ',lastname) AS 'Contact Name', company AS 'Company Name', dba AS 'DBA Name(s)' FROM rorocustomers WHERE company LIKE ? OR ID LIKE ? OR firstname LIKE ? OR lastname LIKE ? OR dba LIKE ?;";
 
         existingCustomer ec = new existingCustomer();
 
         try {
 
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, "%" + searchInput + "%");
-            ps.setString(2, "%" + searchInput + "%");
+            PreparedStatement ps = CONN.prepareStatement(sql);
+            ps.setString(1, "%" + searchTerms + "%");
+            ps.setString(2, "%" + searchTerms + "%");
+            ps.setString(3, "%" + searchTerms + "%");
+            ps.setString(4, "%" + searchTerms + "%");
+            ps.setString(5, "%" + searchTerms + "%");
             ResultSet rs = ps.executeQuery();
 
             //Display results on table
             existingCustomer.existingCustomerTable.setModel(DbUtils.resultSetToTableModel(rs));
-
-            //Format column headings
-            TableColumnModel tcm = existingCustomer.existingCustomerTable.getColumnModel();
-            tcm.getColumn(0).setHeaderValue("Quote ID");
-            tcm.getColumn(1).setHeaderValue("Contact First Name");
-            tcm.getColumn(2).setHeaderValue("Contact Last Name");
-            tcm.getColumn(3).setHeaderValue("Company");
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
 
         }
 
-        ec.setVisible(
-                true);
+        ec.setVisible(true);
     }//GEN-LAST:event_searchExistingCustomersButtonActionPerformed
 
     private void existingCustomerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_existingCustomerButton1ActionPerformed
@@ -6836,8 +6839,6 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void editUpdateCustomerInformationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUpdateCustomerInformationButtonActionPerformed
         // Saves changes made to existing customer to DB
-        Connection conn = new DBConnection().connect();
-
         String firstname = existingCompanyFirstNameTextField.getText();
         String lastname = existingCompanyLastNameTextField.getText();
         String officephone = existingCompanyOfficePhoneTextField.getText();
@@ -6883,7 +6884,7 @@ public class MainMenu extends javax.swing.JFrame {
         String sql = "UPDATE rorocustomers SET firstname=?, lastname=?, officephone=?, mobilephone=?, email=?, title=?, contact_office_address=?, contact_office_address2=?, contact_office_city=?, contact_office_state=?, contact_office_zip_code=?, contact_office_country=?, birthday=?, company=?, dba=?, oti=?,freight_forwarder=?, NVOCC=?, BCO=?, Other=?, mainphone=?, secondaryphone=?, fax=?, address1=?, address2=?, city=?, state=?, zip=?, country=?, contract=?, contractnumber=?, contractExpiration=?, comments=?, mainemail=? WHERE ID=?";
 
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = CONN.prepareStatement(sql);
             ps.setString(1, firstname);
             ps.setString(2, lastname);
             ps.setString(3, officephone);
@@ -6939,18 +6940,22 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void selectOustandingQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectOustandingQuoteButtonActionPerformed
         int selectedRowIndex = outstandingQuotesTable.getSelectedRow();
-        String quoteID = String.valueOf(outstandingQuotesTable.getValueAt(selectedRowIndex, 0));
+        quoteID = String.valueOf(outstandingQuotesTable.getValueAt(selectedRowIndex, 0));
         userInformationPanel.setVisible(false);
         updateEditQuotePanel.setVisible(true);
+
         updateQuoteInformation(quoteID);
+
     }//GEN-LAST:event_selectOustandingQuoteButtonActionPerformed
 
     private void selectOutstandingQuoteRequireAttentionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectOutstandingQuoteRequireAttentionButtonActionPerformed
         int selectedRowIndex = requireAttentionTable.getSelectedRow();
-        String quoteID = String.valueOf(requireAttentionTable.getValueAt(selectedRowIndex, 0));
+        quoteID = String.valueOf(requireAttentionTable.getValueAt(selectedRowIndex, 0));
         userInformationPanel.setVisible(false);
         updateEditQuotePanel.setVisible(true);
+
         updateQuoteInformation(quoteID);
+
     }//GEN-LAST:event_selectOutstandingQuoteRequireAttentionButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -6967,223 +6972,252 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void updateQuoteIDSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateQuoteIDSearchButtonActionPerformed
         //Get quoteID from search field
-        String quoteID = updateQuoteIDTextArea.getText();
+        quoteID = updateQuoteIDTextArea.getText();
         // Fill in the quote information 
-        updateQuoteInformation(quoteID);
+        try {
+            updateQuoteInformation(quoteID);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
 
 
     }//GEN-LAST:event_updateQuoteIDSearchButtonActionPerformed
 
-    protected static void updateQuoteInformation(String quoteID) {
-        //SQL to get quote based on ID
-        String sql = "SELECT * FROM allquotes WHERE ID=?";
-        try { // Execute the sql, return data and populate the panel
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, quoteID);
+    private static String getQuoteAuthor() {
+        String result = null;
+        String SQL = "SELECT CONCAT(firstName,' ',lastName) AS 'Quote Author' FROM authorized_users WHERE userId = ?";
+        try {
+            PreparedStatement ps = CONN.prepareStatement(SQL);
+            ps.setString(1, authorID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) { // If the query returns results
-                String customerName = rs.getString("customerName");
-                String tradeLane = rs.getString("tradeLane");
-                String pol = rs.getString("pol");
-                String pod = rs.getString("pod");
-                String tshp1 = rs.getString("tshp1");
-                String tshp2 = rs.getString("tshp2");
-                String commodityClass = rs.getString("comm_class");
-                String commodityDescription = rs.getString("comm_description");
-                String handlingInstructions = rs.getString("handling_instructions");
-                Boolean accessories = rs.getBoolean("accessories");
-                String oft = rs.getString("rate");
-                String oftUnit = rs.getString("rate_unit");
-                String baf = rs.getString("baf");
-                Boolean bafIncluded = rs.getBoolean("bafIncluded");
-                String eca = rs.getString("eca_baf");
-                String ecaUnit = rs.getString("eca_unit");
-                Boolean ecaIncluded = rs.getBoolean("ecaIncluded");
-                String thc = rs.getString("thc");
-                String thcUnit = rs.getString("thc_unit");
-                Boolean thcIncluded = rs.getBoolean("thcIncluded");
-                String wfg = rs.getString("wfg");
-                String wfgUnit = rs.getString("wfg_unit");
-                Boolean wfgIncluded = rs.getBoolean("wfgIncluded");
-                String documentationFee = rs.getString("doc_fee");
-                Boolean documentationFeeIncluded = rs.getBoolean("documentationFeeIncluded");
-                Boolean warRisk = rs.getBoolean("war_risk");
-                Boolean spotRate = rs.getBoolean("spot_rate");
-                Boolean booked = rs.getBoolean("booked");
-                String bookingNumber = rs.getString("bookingNumber");
-                String comments = rs.getString("comments");
-                Boolean thcAttachedToEmail = rs.getBoolean("thcAttached");
-                Boolean wfgAttachedToEmail = rs.getBoolean("wfgAttached");
-                String authorID = rs.getString("user_ID");
-                String updaterID = rs.getString("updateUserID");
-                String currentAlphaNumeral = rs.getString("alpha_numeral");
-                Boolean deny = rs.getBoolean("deny");
-                Boolean mafi = rs.getBoolean("mafiMinimum");
-                String mafiCharge = rs.getString("mafiMinimumCharge");
-                Boolean contractRate = rs.getBoolean("contract_rate");
-                String reason_for_decline = rs.getString("reason_for_decline");
-                Boolean feedback = rs.getBoolean("feedback");
-                String feedbackType = rs.getString("feedbackType");
-                String feedbackDescription = rs.getString("feedbackDescription");
-                Boolean duplicate = rs.getBoolean("duplicateRate");
-                String contactName = rs.getString("contactName");
-                String contactEmail = rs.getString("contactEmail");
-                String dateQuoted = rs.getString("date");
-                String dateUpdated = rs.getString("dateUpdated");
-                String carrierComments = rs.getString("carrierComments");
-                String mtdApproval = rs.getString("MTD_APPROVAL");
-                String spaceApproval = rs.getString("SPACE_APPROVAL");
-                String overseasResponse = rs.getString("OVERSEAS_RESPONSE");
-                Boolean tariffRate = rs.getBoolean("TARIFF_RATE");
-                Boolean ftfSpotRate = rs.getBoolean("FTF_SPOT_RATE");
-                Boolean ftfTariffRate = rs.getBoolean("FTF_TARIFF_RATE");
-                Boolean indicatoryRate = rs.getBoolean("INDICATORY_RATE");
-                String contactPhone = rs.getString("CONTACT_PHONE");
-                String contactPhoneExtension = rs.getString("CONTACT_PHONE_EXTENSION");
-                String contactPhoneType = rs.getString("CONTACT_PHONE_TYPE");
-                
-                //Fill Packing List
-                insertPackingListInformation(quoteID);
-
-                //User Information
-                updateQuotePhoneTextField.setText(contactPhone);
-                updateQuoteExtensionTextField.setText(contactPhoneExtension);
-                updateQuotePhoneTypeComboBox.setSelectedItem(contactPhoneType);
-
-                //Returns the value of the author and displays on authorLabel
-                String sqlAuthor = "SELECT * FROM authorized_users WHERE userID ='" + authorID + "';";
-                PreparedStatement ps2 = conn.prepareStatement(sqlAuthor);
-                ResultSet rs2 = ps2.executeQuery();
-                while (rs2.next()) {
-                    String authorFN = rs2.getString("firstName");
-                    String authorLN = rs2.getString("lastName");
-                    String author = authorLN + ", " + authorFN;
-                    authorLabel.setText(author);
-                }
-
-                //Returns the value of the updater and displays on updatedby label
-                String updateAuthor = "SELECT * FROM authorized_users WHERE userID='" + updaterID + "';";
-                PreparedStatement ps3 = conn.prepareStatement(updateAuthor);
-                ResultSet rs3 = ps3.executeQuery();
-                while (rs3.next()) {
-                    String updaterFN = rs3.getString("firstName");
-                    String updaterLN = rs3.getString("lastName");
-                    String updater = updaterLN + ", " + updaterFN;
-                    lastUpdatedByLabel.setText(updater);
-                }
-                quoteCreatedLabel.setText(dateQuoted);
-                quoteLastUpdatedLabel.setText(dateUpdated);
-
-                //Contact Information 
-                updateEditQuoteCustomerNameLabel.setText(customerName);
-                updateContactNameTextField.setText(contactName);
-                updateContactEmailTextField.setText(contactEmail);
-                updateShipperCommentsTextArea.setText(carrierComments);
-//Get current alph-numeral from DB and display or display N/A if none exists
-                if (currentAlphaNumeral == null || currentAlphaNumeral.equals("")) {
-                    currentAlphaNumeralLabel.setText("N/A");
-                } else {
-                    currentAlphaNumeralLabel.setText(currentAlphaNumeral);
-                }
-
-                // Set the next alpha character
-                String current = currentAlphaNumeralLabel.getText();
-                if (current.equals("") || current.equals("N/A")) {
-                    updateAlphaNumeralTextField.setText("A");
-                } else if (!current.equals("") || current.equals("N/A")) {
-                    int charValue = current.charAt(0);
-                    String next = String.valueOf((char) (charValue + 1));
-                    updateAlphaNumeralTextField.setText(next);
-                }
-
-                //Port Information 
-                updateTradeLane.setSelectedItem(tradeLane);
-                updatePOLTextField.setText(pol);
-                updatePOLTextField.setColumns(2);
-                updatePODTextField.setText(pod);
-                updateTshp1TextField.setText(tshp1);
-                updateTshp2TextField.setText(tshp2);
-
-                //Commodity Information 
-                updateCommodityClassComboBox.setSelectedItem(commodityClass);
-                updateCommodityDescriptionTextField.setText(commodityDescription);
-                updateHandlingInstructionsComboBox.setSelectedItem(handlingInstructions);
-                updateQuoteAccessoriesCheckBox.setSelected(accessories);
-
-                //Quote Information 
-                updateOFTTextField.setText(oft);
-                updateOftUnitComboBox.setSelectedItem(oftUnit);
-                updateBAFTextField.setText(baf);
-                updateBafIncludedCheckBox.setSelected(bafIncluded);
-                updateEcaBafTextField.setText(eca);
-                updateEcaComboBox.setSelectedItem(ecaUnit);
-                updateEcaIncludedCheckBox.setSelected(ecaIncluded);
-                updateTHCTextField.setText(thc);
-                updateThcComboBox.setSelectedItem(thcUnit);
-                updateThcIncludedCheckBox.setSelected(thcIncluded);
-                updateThcAttachedCheckBox.setSelected(thcAttachedToEmail);
-                updateWfgTextField.setText(wfg);
-                updateWfgComboBox.setSelectedItem(wfgUnit);
-                updateWfgIncludedCheckBox.setSelected(wfgIncluded);
-                updateWfgAttachedCheckBox.setSelected(wfgAttachedToEmail);
-                updateDocumentationFeeComboBox.setSelectedItem(documentationFee);
-                updateDocFeeIncludedCheckBox.setSelected(documentationFeeIncluded);
-                updateWarRiskCheckBox.setSelected(warRisk);
-                updateQuoteMAFIMinimumCheckBox.setSelected(mafi);
-                updateEditMAFIMinimumTextField.setText(mafiCharge);
-                if (ecaIncluded == true) {
-                    eca = "";
-                    ecaUnit = "N/A";
-                }
-                if (thcIncluded == true) {
-                    thc = "";
-                    thcUnit = "N/A";
-                }
-                if (wfgIncluded == true) {
-                    wfg = "";
-                    wfgUnit = "N/A";
-                }
-                if (documentationFeeIncluded == true) {
-                    documentationFee = "N/A";
-                }
-
-                //Quote Type
-                updateSpotRateCheckBox.setSelected(spotRate);
-                editQuoteDuplicateRateCheckBox.setSelected(duplicate);
-                updateBookedCheckBox.setSelected(booked);
-                updateEditQuoteBookingNumberTextField.setText(bookingNumber);
-                updateContractRateCheckBox.setSelected(contractRate);
-                updateQuoteTariffCheckBox.setSelected(tariffRate);
-                updateQuoteFTFSpotCheckBox.setSelected(ftfSpotRate);
-                updateQuoteFTFTariffCheckBox.setSelected(ftfTariffRate);
-                updateQuoteIndicatoryCheckBox.setSelected(indicatoryRate);
-                updateDeclineCheckBox.setSelected(deny);
-                updateDeclineComboBox.setSelectedItem(reason_for_decline);
-                quoteFeedbackCheckBox.setSelected(feedback);
-                quoteFeedbackComboBox.setSelectedItem(feedbackType);
-                quoteFeedbackTextField.setText(feedbackDescription);
-
-                //Quote Status
-                updateQuoteMTDApprovalComboBox.setSelectedItem(mtdApproval);
-                updateQuoteSpaceApprovalComboBox.setSelectedItem(spaceApproval);
-                updateQuoteOverseasResponseComboBox.setSelectedItem(overseasResponse);
-
-                //Internal Comments
-                updateCommentsTextArea.setText(comments);
-                updateQuoteIDTextArea.setText(quoteID);
-
+            if (rs.next()) {
+                result = rs.getString("Quote Author");
             }
-
-        } catch (SQLException | HeadlessException ex) {
-            JOptionPane.showMessageDialog(null, "Error:\n" + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            result = "Error: " + ex.getMessage();
         }
+        return result;
     }
 
-    private static void insertPackingListInformation(String quoteID) {
+    private static String getQuoteUpdater() {
+        String result = null;
+        String SQL = "SELECT CONCAT(firstName,' ',lastName) AS 'Update Author' FROM authorized_users WHERE userID = ?";
+        try {
+            PreparedStatement ps = CONN.prepareStatement(SQL);
+            ps.setString(1, updaterID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                result = rs.getString("Update Author");
+            }
+        } catch (Exception ex) {
+            result = "Error: " + ex.getMessage();
+        }
+        return result;
+    }
+
+    private static String nextAlphaCharacter(String currentAlphaCharacter) {
+        String alphaCharacter;
+        if (currentAlphaCharacter.equals("N/A") || currentAlphaCharacter.equals("")) {
+            alphaCharacter = "A";
+        } else {
+            int charValue = currentAlphaCharacter.charAt(0);
+            alphaCharacter = String.valueOf((char) (++charValue));
+        }
+        return alphaCharacter;
+    }
+
+    private static void insertQuoteData() {
+        //User Information
+        authorLabel.setText(getQuoteAuthor());
+        lastUpdatedByLabel.setText(getQuoteUpdater());
+        quoteCreatedLabel.setText(dateQuoted);
+        quoteLastUpdatedLabel.setText(dateUpdated);
+        String currentChar = null;
+        //Get current alph-numeral from DB and display or display N/A if none exists
+        if (currentAlphaNumeral == null || currentAlphaNumeral.equals("")) {
+            currentChar = "N/A";
+            currentAlphaNumeralLabel.setText("N/A");
+        } else {
+            currentChar = currentAlphaNumeral;
+            currentAlphaNumeralLabel.setText(currentAlphaNumeral);
+        }
+        updateAlphaNumeralTextField.setText(nextAlphaCharacter(currentChar));
+
+        //Contact Information 
+        updateEditQuoteCustomerNameLabel.setText(customerName);
+        updateContactNameTextField.setText(contactName);
+        updateContactEmailTextField.setText(contactEmail);
+        updateQuotePhoneTextField.setText(contactPhone);
+        updateQuoteExtensionTextField.setText(contactPhoneExtension);
+        if (contactPhoneType == null) {
+            updateQuotePhoneTypeComboBox.setSelectedIndex(0);
+        } else {
+            updateQuotePhoneTypeComboBox.setSelectedItem(contactPhoneType);
+        }
+        updateShipperCommentsTextArea.setText(carrierComments);
+
+        //Port Information 
+        updateTradeLane.setSelectedItem(tradeLane);
+        updatePOLTextField.setText(pol);
+        updatePOLTextField.setColumns(2);
+        updatePODTextField.setText(pod);
+        updateTshp1TextField.setText(tshp1);
+        updateTshp2TextField.setText(tshp2);
+
+        //Commodity Information 
+        updateCommodityClassComboBox.setSelectedItem(commodityClass);
+        updateCommodityDescriptionTextField.setText(commodityDescription);
+        updateHandlingInstructionsComboBox.setSelectedItem(handlingInstructions);
+        updateQuoteAccessoriesCheckBox.setSelected(accessories);
+
+        //Quote Information 
+        updateOFTTextField.setText(oft);
+        updateOftUnitComboBox.setSelectedItem(oftUnit);
+        updateBAFTextField.setText(baf);
+        updateBafIncludedCheckBox.setSelected(bafIncluded);
+        updateEcaBafTextField.setText(eca);
+        updateEcaComboBox.setSelectedItem(ecaUnit);
+        updateEcaIncludedCheckBox.setSelected(ecaIncluded);
+        updateTHCTextField.setText(thc);
+        updateThcComboBox.setSelectedItem(thcUnit);
+        updateThcIncludedCheckBox.setSelected(thcIncluded);
+        updateThcAttachedCheckBox.setSelected(thcAttachedToEmail);
+        updateWfgTextField.setText(wfg);
+        updateWfgComboBox.setSelectedItem(wfgUnit);
+        updateWfgIncludedCheckBox.setSelected(wfgIncluded);
+        updateWfgAttachedCheckBox.setSelected(wfgAttachedToEmail);
+        updateDocumentationFeeComboBox.setSelectedItem(documentationFee);
+        updateDocFeeIncludedCheckBox.setSelected(documentationFeeIncluded);
+        updateWarRiskCheckBox.setSelected(warRisk);
+        updateQuoteMAFIMinimumCheckBox.setSelected(mafi);
+        updateEditMAFIMinimumTextField.setText(mafiCharge);
+        if (ecaIncluded == true) {
+            eca = "";
+            ecaUnit = "N/A";
+        }
+        if (thcIncluded == true) {
+            thc = "";
+            thcUnit = "N/A";
+        }
+        if (wfgIncluded == true) {
+            wfg = "";
+            wfgUnit = "N/A";
+        }
+        if (documentationFeeIncluded == true) {
+            documentationFee = "N/A";
+        }
+
+        //Quote Type
+        updateSpotRateCheckBox.setSelected(spotRate);
+        editQuoteDuplicateRateCheckBox.setSelected(duplicate);
+        updateBookedCheckBox.setSelected(booked);
+        updateEditQuoteBookingNumberTextField.setText(bookingNumber);
+        updateContractRateCheckBox.setSelected(contractRate);
+        updateQuoteTariffCheckBox.setSelected(tariffRate);
+        updateQuoteFTFSpotCheckBox.setSelected(ftfSpotRate);
+        updateQuoteFTFTariffCheckBox.setSelected(ftfTariffRate);
+        updateQuoteIndicatoryCheckBox.setSelected(indicatoryRate);
+        updateDeclineCheckBox.setSelected(decline);
+        updateDeclineComboBox.setSelectedItem(reasonForDecline);
+        quoteFeedbackCheckBox.setSelected(feedback);
+        quoteFeedbackComboBox.setSelectedItem(feedbackType);
+        quoteFeedbackTextField.setText(feedbackDescription);
+
+        //Quote Status
+        updateQuoteMTDApprovalComboBox.setSelectedItem(mtdApproval);
+        updateQuoteSpaceApprovalComboBox.setSelectedItem(spaceApproval);
+        updateQuoteOverseasResponseComboBox.setSelectedItem(overseasResponse);
+
+        //Internal Comments
+        updateCommentsTextArea.setText(comments);
+        updateQuoteIDTextArea.setText(quoteID);
+    }
+
+    protected static void updateQuoteInformation(String quoteID) {
+        String SQL = "SELECT * FROM allquotes WHERE ID = ?";
+        try {
+            PreparedStatement ps = CONN.prepareStatement(SQL);
+            ps.setString(1, quoteID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                customerName = rs.getString("customerName");
+                tradeLane = rs.getString("tradeLane");
+                pol = rs.getString("pol");
+                pod = rs.getString("pod");
+                tshp1 = rs.getString("tshp1");
+                tshp2 = rs.getString("tshp2");
+                commodityClass = rs.getString("comm_class");
+                commodityDescription = rs.getString("comm_description");
+                handlingInstructions = rs.getString("handling_instructions");
+                accessories = rs.getBoolean("accessories");
+                oft = rs.getString("rate");
+                oftUnit = rs.getString("rate_unit");
+                baf = rs.getString("baf");
+                bafIncluded = rs.getBoolean("bafIncluded");
+                eca = rs.getString("eca_baf");
+                ecaUnit = rs.getString("eca_unit");
+                ecaIncluded = rs.getBoolean("ecaIncluded");
+                thc = rs.getString("thc");
+                thcUnit = rs.getString("thc_unit");
+                thcIncluded = rs.getBoolean("thcIncluded");
+                wfg = rs.getString("wfg");
+                wfgUnit = rs.getString("wfg_unit");
+                wfgIncluded = rs.getBoolean("wfgIncluded");
+                documentationFee = rs.getString("doc_fee");
+                documentationFeeIncluded = rs.getBoolean("documentationFeeIncluded");
+                warRisk = rs.getBoolean("war_risk");
+                spotRate = rs.getBoolean("spot_rate");
+                booked = rs.getBoolean("booked");
+                bookingNumber = rs.getString("bookingNumber");
+                comments = rs.getString("comments");
+                thcAttachedToEmail = rs.getBoolean("thcAttached");
+                wfgAttachedToEmail = rs.getBoolean("wfgAttached");
+                authorID = rs.getString("user_ID");
+                updaterID = rs.getString("updateUserID");
+                currentAlphaNumeral = rs.getString("alpha_numeral");
+                decline = rs.getBoolean("deny");
+                mafi = rs.getBoolean("mafiMinimum");
+                mafiCharge = rs.getString("mafiMinimumCharge");
+                contractRate = rs.getBoolean("contract_rate");
+                reasonForDecline = rs.getString("reason_for_decline");
+                feedback = rs.getBoolean("feedback");
+                feedbackType = rs.getString("feedbackType");
+                feedbackDescription = rs.getString("feedbackDescription");
+                duplicate = rs.getBoolean("duplicateRate");
+                contactName = rs.getString("contactName");
+                contactEmail = rs.getString("contactEmail");
+                dateQuoted = rs.getString("date");
+                dateUpdated = rs.getString("dateUpdated");
+                carrierComments = rs.getString("carrierComments");
+                mtdApproval = rs.getString("MTD_APPROVAL");
+                spaceApproval = rs.getString("SPACE_APPROVAL");
+                overseasResponse = rs.getString("OVERSEAS_RESPONSE");
+                tariffRate = rs.getBoolean("TARIFF_RATE");
+                ftfSpotRate = rs.getBoolean("FTF_SPOT_RATE");
+                ftfTariffRate = rs.getBoolean("FTF_TARIFF_RATE");
+                indicatoryRate = rs.getBoolean("INDICATORY_RATE");
+                contactPhone = rs.getString("CONTACT_PHONE");
+                contactPhoneExtension = rs.getString("CONTACT_PHONE_EXTENSION");
+                contactPhoneType = rs.getString("CONTACT_PHONE_TYPE");
+
+                // Update the form
+                insertQuoteData();
+
+                //Fill Packing List
+                insertPackingListInformation();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            System.out.println("Error: " + Arrays.toString(ex.getStackTrace()));
+        }
+
+    }
+
+    private static void insertPackingListInformation() {
         //SQL to retreive information from the packing list schema based on the quote ID 
         String packingList = "SELECT commodity AS 'Commodity', quantity AS 'Qty', l AS 'L(cm)', w AS 'W(cm)', h AS 'H(cm)', kgs AS 'Kgs', length_inches AS'L(in)', width_inches AS 'W(in)', height_inches AS 'H(in)', cbm AS 'CBM', lbs AS 'Lbs', ID FROM packingList WHERE quoteID =?";
         try {
-            PreparedStatement packingListData = conn.prepareStatement(packingList);
+            PreparedStatement packingListData = CONN.prepareStatement(packingList);
             packingListData.setString(1, quoteID);
             ResultSet rs1 = packingListData.executeQuery();
             updateEditPackingListTable.setModel(DbUtils.resultSetToTableModel(rs1));
@@ -7203,7 +7237,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_updateCancelButtonActionPerformed
 
-    private void updatePackingList(String quoteID) {
+    private static void updatePackingList(String quoteID) {
         int rows = updateEditPackingListTable.getRowCount(); //Get the number of rows on the current packing list table
         int cols = updateEditPackingListTable.getColumnCount(); //Get the number of columns on the current packing list table
         for (int row = 0; row < rows; row++) {
@@ -7224,7 +7258,7 @@ public class MainMenu extends javax.swing.JFrame {
                 String SQL = "UPDATE packinglist SET commodity=?, quantity=?, l=?, w=?, h=?, kgs=?, length_inches=?, width_inches=?, height_inches=?, cbm=?, lbs=?  WHERE quoteID=? AND ID=?";
 
                 try {
-                    PreparedStatement pstmt = conn.prepareStatement(SQL);
+                    PreparedStatement pstmt = CONN.prepareStatement(SQL);
                     pstmt.setString(1, commodity);
                     pstmt.setString(2, quantity);
                     pstmt.setString(3, l);
@@ -7249,113 +7283,163 @@ public class MainMenu extends javax.swing.JFrame {
         }
     }
 
+    private boolean checkBooked(String quoteID) {
+        Boolean booked = false;
+        String SQL = "SELECT bookedUserID AND DATE_BOOKED FROM allquotes WHERE ID=?";
+        try {
+            PreparedStatement ps = CONN.prepareStatement(SQL);
+            ps.setString(1, quoteID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+               String dateBooked = rs.getString("DATE_BOOKED");
+               if(dateBooked.equals("0000-00-00 00:00")){
+                   booked = false;
+               }else{
+                   booked = true;
+               }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return booked;
+    }
+
+    private String bookedUserID(String quoteID) {
+        String SQL = "SELECT bookedUserID FROM allquotes WHERE ID = ?";
+        try {
+            PreparedStatement ps = CONN.prepareStatement(SQL);
+            ps.setString(1, quoteID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                bookedUserID = rs.getString("bookedUserID");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return bookedUserID;
+    }
+
+    private String bookedDate(String quoteID) {
+        String SQL = "SELECT DATE_BOOKED FROM allquotes WHERE ID = ?";
+        try {
+            PreparedStatement ps = CONN.prepareStatement(SQL);
+            ps.setString(1, quoteID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                bookedDate = rs.getString("DATE_BOOKED");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return bookedDate;
+    }
+
 //Update quote button
     private void updateEditQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEditQuoteButtonActionPerformed
 
+        boolean submissionStatus = true;
         //Quote User Information 
         //Contact Information 
-        String customerName = updateEditQuoteCustomerNameLabel.getText();
-        String contactName = updateContactNameTextField.getText();
-        String contactEmail = updateContactEmailTextField.getText();
-        String contactPhone = updateQuotePhoneTextField.getText();
-        String contactExtension = updateQuoteExtensionTextField.getText();
-        String contactPhoneType = updateQuotePhoneTypeComboBox.getSelectedItem().toString();
+        customerName = updateEditQuoteCustomerNameLabel.getText();
+        contactName = updateContactNameTextField.getText();
+        contactEmail = updateContactEmailTextField.getText();
+        contactPhone = updateQuotePhoneTextField.getText();
+        contactPhoneExtension = updateQuoteExtensionTextField.getText();
+        contactPhoneType = updateQuotePhoneTypeComboBox.getSelectedItem().toString();
 
         //Port Information 
-        String tradeLane = updateTradeLane.getSelectedItem().toString();
-        String pol = updatePOLTextField.getText();
-        String pod = updatePODTextField.getText();
-        String tshp1 = updateTshp1TextField.getText();
-        String tshp2 = updateTshp2TextField.getText();
+        tradeLane = updateTradeLane.getSelectedItem().toString();
+        pol = updatePOLTextField.getText();
+        pod = updatePODTextField.getText();
+        tshp1 = updateTshp1TextField.getText();
+        tshp2 = updateTshp2TextField.getText();
 
         //Commodity Information 
-        String commodityClass = updateCommodityClassComboBox.getSelectedItem().toString();
-        String commodityDescription = updateCommodityDescriptionTextField.getText();
-        String handlingInstruction = updateHandlingInstructionsComboBox.getSelectedItem().toString();
-        Boolean accessories = updateQuoteAccessoriesCheckBox.isSelected();
+        commodityClass = updateCommodityClassComboBox.getSelectedItem().toString();
+        commodityDescription = updateCommodityDescriptionTextField.getText();
+        handlingInstructions = updateHandlingInstructionsComboBox.getSelectedItem().toString();
+        accessories = updateQuoteAccessoriesCheckBox.isSelected();
 
         //Rate Quote
-        String oft = updateOFTTextField.getText();
-        String oftUnit = updateOftUnitComboBox.getSelectedItem().toString();
-        String baf = updateBAFTextField.getText();
-        Boolean bafInclude = updateBafIncludedCheckBox.isSelected();
-        String eca = updateEcaBafTextField.getText();
-        String ecaUnit = updateEcaComboBox.getSelectedItem().toString();
-        Boolean ecaInclude = updateEcaIncludedCheckBox.isSelected();
-        String thc = updateTHCTextField.getText();
-        String thcUnit = updateThcComboBox.getSelectedItem().toString();
-        Boolean thcIncluded = updateThcIncludedCheckBox.isSelected();
-        Boolean thcAttachedToEmail = updateThcAttachedCheckBox.isSelected();
-        String wfg = updateWfgTextField.getText();
-        String wfgUnit = updateWfgComboBox.getSelectedItem().toString();
-        Boolean wfgIncluded = updateWfgIncludedCheckBox.isSelected();
-        Boolean wfgAttachedToEmail = updateWfgAttachedCheckBox.isSelected();
-        String documentationFee = updateDocumentationFeeComboBox.getSelectedItem().toString();
-        Boolean documentationFeeIncluded = updateDocFeeIncludedCheckBox.isSelected();
-        Boolean warRisk = updateWarRiskCheckBox.isSelected();
+        oft = updateOFTTextField.getText();
+        oftUnit = updateOftUnitComboBox.getSelectedItem().toString();
+        mafiMinimum = updateQuoteMAFIMinimumCheckBox.isSelected();
+        mafiMinimumCharge = updateEditMAFIMinimumTextField.getText();
+        baf = updateBAFTextField.getText();
+        bafIncluded = updateBafIncludedCheckBox.isSelected();
+        eca = updateEcaBafTextField.getText();
+        ecaUnit = updateEcaComboBox.getSelectedItem().toString();
+        ecaIncluded = updateEcaIncludedCheckBox.isSelected();
+        thc = updateTHCTextField.getText();
+        thcUnit = updateThcComboBox.getSelectedItem().toString();
+        thcIncluded = updateThcIncludedCheckBox.isSelected();
+        thcAttachedToEmail = updateThcAttachedCheckBox.isSelected();
+        wfg = updateWfgTextField.getText();
+        wfgUnit = updateWfgComboBox.getSelectedItem().toString();
+        wfgIncluded = updateWfgIncludedCheckBox.isSelected();
+        wfgAttachedToEmail = updateWfgAttachedCheckBox.isSelected();
+        documentationFee = updateDocumentationFeeComboBox.getSelectedItem().toString();
+        documentationFeeIncluded = updateDocFeeIncludedCheckBox.isSelected();
+        warRisk = updateWarRiskCheckBox.isSelected();
 
         //Rate Type
-        Boolean spotRate = updateSpotRateCheckBox.isSelected();
-        Boolean duplicateRate = editQuoteDuplicateRateCheckBox.isSelected();
-        Boolean booked = updateBookedCheckBox.isSelected();
-        String bookingNumber = "";
-        Boolean decline = updateDeclineCheckBox.isSelected();
-        String reason_for_decline = "N/A";
-        String deny = updateDeclineComboBox.getSelectedItem().toString();
-        Boolean contract_rate = updateContractRateCheckBox.isSelected();
-        Boolean feedback = quoteFeedbackCheckBox.isSelected();
-        String feedbackType = quoteFeedbackComboBox.getSelectedItem().toString();
-        String feedbackDescription = quoteFeedbackTextField.getText();
-        Boolean ftfSpotRate = updateQuoteFTFSpotCheckBox.isSelected();
-        Boolean ftfTariff = updateQuoteFTFTariffCheckBox.isSelected();
-        Boolean indicatoryRate = updateQuoteIndicatoryCheckBox.isSelected();
-        Boolean tariffRate = updateQuoteTariffCheckBox.isSelected();
+        spotRate = updateSpotRateCheckBox.isSelected();
+        duplicateRate = editQuoteDuplicateRateCheckBox.isSelected();
+        booked = updateBookedCheckBox.isSelected();
+        bookingNumber = "";
+        decline = updateDeclineCheckBox.isSelected();
+        reasonForDecline = "N/A";
+        deny = updateDeclineComboBox.getSelectedItem().toString();
+        contractRate = updateContractRateCheckBox.isSelected();
+        feedback = quoteFeedbackCheckBox.isSelected();
+        feedbackType = quoteFeedbackComboBox.getSelectedItem().toString();
+        feedbackDescription = quoteFeedbackTextField.getText();
+        ftfSpotRate = updateQuoteFTFSpotCheckBox.isSelected();
+        ftfTariffRate = updateQuoteFTFTariffCheckBox.isSelected();
+        indicatoryRate = updateQuoteIndicatoryCheckBox.isSelected();
+        tariffRate = updateQuoteTariffCheckBox.isSelected();
 
         //Quote Status
-        String mtdApproval = updateQuoteMTDApprovalComboBox.getSelectedItem().toString();
-        String spaceApproval = updateQuoteSpaceApprovalComboBox.getSelectedItem().toString();
-        String overseasResponse = updateQuoteOverseasResponseComboBox.getSelectedItem().toString();
+        mtdApproval = updateQuoteMTDApprovalComboBox.getSelectedItem().toString();
+        spaceApproval = updateQuoteSpaceApprovalComboBox.getSelectedItem().toString();
+        overseasResponse = updateQuoteOverseasResponseComboBox.getSelectedItem().toString();
         //Carrier Comments 
         //Internal Comments
-        String comments = updateCommentsTextArea.getText();
+        comments = updateCommentsTextArea.getText();
 
-        String quoteID = updateQuoteIDTextArea.getText();
+        dateUpdated = new SimpleDateFormat("YYYY-MM-dd HH:mm").format(Calendar.getInstance().getTime());
+        updateAlphaNumeral = updateAlphaNumeralTextField.getText();
 
-        String dateUpdated = new SimpleDateFormat("YYYY-MM-dd HH:mm").format(Calendar.getInstance().getTime());
-        String timeStamp = new SimpleDateFormat("YYYY-MM-dd HH:mm").format(Calendar.getInstance().getTime());
-        String updateAlphaNumeral = updateAlphaNumeralTextField.getText();
-
-        Boolean includeCarrierRemarks = editQuoteIncludeShipperCommentsCheckBox.isSelected();
-        String carrierComments = updateShipperCommentsTextArea.getText();
-
-        if (booked == true) {
-            bookingNumber = updateEditQuoteBookingNumberTextField.getText();
-        } else {
-            bookingNumber = "";
-        }
+        includeCarrierRemarks = editQuoteIncludeShipperCommentsCheckBox.isSelected();
+        carrierComments = updateShipperCommentsTextArea.getText();
 
         if (feedback == true && feedbackType.equals("N/A")) {
-            JOptionPane.showMessageDialog(null, "You must select a feedback type");
+            JOptionPane.showConfirmDialog(this, "You must choose a feedbac type", "Feedback Error", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            submissionStatus = false;
         } else if (feedback == true && feedbackType.equals("Other") && feedbackDescription.equals("")) {
-            JOptionPane.showMessageDialog(null, "Please add a short description");
+            JOptionPane.showConfirmDialog(null, "Please add a short description");
+            submissionStatus = false;
         }
 
         if (decline == true && deny.equals("N/A")) {
             JOptionPane.showMessageDialog(null, "You must select a reason for declining this cargo");
+            submissionStatus = false;
         } else if (decline = true && !deny.equals("N/A")) {
-            reason_for_decline = declineComboBox.getSelectedItem().toString();
+            reasonForDecline = declineComboBox.getSelectedItem().toString();
+            submissionStatus = false;
         } else if (decline != true) {
-            reason_for_decline = "N/A";
+            submissionStatus = false;
+            reasonForDecline = "N/A";
         }
 
         Boolean mafiMinimum = updateQuoteMAFIMinimumCheckBox.isSelected();
         String mafiMinimumCharge = updateEditMAFIMinimumTextField.getText();
 
-        if (bafInclude == true) {
+        if (bafIncluded == true) {
             baf = "";
 
         }
-        if (ecaInclude == true) {
+        if (ecaIncluded == true) {
             eca = "Inclusive";
             ecaUnit = "";
         }
@@ -7386,230 +7470,208 @@ public class MainMenu extends javax.swing.JFrame {
 
         if (updateAlphaNumeral.equals("")) {
             JOptionPane.showMessageDialog(null, "You must enter an alpha-numerical value before you can submit the update!");
-            exit();
-        } else {
+            submissionStatus = false;
+        }
+        updateQuoteInformation();
+        ClearUpdateQuotePanel();
+    }
 
-            //Get id from authorized_users;
-            String IDsql = "SELECT * FROM authorized_users WHERE username=?";
-            try {
-                PreparedStatement ps1 = conn.prepareStatement(IDsql);
-                ps1.setString(1, username);
-                ResultSet rs1 = ps1.executeQuery();
-                if (rs1.next()) {
-                    String ID = rs1.getString("userID");
+    private void updateQuoteInformation() {
 
-                    //Enter updated quote into allquotes Database with new timestamp and alphanumeral
-                    String sql = "UPDATE allquotes SET tradeLane=?,pol=?, pod=?, tshp1=?, tshp2=?, comm_class=?, handling_instructions=?, comm_description=?, rate=?, rate_unit=?, baf=?, eca_baf=?, eca_unit=?, thc=?, thc_unit=?, wfg=?, wfg_unit=?, doc_fee=?, war_risk=?, spot_rate=?, booked=?, comments=?, dateUpdated=?, DATE_UPDATED=?, deny=?, updateUserID=?, thcIncluded=?, wfgIncluded=?, thcAttached=?, wfgAttached=?, bafIncluded=?, ecaIncluded=?, documentationFeeIncluded=?, alpha_numeral=?, accessories=?, mafiMinimum=?, mafiMinimumCharge=?, reason_for_decline=?,contract_rate=?, customerName=?, feedback=?, feedbackType=?, feedbackDescription=?, bookingNumber=?, contactName=?, contactEmail=?, duplicateRate=?, carrierComments=?, MTD_APPROVAL=?, SPACE_APPROVAL=?, OVERSEAS_RESPONSE=?, TARIFF_RATE=?, FTF_SPOT_RATE=?, FTF_TARIFF_RATE=?, INDICATORY_RATE=?, CONTACT_PHONE=?, CONTACT_PHONE_EXTENSION=?, CONTACT_PHONE_TYPE=? WHERE ID=?";
+        String SQL = "UPDATE allquotes SET tradeLane=?,pol=?, pod=?, tshp1=?, tshp2=?, comm_class=?, handling_instructions=?, comm_description=?, rate=?, rate_unit=?, baf=?, eca_baf=?, eca_unit=?, thc=?, thc_unit=?, wfg=?, wfg_unit=?, doc_fee=?, war_risk=?, spot_rate=?, booked=?, comments=?, dateUpdated=?, DATE_UPDATED=?, deny=?, updateUserID=?, thcIncluded=?, wfgIncluded=?, thcAttached=?, wfgAttached=?, bafIncluded=?, ecaIncluded=?, documentationFeeIncluded=?, alpha_numeral=?, accessories=?, mafiMinimum=?, mafiMinimumCharge=?, reason_for_decline=?,contract_rate=?, customerName=?, feedback=?, feedbackType=?, feedbackDescription=?, bookingNumber=?, contactName=?, contactEmail=?, duplicateRate=?, carrierComments=?, MTD_APPROVAL=?, SPACE_APPROVAL=?, OVERSEAS_RESPONSE=?, TARIFF_RATE=?, FTF_SPOT_RATE=?, FTF_TARIFF_RATE=?, INDICATORY_RATE=?, CONTACT_PHONE=?, CONTACT_PHONE_EXTENSION=?, CONTACT_PHONE_TYPE=? WHERE ID=?";
 
+        try {
+            PreparedStatement ps = CONN.prepareStatement(SQL);
+            ps.setString(1, tradeLane);
+            ps.setString(2, pol);
+            ps.setString(3, pod);
+            ps.setString(4, tshp1);
+            ps.setString(5, tshp2);
+            ps.setString(6, commodityClass);
+            ps.setString(7, handlingInstructions);
+            ps.setString(8, commodityDescription);
+            ps.setString(9, oft);
+            ps.setString(10, oftUnit);
+            ps.setString(11, baf);
+            ps.setString(12, eca);
+            ps.setString(13, ecaUnit);
+            ps.setString(14, thc);
+            ps.setString(15, thcUnit);
+            ps.setString(16, wfg);
+            ps.setString(17, wfgUnit);
+            ps.setString(18, documentationFee);
+            ps.setBoolean(19, warRisk);
+            ps.setBoolean(20, spotRate);
+            ps.setBoolean(21, booked);
+            ps.setString(22, comments);
+            ps.setString(23, dateUpdated);
+            ps.setString(24, dateUpdated);
+            ps.setBoolean(25, decline);
+            ps.setString(26, userID);
+            ps.setBoolean(27, thcIncluded);
+            ps.setBoolean(28, wfgIncluded);
+            ps.setBoolean(29, thcAttachedToEmail);
+            ps.setBoolean(30, wfgAttachedToEmail);
+            ps.setBoolean(31, bafIncluded);
+            ps.setBoolean(32, ecaIncluded);
+            ps.setBoolean(33, documentationFeeIncluded);
+            ps.setString(34, updateAlphaNumeral);
+            ps.setBoolean(35, accessories);
+            ps.setBoolean(36, mafiMinimum);
+            ps.setString(37, mafiMinimumCharge);
+            ps.setString(38, reasonForDecline);
+            ps.setBoolean(39, contractRate);
+            ps.setString(40, customerName);
+            ps.setBoolean(41, feedback);
+            ps.setString(42, feedbackType);
+            ps.setString(43, feedbackDescription);
+            ps.setString(44, bookingNumber);
+            ps.setString(45, contactName);
+            ps.setString(46, contactEmail);
+            ps.setBoolean(47, duplicateRate);
+            ps.setString(48, carrierComments);
+            ps.setString(49, mtdApproval);
+            ps.setString(50, spaceApproval);
+            ps.setString(51, overseasResponse);
+            ps.setBoolean(52, tariffRate);
+            ps.setBoolean(53, ftfSpotRate);
+            ps.setBoolean(54, ftfTariffRate);
+            ps.setBoolean(55, indicatoryRate);
+            ps.setString(56, contactPhone);
+            ps.setString(57, contactPhoneExtension);
+            ps.setString(58, contactPhoneType);
+            ps.setString(59, quoteID);
+
+            // Execute the update
+            ps.executeUpdate();
+
+            /**
+             * Check to see if the quote has already been booked. If it has not
+             * been booked yet then update the information.
+             */
+            if (booked == true) {
+                if (!checkBooked(quoteID)) {
+                    String bookedSQL = "UPDATE allquotes SET bookedUserID=?, DATE_BOOKED=? WHERE ID=?;";
                     try {
-                        PreparedStatement ps = conn.prepareStatement(sql);
-                        ps.setString(1, tradeLane);
-                        ps.setString(2, pol);
-                        ps.setString(3, pod);
-                        ps.setString(4, tshp1);
-                        ps.setString(5, tshp2);
-                        ps.setString(6, commodityClass);
-                        ps.setString(7, handlingInstruction);
-                        ps.setString(8, commodityDescription);
-                        ps.setString(9, oft);
-                        ps.setString(10, oftUnit);
-                        ps.setString(11, baf);
-                        ps.setString(12, eca);
-                        ps.setString(13, ecaUnit);
-                        ps.setString(14, thc);
-                        ps.setString(15, thcUnit);
-                        ps.setString(16, wfg);
-                        ps.setString(17, wfgUnit);
-                        ps.setString(18, documentationFee);
-                        ps.setBoolean(19, warRisk);
-                        ps.setBoolean(20, spotRate);
-                        ps.setBoolean(21, booked);
-                        ps.setString(22, comments);
-                        ps.setString(23, dateUpdated);
-                        ps.setString(24, dateUpdated);
-                        ps.setBoolean(25, decline);
-                        ps.setString(26, ID);
-                        ps.setBoolean(27, thcIncluded);
-                        ps.setBoolean(28, wfgIncluded);
-                        ps.setBoolean(29, thcAttachedToEmail);
-                        ps.setBoolean(30, wfgAttachedToEmail);
-                        ps.setBoolean(31, bafInclude);
-                        ps.setBoolean(32, ecaInclude);
-                        ps.setBoolean(33, documentationFeeIncluded);
-                        ps.setString(34, updateAlphaNumeral);
-                        ps.setBoolean(35, accessories);
-                        ps.setBoolean(36, mafiMinimum);
-                        ps.setString(37, mafiMinimumCharge);
-                        ps.setString(38, reason_for_decline);
-                        ps.setBoolean(39, contract_rate);
-                        ps.setString(40, customerName);
-                        ps.setBoolean(41, feedback);
-                        ps.setString(42, feedbackType);
-                        ps.setString(43, feedbackDescription);
-                        ps.setString(44, bookingNumber);
-                        ps.setString(45, contactName);
-                        ps.setString(46, contactEmail);
-                        ps.setBoolean(47, duplicateRate);
-                        ps.setString(48, carrierComments);
-                        ps.setString(49, mtdApproval);
-                        ps.setString(50, spaceApproval);
-                        ps.setString(51, overseasResponse);
-                        ps.setBoolean(52, tariffRate);
-                        ps.setBoolean(53, ftfSpotRate);
-                        ps.setBoolean(54, ftfTariff);
-                        ps.setBoolean(55, indicatoryRate);
-                        ps.setString(56, contactPhone);
-                        ps.setString(57, contactExtension);
-                        ps.setString(58, contactPhoneType);
-                        ps.setString(59, quoteID);
+                        PreparedStatement psBooked = CONN.prepareStatement(bookedSQL);
+                        psBooked.setString(1, userID);
+                        psBooked.setString(2, TIME_STAMP);
+                        psBooked.setString(3, quoteID);
+                        psBooked.executeUpdate();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            }
+            updatePackingList(quoteID);
 
-                        // Execute the update
-                        ps.executeUpdate();
 
-                        //If this cargo is booked then set the booked user Id to the current user
-                        if (booked == true) {
-                            String bookedSQL = "UPDATE allquotes SET bookedUserID=? WHERE ID=?;";
-                            try {
-                                PreparedStatement psBooked = conn.prepareStatement(bookedSQL);
-                                psBooked.setString(1, ID);
-                                psBooked.setString(2, quoteID);
-                                psBooked.executeUpdate();
-                            } catch (Exception e) {
-                                System.out.println(e.getMessage());
-                            }
-                        } else {
-                            String bookedSQL = "UPDATE allquotes SET bookedUserID=? WHERE ID=?;";
-                            try {
-                                PreparedStatement psBooked = conn.prepareStatement(bookedSQL);
-                                psBooked.setString(1, "N/A");
-                                psBooked.setString(2, quoteID);
-                                psBooked.executeUpdate();
-                            } catch (Exception e) {
-                                System.out.println(e.getMessage());
-                            }
-                        }
-
-                        updatePackingList(quoteID);
-
-                        JOptionPane.showMessageDialog(null, "Quote ID: " + quoteID + updateAlphaNumeral + " has been successfully updated");
-
-                        /*
+            /*
                          *
                          *Create PDF displaying quote information using iText
                          *
-                         */
-                        //Declare all variables for PDF output
-                        String portPairs = pol + " - " + pod;
-                        String tshpPorts = "";
-                        String displayOFT = "$" + oft + " " + oftUnit;
-                        String bunker = "";
-                        String thcPDF = "";
-                        String wfgPDF = "";
-                        String documentationFeePdf = "";
-                        String quoteStatus = "";
-                        String warRiskPDF = null;
+             */
+            //Declare all variables for PDF output
+            String tshpPorts = "";
+            String displayOFT = "$" + oft + " " + oftUnit;
+            String bunker = "";
+            String thcPDF = "";
+            String wfgPDF = "";
+            String documentationFeePdf = "";
+            String warRiskPDF = null;
 
-                        //Arrange trans-shipment ports
-                        if (!tshp1.equals("") && tshp2.equals("")) {
-                            tshpPorts = tshp1;
-                        } else if (!tshp1.equals("") && !tshp2.equals("")) {
-                            tshpPorts = tshp1 + " & " + tshp2;
-                        }
-                        //Assign bunker amount
-                        if (bafInclude == true) {
-                            bunker = "Included";
-                        } else if (!baf.equals("")) {
-                            bunker = baf + "%";
-                        }
-
-                        //Assign ECA amount
-                        if (ecaInclude == true) {
-                            eca = "Included";
-                        } else if (!eca.equals("")) {
-                            eca = "$" + eca + " per " + ecaUnit;
-                        }
-
-                        //THC value
-                        if (thcIncluded == true) {
-                            thcPDF = "Included";
-                        } else if (!thc.equals("")) {
-                            thcPDF = "$" + thc + " per " + thcUnit;
-                        } else if (tradeLane.equals("Foreign to Foreign") && thcIncluded == false) {
-                            thcPDF = "Subject to local charges";
-                        } else if (thcAttachedToEmail == true) {
-                            thcPDF = "See attachment";
-                        } else if (thcUnit.equals("Subject to local charges")) {
-                            thcPDF = "Subject to local charges";
-                        }
-
-                        //wfgPDF
-                        if (wfgIncluded == true) {
-                            wfgPDF = "Included";
-                        } else if (!wfg.equals("")) {
-                            wfgPDF = "$" + wfg + " per " + wfgUnit;
-                        } else if (tradeLane.equals("Foreign to Foreign") && wfgIncluded == false) {
-                            wfgPDF = "Subject to local charges";
-                        } else if (wfgAttachedToEmail == true) {
-                            wfgPDF = "See attachment";
-                        } else if (wfgUnit.equals("Subject to local charges")) {
-                            wfgPDF = "Subject to local charges";
-                        }
-
-                        if (documentationFeeIncluded != true) {
-                            documentationFeePdf = documentationFee;
-                        } else {
-                            documentationFeePdf = "Included";
-                        }
-
-                        if (warRisk) {
-                            warRiskPDF = "3$/OFT";
-                        }
-
-                        String quoteType = null;
-                        if (indicatoryRate == true) {
-                            quoteType = "Indicatory";
-                        } else if (ftfSpotRate == true) {
-                            quoteType = "Foreign to Foreign Spot Rate";
-                        } else if (ftfTariff == true) {
-                            quoteType = "Foreign to Foreign Tariff";
-                        } else if (spotRate == true) {
-                            quoteType = "Spot Rate";
-                        } else if (booked == true) {
-                            quoteType = "Booking";
-                        } else if (contract_rate == true) {
-                            quoteType = "Contract Rate";
-                        } else if (tariffRate == true) {
-                            quoteType = "Tariff";
-                        } else if (decline == true) {
-                            quoteType = "Decline";
-                        }
-
-                        // Creates the PDF and saves it to the user's Quotes folder
-                        new QuotePDf().QuotePDF(String.valueOf(quoteID) + updateAlphaNumeral, timeStamp, contactName, customerName, contactEmail, quoteType, username, pol, pod, tshpPorts, commodityClass, handlingInstruction, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, documentationFeePdf, warRisk, warRiskPDF, includeCarrierRemarks, carrierComments, updateEditPackingListTable, spotRate, mtdApproval, spaceApproval, overseasResponse);
-
-                    } catch (SQLException | HeadlessException | IOException ex) {
-                        JOptionPane.showMessageDialog(this, "Error! \n" + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
-                    }
-                    JOptionPane.showMessageDialog(this, "This quote has been added to the S: Drive", "Quote Updated", JOptionPane.INFORMATION_MESSAGE);
-
-                    // Clear the update quote panel inputs and reset the updqte quote panel
-                    ClearUpdateQuotePanel();
-                }
-            } catch (SQLException | HeadlessException e) {
-                System.out.println("First Try " + e.getMessage());
-                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            //Arrange trans-shipment ports
+            if (!tshp1.equals("") && tshp2.equals("")) {
+                tshpPorts = tshp1;
+            } else if (!tshp1.equals("") && !tshp2.equals("")) {
+                tshpPorts = tshp1 + " & " + tshp2;
             }
+            //Assign bunker amount
+            if (bafIncluded == true) {
+                bunker = "Included";
+            } else if (!baf.equals("")) {
+                bunker = baf + "%";
+            }
+
+            //Assign ECA amount
+            if (ecaIncluded == true) {
+                eca = "Included";
+            } else if (!eca.equals("")) {
+                eca = "$" + eca + " per " + ecaUnit;
+            }
+
+            //THC value
+            if (thcIncluded == true) {
+                thcPDF = "Included";
+            } else if (!thc.equals("")) {
+                thcPDF = "$" + thc + " per " + thcUnit;
+            } else if (tradeLane.equals("Foreign to Foreign") && thcIncluded == false) {
+                thcPDF = "Subject to local charges";
+            } else if (thcAttachedToEmail == true) {
+                thcPDF = "See attachment";
+            } else if (thcUnit.equals("Subject to local charges")) {
+                thcPDF = "Subject to local charges";
+            }
+
+            //wfgPDF
+            if (wfgIncluded == true) {
+                wfgPDF = "Included";
+            } else if (!wfg.equals("")) {
+                wfgPDF = "$" + wfg + " per " + wfgUnit;
+            } else if (tradeLane.equals("Foreign to Foreign") && wfgIncluded == false) {
+                wfgPDF = "Subject to local charges";
+            } else if (wfgAttachedToEmail == true) {
+                wfgPDF = "See attachment";
+            } else if (wfgUnit.equals("Subject to local charges")) {
+                wfgPDF = "Subject to local charges";
+            }
+
+            if (documentationFeeIncluded != true) {
+                documentationFeePdf = documentationFee;
+            } else {
+                documentationFeePdf = "Included";
+            }
+
+            if (warRisk) {
+                warRiskPDF = "3$/OFT";
+            }
+
+            String quoteType = null;
+            if (indicatoryRate == true) {
+                quoteType = "Indicatory";
+            } else if (ftfSpotRate == true || ftfTariffRate == true) {
+                quoteType = "Foreign to Foreign";
+            } else if (spotRate == true) {
+                quoteType = "Spot Rate";
+            } else if (booked == true) {
+                quoteType = "Booking";
+            } else if (contractRate == true) {
+                quoteType = "Contract Rate";
+            } else if (tariffRate == true) {
+                quoteType = "Tariff";
+            } else if (decline == true) {
+                quoteType = "Decline";
+            }
+
+            // Creates the PDF and saves it to the user's Quotes folder
+            new QuotePDf().QuotePDF(String.valueOf(quoteID) + updateAlphaNumeral, TIME_STAMP, contactName, customerName, contactEmail, quoteType, username, pol, pod, tshpPorts, commodityClass, handlingInstructions, accessories, commodityDescription, displayOFT, mafiMinimum, mafiMinimumCharge, bunker, eca, thcPDF, wfgPDF, documentationFeePdf, warRisk, warRiskPDF, includeCarrierRemarks, carrierComments, updateEditPackingListTable, spotRate, mtdApproval, spaceApproval, overseasResponse);
+
+        } catch (SQLException | HeadlessException | IOException ex) {
+            System.out.println("Error!");
+            JOptionPane.showMessageDialog(this, "Error! \n" + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
         }
+        JOptionPane.showMessageDialog(null, "Quote ID: " + quoteID + updateAlphaNumeral + " has been successfully updated");
+
+
     }//GEN-LAST:event_updateEditQuoteButtonActionPerformed
 
     private void editUpdateCustomerQuotesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUpdateCustomerQuotesButtonActionPerformed
         // TODO add your handling code here:
-        Connection conn = new DBConnection().connect();
         String company = existingCompanyCompanyTextField.getText();
         String SQL = "SELECT ID AS 'Quote ID', IF(date <=dateUpdated, dateUpdated, date) AS 'Last Updated', tradeLane AS 'Trade Lane', pol AS 'POL', pod AS 'POD', comm_class AS 'Commodity Class', handling_instructions AS 'Handling Instructions', comm_description AS 'Description', booked AS 'Booked', deny AS 'Declined', comments AS 'Comments' FROM allquotes WHERE customerName='" + company + "';";
         existingCustomerDataPreviousQuotes ecpq = new existingCustomerDataPreviousQuotes();
         try {
-            PreparedStatement ps = conn.prepareStatement(SQL);
+            PreparedStatement ps = CONN.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery(SQL);
 
             // Set the table to display the results
@@ -7646,15 +7708,12 @@ public class MainMenu extends javax.swing.JFrame {
          * Displays all previous bookings by current customer
          */
 
-        //Establish connection to database by calling DBConnection class
-        Connection conn = new DBConnection().connect();
-
         existingCustomerDataBookings eb = new existingCustomerDataBookings();
         String companyName = existingCompanyCompanyTextField.getText();
 
         String sql = "SELECT ID AS 'Quote ID', bookingNumber AS 'Booking Number', IF(date <= dateUpdated, dateUpdated, date) AS 'Date Booked', tradeLane AS 'Trade Lane', CONCAT(pol,'/',pod) AS 'POL/POD', CONCAT(comm_class,' ',handling_instructions) AS 'Commodity Class', comm_description AS 'Commodity Description' FROM allquotes WHERE customerName=? AND booked=?;";
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = CONN.prepareStatement(sql);
             ps.setString(1, companyName);
             ps.setInt(2, 1);
             ResultSet rs = ps.executeQuery();
@@ -7771,7 +7830,7 @@ public class MainMenu extends javax.swing.JFrame {
         String queryTitle = queryName + " " + date;
 
         // Saves the file to the user's desktop directory. 
-        String file = userHomeFolder + "\\Desktop\\" + queryTitle + ".xlsx";
+        String file = USER_HOME_FOLDER + "\\Desktop\\" + queryTitle + ".xlsx";
         try {
             //Generate the .xlsx workbook
             Workbook wb = new XSSFWorkbook();
@@ -7916,7 +7975,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void saveChangesPublishingPDFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveChangesPublishingPDFButtonActionPerformed
         // Save spot rate changes
-        Connection conn = new DBConnection().connect();
+
         String validityFrom = validityFromDatePicker.getJFormattedTextField().getText();
         String validityTo = validityToDatePicker.getJFormattedTextField().getText();
         String kkluNumber = kkluNumberTextField.getText();
@@ -8014,7 +8073,7 @@ public class MainMenu extends javax.swing.JFrame {
         String sql = "UPDATE spotrates SET validityFrom=?, validityTo=?, tariffNumber=?, pol=?, pod=?, bookingNumber=?, commClass=?, handlingInstructions=?, commDesc=?, oft=?, oftUnit=?, baf=?,bafIncluded=?, bafPerTariff=?, ecaBaf=?, ecaBafUnit=?, ecaIncluded=?, ecaPerTariff=?, thc=?, thcUnit=?, thcIncluded=?, thcPerTariff=?, wfg=?, wfgUnit=?, wfgIncluded=?, wfgPerTariff=?, storage=?, storageUnit=?, storageIncluded=?, storagePerTariff=?, docFee=?, docFeeIncluded=?, comments=?, quoteID=?, warRisk=? WHERE ID=?";
 
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = CONN.prepareStatement(sql);
             ps.setString(1, validityFrom);
             ps.setString(2, validityTo);
             ps.setString(3, kkluNumber);
@@ -8055,7 +8114,7 @@ public class MainMenu extends javax.swing.JFrame {
             ps.executeUpdate();
 
             String addBookingNumber = "UPDATE allquotes SET bookingNumber='" + bookingNumber + "', publishingID='" + ID + "' WHERE ID='" + quoteID + "';";
-            PreparedStatement psAddBookingNumber = conn.prepareStatement(addBookingNumber);
+            PreparedStatement psAddBookingNumber = CONN.prepareStatement(addBookingNumber);
             psAddBookingNumber.executeUpdate(addBookingNumber);
 
             Double oft1 = (Double) (Double.parseDouble(oft));
@@ -8136,7 +8195,7 @@ public class MainMenu extends javax.swing.JFrame {
              ***************************************
              ***************************************
              */
-            String filename = userHomeFolder + "\\Desktop\\Publishing\\" + pol + " To " + pod + "; " + commDesc + " PID" + ID + ".xls";
+            String filename = USER_HOME_FOLDER + "\\Desktop\\Publishing\\" + pol + " To " + pod + "; " + commDesc + " PID" + ID + ".xls";
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet("KKLU" + kkluNumber);
 
@@ -8563,9 +8622,6 @@ public class MainMenu extends javax.swing.JFrame {
         //Get the Quote ID
         String quoteID = updateQuoteIDTextArea.getText();
 
-        //Connect to the database
-        Connection conn = new DBConnection().connect();
-
         /**
          * When the add row button is clicked a new row will be added to the
          * packinglist table The Quote ID will also be added on the same line
@@ -8573,7 +8629,7 @@ public class MainMenu extends javax.swing.JFrame {
         //SQL to insert a new line in the packinglist table
         String addLineSql = "INSERT INTO packinglist(quoteID) VALUES(?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(addLineSql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = CONN.prepareStatement(addLineSql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, quoteID);
             int rs = ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys();
@@ -8591,14 +8647,11 @@ public class MainMenu extends javax.swing.JFrame {
     private void savedSearchesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savedSearchesButtonActionPerformed
         SavedSearches ss = new SavedSearches();
 
-        //Open the DBConnection
-        Connection conn = new DBConnection().connect();
-
         //SQL to populate the saved searches table
         String getSearches = "SELECT ID, query_name AS 'Query Name', date AS 'Date', user AS 'Username' FROM saved_searches_name;";
 
         try {
-            PreparedStatement psGetSearches = conn.prepareStatement(getSearches);
+            PreparedStatement psGetSearches = CONN.prepareStatement(getSearches);
             ResultSet rsGetSearches = psGetSearches.executeQuery();
 
             // Populate table with saved searches
@@ -8648,37 +8701,57 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void selectOustandingQuoteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectOustandingQuoteButton1ActionPerformed
         int selectedRowIndex = quotesPendingResponseTable.getSelectedRow();
-        String quoteID = String.valueOf(quotesPendingResponseTable.getValueAt(selectedRowIndex, 0));
+        quoteID = String.valueOf(quotesPendingResponseTable.getValueAt(selectedRowIndex, 0));
         userInformationPanel.setVisible(false);
         updateEditQuotePanel.setVisible(true);
         updateQuoteInformation(quoteID);
     }//GEN-LAST:event_selectOustandingQuoteButton1ActionPerformed
 
-    protected void ClearUpdateQuotePanel() {
+    protected static void ClearUpdateQuotePanel() {
         // Clears the update quote panel inputs and resets all the tables to their default values
+
+        //Quote ID 
         updateQuoteIDTextArea.setText("");
-        updateEditQuoteCustomerNameLabel.setText("N/A");
-        updateContactNameTextField.setText("");
-        updateContactEmailTextField.setText("");
+
+        //User Information
         authorLabel.setText("N/A");
         lastUpdatedByLabel.setText("N/A");
         updateAlphaNumeralTextField.setText("");
         currentAlphaNumeralLabel.setText("N/A");
         quoteCreatedLabel.setText("N/A");
         quoteLastUpdatedLabel.setText("N/A");
+
+        //Contact Information
+        updateEditQuoteCustomerNameLabel.setText("N/A");
+        updateContactNameTextField.setText("");
+        updateContactEmailTextField.setText("");
+        updateQuotePhoneTextField.setText("");
+        updateQuoteExtensionTextField.setText("");
+        updateQuotePhoneTypeComboBox.setSelectedIndex(0);
+
+        //Quote Status
+        updateQuoteMTDApprovalComboBox.setSelectedIndex(0);
+        updateQuoteSpaceApprovalComboBox.setSelectedIndex(0);
+        updateQuoteOverseasResponseComboBox.setSelectedIndex(0);
+
+        //Port Information 
         updateTradeLane.setSelectedIndex(0);
         updatePOLTextField.setText("");
         updatePODTextField.setText("");
         updateTshp1TextField.setText("");
         updateTshp2TextField.setText("");
+
+        // Commodity Information
         updateCommodityClassComboBox.setSelectedIndex(0);
         updateHandlingInstructionsComboBox.setSelectedIndex(0);
         updateQuoteAccessoriesCheckBox.setSelected(false);
-        updateQuoteMAFIMinimumCheckBox.setSelected(false);
-        updateEditMAFIMinimumTextField.setText("");
         updateCommodityDescriptionTextField.setText("");
+
+        // Rate Quote 
         updateOFTTextField.setText("");
         updateOftUnitComboBox.setSelectedIndex(0);
+        updateQuoteMAFIMinimumCheckBox.setSelected(false);
+        updateEditMAFIMinimumTextField.setText("");
         updateBAFTextField.setText("");
         updateBafIncludedCheckBox.setSelected(false);
         updateEcaBafTextField.setText("");
@@ -8695,8 +8768,8 @@ public class MainMenu extends javax.swing.JFrame {
         updateWarRiskCheckBox.setSelected(false);
         updateDocumentationFeeComboBox.setSelectedIndex(0);
         updateDocFeeIncludedCheckBox.setSelected(false);
-        updateContractRateCheckBox.setSelected(false);
-        updateSpotRateCheckBox.setSelected(false);
+
+        // Rate Type
         editQuoteDuplicateRateCheckBox.setSelected(false);
         updateBookedCheckBox.setSelected(false);
         updateEditQuoteBookingNumberTextField.setText("");
@@ -8705,21 +8778,9 @@ public class MainMenu extends javax.swing.JFrame {
         quoteFeedbackCheckBox.setSelected(false);
         quoteFeedbackComboBox.setSelectedIndex(0);
         quoteFeedbackTextField.setText("");
-        updateCommentsTextArea.setText("");
-        editQuoteIncludeShipperCommentsCheckBox.setSelected(false);
-        updateShipperCommentsTextArea.setText("");
-        updateQuoteMTDApprovalComboBox.setSelectedIndex(0);
-        updateQuoteSpaceApprovalComboBox.setSelectedIndex(0);
-        updateQuoteOverseasResponseComboBox.setSelectedIndex(0);
-        updateQuoteTariffCheckBox.setSelected(false);
-        updateQuoteIndicatoryCheckBox.setSelected(false);
-        updateQuoteFTFSpotCheckBox.setSelected(false);
-        updateQuoteFTFTariffCheckBox.setSelected(false);
-        updateQuotePhoneTextField.setText("");
-        updateQuoteExtensionTextField.setText("");
-        updateQuotePhoneTypeComboBox.setSelectedIndex(0);
+        updateRateTypeButtonGroup.clearSelection();
 
-        // Reset the packing list table
+        //Packing List
         int Rows = updateEditPackingListTable.getRowCount();
         int Cols = updateEditPackingListTable.getColumnCount();
         for (int r = 0; r < Rows; r++) {
@@ -8730,11 +8791,17 @@ public class MainMenu extends javax.swing.JFrame {
         DefaultTableModel mdl = (DefaultTableModel) updateEditPackingListTable.getModel();
         mdl.setRowCount(0);
         updateEditPackingListTable.setModel(mdl);
-        updateRateTypeButtonGroup.clearSelection();
 
+        // Shipper Comments
+        editQuoteIncludeShipperCommentsCheckBox.setSelected(false);
+        updateShipperCommentsTextArea.setText("");
+        // Internal comments
+        updateCommentsTextArea.setText("");
+
+        // Reset the packing list table
     }
 
-    protected void ClearExistingCustomerPanel() {
+    protected static void ClearExistingCustomerPanel() {
         // Clear/reset all inputs on the existing customer panel
         existingCompanyNameTextField.setText("");
         existingCompanyFirstNameTextField.setText("");
@@ -8772,9 +8839,12 @@ public class MainMenu extends javax.swing.JFrame {
         existingCompanyZipTextField.setText("");
         existingCompanyCountryTextField.setText("");
         existingCompanyCommentsTextArea.setText("");
+        updateCustomerSalesRegionComboBox.setSelectedIndex(0);
+        buttonGroup4.clearSelection();
+        buttonGroup5.clearSelection();
     }
 
-    public void findCubicMetersNewQuote() {
+    public static void findCubicMetersNewQuote() {
         TableModel mdl = packingListTable.getModel();
         for (int r = 0; r < mdl.getRowCount(); r++) {
             l_centimeters_cell = mdl.getValueAt(r, 2);
@@ -8813,13 +8883,13 @@ public class MainMenu extends javax.swing.JFrame {
             } else {
                 cubic_meters = (l_centimeters * w_centimeters * h_centimeters) / 1000000;
             }
-            Object formated_cubic_meters = df.format(cubic_meters);
+            Object formated_cubic_meters = DECIMAL_FORMAT.format(cubic_meters);
 
             mdl.setValueAt(formated_cubic_meters, r, 9);
         }
     }
 
-    protected void ClearNewCustomerPanel() {
+    protected static void ClearNewCustomerPanel() {
         newCustomerFirstName.setText("");
         newCustomerLastName.setText("");
         newCustomerOfficePhone.setText("");
@@ -8856,7 +8926,7 @@ public class MainMenu extends javax.swing.JFrame {
         newCustomerComments.setText("");
     }
 
-    protected void findCubicMetersUpdateQuote() {
+    protected static void findCubicMetersUpdateQuote() {
         TableModel mdl = updateEditPackingListTable.getModel();
         for (int r = 0; r < mdl.getRowCount(); r++) {
             l_centimeters_cell = mdl.getValueAt(r, 2);
@@ -8895,14 +8965,14 @@ public class MainMenu extends javax.swing.JFrame {
             } else {
                 cubic_meters = (l_centimeters * w_centimeters * h_centimeters) / 1000000;
             }
-            Object formated_cubic_meters = df.format(cubic_meters);
+            Object formated_cubic_meters = DECIMAL_FORMAT.format(cubic_meters);
 
             mdl.setValueAt(formated_cubic_meters, r, 9);
         }
     }
 
     private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("drive_green_project.jpg")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/drive_green_project.jpg")));
     }
 
     /**
@@ -9043,8 +9113,6 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JButton jButton2;
     public static javax.swing.JButton jButton6;
     public static javax.swing.JButton jButton7;
-    public static javax.swing.JComboBox<String> jComboBox10;
-    public static javax.swing.JComboBox<String> jComboBox9;
     public static javax.swing.JLabel jLabel1;
     public static javax.swing.JLabel jLabel10;
     public static javax.swing.JLabel jLabel100;
@@ -9318,6 +9386,7 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JTextField newCustomerOfficePhone;
     public static javax.swing.JRadioButton newCustomerOtherRadioButton;
     public static javax.swing.JPanel newCustomerPanel;
+    public static javax.swing.JComboBox<String> newCustomerSalesRegion;
     public static javax.swing.JFormattedTextField newCustomerSecondaryPhoneNumber;
     public static javax.swing.JTextField newCustomerState;
     public static javax.swing.JTextField newCustomerTitleTextField;
@@ -9448,6 +9517,7 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JTextField updateContactEmailTextField;
     public static javax.swing.JTextField updateContactNameTextField;
     public static javax.swing.JCheckBox updateContractRateCheckBox;
+    public static javax.swing.JComboBox<String> updateCustomerSalesRegionComboBox;
     public static javax.swing.JCheckBox updateDeclineCheckBox;
     public static javax.swing.JComboBox updateDeclineComboBox;
     public static javax.swing.JCheckBox updateDocFeeIncludedCheckBox;
