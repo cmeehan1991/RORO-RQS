@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RORO;
+package Sales;
 
 import Connections.DBConnection;
 import java.sql.Connection;
@@ -223,7 +223,8 @@ public class UserInformationActivity {
     
     private ResultSet pendingResponseTable(){
         ResultSet rs = null;
-        String SQL = "SELECT ID AS 'Quote ID', IF(DATE_UPDATED = '', IF(DATEDIFF("+currentDate()+",DATE_QUOTED) < '1', '0', DATEDIFF("+currentDate()+",DATE_QUOTED)), IF(DATEDIFF("+currentDate()+",DATE_UPDATED)< '1','0',DATEDIFF("+currentDate()+",DATE_UPDATED))) AS 'Days Stagnant', IF(DATE_UPDATED='', DATE_FORMAT(DATE_QUOTED, '%Y-%m-%d'), DATE_FORMAT(DATE_UPDATED, '%Y-%m-%d')) AS 'Last Updated', customerName AS 'Company Name', comm_class AS 'Commodity Class' FROM allquotes WHERE MTD_APPROVAL = 'Pending' OR SPACE_APPROVAL = 'Pending' OR OVERSEAS_RESPONSE = 'Pending' ORDER BY 'Days Stagnant';";
+        System.out.println("currentDate(): "+currentDate());
+        String SQL = "SELECT ID AS 'Quote ID', IF(DATE_UPDATED IS NULL, DATE_FORMAT(DATE_QUOTED, '%Y-%m-%d'), DATE_FORMAT(DATE_UPDATED, '%Y-%m-%d')) AS 'Last Updated', customerName AS 'Company Name', comm_class AS 'Commodity Class' FROM allquotes WHERE MTD_APPROVAL = 'Pending' OR SPACE_APPROVAL = 'Pending' OR OVERSEAS_RESPONSE = 'Pending'";
         try{
             PreparedStatement ps = conn.prepareStatement(SQL);
             rs = ps.executeQuery();

@@ -13,7 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 import Connections.DBConnection;
-import RORO.*;
+import Sales.*;
 
 public class csExistingCustomer extends javax.swing.JDialog {
 

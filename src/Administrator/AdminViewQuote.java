@@ -6,8 +6,8 @@
 package Administrator;
 
 import Connections.DBConnection;
-import RORO.MainMenu;
-import RORO.updateEditQuoteCustomerName;
+import Sales.MainMenu;
+import Sales.UpdateQuoteCustomerName;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -755,7 +755,7 @@ public class AdminViewQuote extends javax.swing.JFrame {
 
     private void editCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCustomerButtonActionPerformed
         // TODO add your handling code here:
-        updateEditQuoteCustomerName ue = new updateEditQuoteCustomerName();
+        UpdateQuoteCustomerName ue = new UpdateQuoteCustomerName();
         ue.setVisible(true);
     }//GEN-LAST:event_editCustomerButtonActionPerformed
 

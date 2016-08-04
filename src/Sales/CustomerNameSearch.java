@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RORO;
+package Sales;
 
 import Connections.DBConnection;
 import java.sql.Connection;
@@ -32,7 +32,7 @@ public class CustomerNameSearch {
 
     protected ResultSet customerNameSearch(String searchInput) {
         ResultSet rs = null;
-        String SQL = "SELECT ID, company, DBA, concat(firstname, \" \", lastname) AS name FROM rorocustomers WHERE (ID LIKE ? OR company LIKE ? OR DBA LIKE ? OR firstname LIKE ? OR lastname LIKE ?) ORDER BY company";
+        String SQL = "SELECT ID, company AS 'Company Name', DBA AS 'DBA/Affiliates', concat(firstname, \" \", lastname) AS 'Contact Name' FROM rorocustomers WHERE (ID LIKE ? OR company LIKE ? OR DBA LIKE ? OR firstname LIKE ? OR lastname LIKE ?) ORDER BY company";
         try {
             PreparedStatement ps = conn.prepareStatement(SQL);
             for (int i = 1; i < 6; i++) {

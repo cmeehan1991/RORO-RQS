@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableColumnModel;
 import net.proteanit.sql.DbUtils;
 import Connections.DBConnection;
-import RORO.MainMenu;
+import Sales.MainMenu;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RORO;
+package Sales;
 
 import Connections.DBConnection;
 import java.awt.Color;

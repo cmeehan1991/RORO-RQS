@@ -10,7 +10,7 @@ package UserAccess;
  * @author cmeehan
  */
 import Connections.DBConnection;
-import RORO.MainMenu;
+import Sales.MainMenu;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;

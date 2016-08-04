@@ -10,12 +10,11 @@ package UserSignIn;
  * @author cmeehan
  */
 import Connections.DBConnection;
-import UserAccess.NewUserArchive;
 import Administrator.AdministratorMenu;
 import CustomerService.CustomerService;
-import RORO.MainMenu;
-import RORO.UserInformationActivity;
-import RORO.forgotUsernamePassword;
+import Sales.MainMenu;
+import Sales.UserInformationActivity;
+import Sales.forgotUsernamePassword;
 import static UserSignIn.UserSignIn.submitButton;
 import java.awt.*;
 import java.awt.event.*;
@@ -39,7 +38,7 @@ public class UserSignIn extends javax.swing.JDialog {
     Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
     Window frame;
 
-    public UserSignIn(String totalOutstanding) {
+    public UserSignIn() {
         initComponents();
     }
 
@@ -63,7 +62,7 @@ public class UserSignIn extends javax.swing.JDialog {
     }
 
     public String password() {
-        String pass = passwordField.getText();
+        String pass = String.valueOf(passwordField.getPassword());
         return pass;
     }
 
@@ -250,6 +249,38 @@ public class UserSignIn extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_usernameTextFieldKeyPressed
 
+    /**
+     * ************************************************************
+     * This section is for customized box colors on the home screen.*
+     * ************************************************************
+     */
+    private void purpleBoxes() {
+        float[] hsb = Color.RGBtoHSB(193, 80, 208, null);
+        float hue = hsb[0];
+        float saturation = hsb[1];
+        float brightness = hsb[2];
+        MainMenu.jPanel1.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
+        MainMenu.jPanel2.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
+        MainMenu.jLabel126.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
+        MainMenu.jLabel127.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
+    }
+
+    private void greenBoxes() {
+        float[] hsb = Color.RGBtoHSB(0, 204, 0, null);
+        float hue = hsb[0];
+        float saturation = hsb[1];
+        float brightness = hsb[2];
+        MainMenu.jPanel1.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
+        MainMenu.jPanel2.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
+        MainMenu.jLabel126.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
+        MainMenu.jLabel127.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
+    }
+
+    /**
+     * ************************************************************
+     ***************************************************************
+     *************************************************************
+     */
     private String userID(String user, String pass) {
         String ID = null;
         String SQL = "SELECT userID FROM authorized_users WHERE username=? AND password=?";
@@ -301,7 +332,7 @@ public class UserSignIn extends javax.swing.JDialog {
                 ResultSet rsUsers = psUsers.executeQuery(sqlUsers);
 
                 AdministratorMenu.adminUserComboBox.addItem("-");
-                if (rsUsers.next()) {
+                while (rsUsers.next()) {
                     String[] users = {rsUsers.getString("Name")};
                     String[] amId = {rsUsers.getString("userID")};
                     for (String u : users) {
@@ -329,16 +360,15 @@ public class UserSignIn extends javax.swing.JDialog {
             MainMenu.emailLabel.setText(email);
             new UserInformationActivity().UserInformation(ID, user);
 
-            // If the user is Emilie then set the heading label color to purple
-            if (user.equals("eschoenhut")) {
-                float[] hsb = Color.RGBtoHSB(193, 80, 208, null);
-                float hue = hsb[0];
-                float saturation = hsb[1];
-                float brightness = hsb[2];
-                MainMenu.jPanel1.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
-                MainMenu.jPanel2.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue, saturation, brightness)));
-                MainMenu.jLabel126.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue,saturation,brightness)));
-                MainMenu.jLabel127.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(hue,saturation,brightness)));
+            switch (ID) {
+                case "4":
+                    purpleBoxes();
+                    break;
+                case "23":
+                    greenBoxes();
+                    break;
+                default:
+                    break;
             }
         } else if (rights.equals("None")) {
             JOptionPane.showMessageDialog(null, "You do not have access to this software. Please contact your supervisor or \nthe system administrator to gain access.");
@@ -349,31 +379,45 @@ public class UserSignIn extends javax.swing.JDialog {
     }
 
     private void userSignInActivity() {
+        /**
+         * *************************************************************************************
+         * Check for a valid connection to the S: drive. If it exists then the                 
+         * user can sign in.
+         * If the S: drive does not exist the user cannot                   
+         * sign in and is notified. 
+         * The S: drive is necessary to the operation of this application.  
+         * ************************************************************************************/
         if (sDriveExists.exists()) {
-            //Call variables for log in and user recognition (ID & password)
+
             String pass = password(), user = user();
             String SQL = "SELECT * FROM authorized_users WHERE username=? and password=?";
             try {
                 PreparedStatement ps = conn.prepareStatement(SQL);
-                ps.setString(1, user);
-                ps.setString(2, pass);
+                ps.setString(1, user());
+                ps.setString(2, password());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     String getUsername = rs.getString("username");
                     String getPassword = rs.getString("password");
+                    String userAuthorization = rs.getString("rights");
+                    String ID = rs.getString("userID");
 
-                    // Check the username and password against what is registered in the database
-                    // If the information does not match exactly then block user access, otherwise grant access
-                    if (!validateUserInformation(user, pass, getUsername, getPassword)) {
+                    if (userAuthorization.equals("NONE")) {
+                        JOptionPane.showMessageDialog(this, "ACCESS DENIED: You do not have access to the RORO Quotation System.", "ACCESS DENIED", JOptionPane.WARNING_MESSAGE);
+                        usernameTextField.setText("");
+                        passwordField.setText("");
+                        usernameTextField.setBorder(new LineBorder(Color.RED, 1));
+                        passwordField.setBorder(new LineBorder(Color.RED, 1));
+                    } else if (!validateUserInformation(user, pass, getUsername, getPassword)) {
                         JOptionPane.showMessageDialog(this, "User credentials are incorrect. Please try again.\n\nHint: make sure that CAPS Lock is turned off.", "Invalid Log In", JOptionPane.WARNING_MESSAGE);
                         passwordField.setText("");
                         usernameTextField.setBorder(new LineBorder(Color.RED, 1));
                         passwordField.setBorder(new LineBorder(Color.RED, 1));
                     } else {
-                        goToMain(rs, user, userID(user, pass));
+                        goToMain(rs, user, ID);
                     }
-                } else {// If the username and password do not match or are not entered correctly then deny access
-                    JOptionPane.showMessageDialog(this, "Username & Password Invalid", "Log in Error", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "The username and password combination are note valid. Please try again.", "Log in Error", JOptionPane.WARNING_MESSAGE);
                     passwordField.setText("");
                     usernameTextField.setBorder(new LineBorder(Color.RED, 1));
                     passwordField.setBorder(new LineBorder(Color.RED, 1));

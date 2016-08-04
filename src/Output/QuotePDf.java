@@ -6,7 +6,6 @@
 package Output;
 
 import Connections.DBConnection;
-import RORO.*;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -507,8 +506,9 @@ public class QuotePDf {
         PdfPTable table = new PdfPTable(1);
         table.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.setWidthPercentage(100f);
+        table.setSpacingAfter(10f);
         if (includeCarrierComments) {
-            cell = new PdfPCell(new Phrase("Carrrier Comments", tableHeadingFont));
+            cell = new PdfPCell(new Phrase("Carrier Comments", tableHeadingFont));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell.setPaddingBottom(10f);
             cell.setBackgroundColor(BaseColor.BLACK);

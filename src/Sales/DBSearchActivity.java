@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RORO;
+package Sales;
 
 import Connections.DBConnection;
-import static RORO.DBSearch.includeInResultsTable;
-import static RORO.DBSearch.parametersTable;
+import static Sales.DBSearch.includeInResultsTable;
+import static Sales.DBSearch.parametersTable;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
