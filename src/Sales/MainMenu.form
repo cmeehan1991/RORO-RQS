@@ -119,6 +119,83 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="updateRateTypeButtonGroup">
     </Component>
+    <Component class="javax.persistence.EntityManager" name="entityManager">
+      <Properties>
+        <Property name="persistenceUnit" type="java.lang.String" value="kline?zeroDateTimeBehavior=convertToNullPU"/>
+      </Properties>
+    </Component>
+    <Component class="javax.persistence.Query" name="commoditiesQuery">
+      <Properties>
+        <Property name="query" type="java.lang.String" value="SELECT c FROM Commodities c"/>
+        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
+          <ComponentRef name="entityManager"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="java.util.List" name="commoditiesList">
+      <Properties>
+        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
+          <ComponentRef name="commoditiesQuery"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Sales.Commodities&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.persistence.Query" name="commoditiesQuery1">
+      <Properties>
+        <Property name="query" type="java.lang.String" value="SELECT c FROM Commodities c"/>
+        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
+          <ComponentRef name="entityManager"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="java.util.List" name="commoditiesList1">
+      <Properties>
+        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
+          <ComponentRef name="commoditiesQuery1"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Sales.Commodities&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.persistence.Query" name="allquotesQuery">
+      <Properties>
+        <Property name="query" type="java.lang.String" value="SELECT a FROM Allquotes a"/>
+        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
+          <ComponentRef name="entityManager"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="java.util.List" name="allquotesList">
+      <Properties>
+        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
+          <ComponentRef name="allquotesQuery"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Sales.Allquotes&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.persistence.Query" name="commoditiesQuery2">
+      <Properties>
+        <Property name="query" type="java.lang.String" value="SELECT c FROM Commodities c"/>
+        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
+          <ComponentRef name="entityManager"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="java.util.List" name="commoditiesList2">
+      <Properties>
+        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
+          <ComponentRef name="commoditiesQuery2"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Sales.Commodities&gt;"/>
+      </AuxValues>
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -347,39 +424,39 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace pref="161" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jToolBar14" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel135" min="-2" pref="823" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jToolBar15" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jToolBar16" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jToolBar14" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel128" min="-2" pref="819" max="-2" attributes="0"/>
-                                              <Component id="jLabel136" alignment="0" min="-2" pref="822" max="-2" attributes="0"/>
+                                          <Component id="jLabel135" min="-2" pref="823" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jToolBar15" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jToolBar16" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel128" min="-2" pref="819" max="-2" attributes="0"/>
+                                                  <Component id="jLabel136" alignment="0" min="-2" pref="822" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" groupAlignment="2" attributes="0">
+                                              <Component id="jScrollPane16" linkSize="149" alignment="2" min="-2" pref="870" max="-2" attributes="0"/>
+                                              <Component id="jScrollPane6" linkSize="149" alignment="2" min="-2" pref="870" max="-2" attributes="0"/>
+                                              <Component id="jScrollPane7" linkSize="149" alignment="2" min="-2" pref="882" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Group type="103" groupAlignment="2" attributes="0">
-                                          <Component id="jScrollPane16" linkSize="149" alignment="2" min="-2" pref="870" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane6" linkSize="149" alignment="2" min="-2" pref="870" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane7" linkSize="149" alignment="2" min="-2" pref="882" max="-2" attributes="0"/>
-                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jPanel1" linkSize="156" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jPanel2" linkSize="156" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="161" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jPanel1" linkSize="156" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel2" linkSize="156" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -1255,7 +1332,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace pref="124" max="32767" attributes="0"/>
+                              <EmptySpace pref="75" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jToolBar2" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -1293,7 +1370,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="125" max="32767" attributes="0"/>
+                              <EmptySpace pref="75" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1611,49 +1688,6 @@
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="0"/>
-                            </Property>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="39">
-                                <StringItem index="0" value="N/A"/>
-                                <StringItem index="1" value="Automobile/POV"/>
-                                <StringItem index="2" value="Automobile/POV (up to 14 cubic meters)"/>
-                                <StringItem index="3" value="Automobile/POV (14 - 17 cubic meters)"/>
-                                <StringItem index="4" value="Automobile/POV (17 - 25 cubic meters)"/>
-                                <StringItem index="5" value="Automobile/POV (up to 16 cubic meters)"/>
-                                <StringItem index="6" value="Automobile/POV (16 - 20 cubic meters)"/>
-                                <StringItem index="7" value="Automobile/POV (20 - 25 cubic meters)"/>
-                                <StringItem index="8" value="New Automobile"/>
-                                <StringItem index="9" value="New Automobile (up to 14 cubic meters)"/>
-                                <StringItem index="10" value="New Automobile (14 - 17 cubic meters)"/>
-                                <StringItem index="11" value="New Automobile (17 - 25 cubic meters)"/>
-                                <StringItem index="12" value="New Automobile (up to 16 cubic meters)"/>
-                                <StringItem index="13" value="New Automobile (16 - 20 cubic meters)"/>
-                                <StringItem index="14" value="New Automobile (20 - 25 cubic meters)"/>
-                                <StringItem index="15" value="Motorhome(s)"/>
-                                <StringItem index="16" value="Truck(s)"/>
-                                <StringItem index="17" value="Bus(es)"/>
-                                <StringItem index="18" value="Van(s)"/>
-                                <StringItem index="19" value="Chassis"/>
-                                <StringItem index="20" value="Travel trailer(s)"/>
-                                <StringItem index="21" value="Utility trailer(s)"/>
-                                <StringItem index="22" value="5th wheel trailer(s)"/>
-                                <StringItem index="23" value="Agriculture Equipment"/>
-                                <StringItem index="24" value="Construction Equipment"/>
-                                <StringItem index="25" value="Forestry Equipment"/>
-                                <StringItem index="26" value="Mining Equipment"/>
-                                <StringItem index="27" value="Handling Equipment"/>
-                                <StringItem index="28" value="Crane(s)"/>
-                                <StringItem index="29" value="Tractor(s)"/>
-                                <StringItem index="30" value="Boat(s) on Trailer"/>
-                                <StringItem index="31" value="Boat(s) on Cradle"/>
-                                <StringItem index="32" value="Static"/>
-                                <StringItem index="33" value="Static Machinery"/>
-                                <StringItem index="34" value="Special Purpose Vehicles"/>
-                                <StringItem index="35" value="Motorcycle(s)"/>
-                                <StringItem index="36" value="All-Terrain Vehicle(s)"/>
-                                <StringItem index="37" value="Jet Ski(s) (up to 2 cbm)"/>
-                                <StringItem index="38" value="Aircraft"/>
-                              </StringArray>
                             </Property>
                           </Properties>
                         </Component>
@@ -2732,18 +2766,26 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="polTextField" min="-2" pref="100" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton3" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="podTextField" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <Component id="jButton4" min="-2" pref="24" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="tshp1TextField" linkSize="63" min="-2" pref="100" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton5" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="tshp2TextField" linkSize="63" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton8" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <EmptySpace pref="51" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2762,6 +2804,10 @@
                                       <Component id="tshp1TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="tshp2TextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButton8" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                               </Group>
@@ -2818,6 +2864,9 @@
                             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
                               <ComponentRef name="jPopupMenu1"/>
                             </Property>
+                            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                              <ComponentRef name="podTextField"/>
+                            </Property>
                           </Properties>
                           <Events>
                             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="polTextFieldFocusGained"/>
@@ -2836,6 +2885,9 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="0"/>
                             </Property>
+                            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                              <ComponentRef name="tshp1TextField"/>
+                            </Property>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -2850,6 +2902,9 @@
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="0"/>
+                            </Property>
+                            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                              <ComponentRef name="tshp2TextField"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -2866,7 +2921,42 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Times New Roman" size="14" style="0"/>
                             </Property>
+                            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                              <ComponentRef name="commodityClassComboBox"/>
+                            </Property>
                           </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton3">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="..."/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton4">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="..."/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton5">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="..."/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton8">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="..."/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2988,7 +3078,6 @@
                                       <Component id="jPanel26" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -4121,47 +4210,7 @@
                               <Font name="Times New Roman" size="14" style="0"/>
                             </Property>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="39">
-                                <StringItem index="0" value="N/A"/>
-                                <StringItem index="1" value="Automobile/POV"/>
-                                <StringItem index="2" value="Automobile/POV (up to 14 cubic meters)"/>
-                                <StringItem index="3" value="Automobile/POV (14 - 17 cubic meters)"/>
-                                <StringItem index="4" value="Automobile/POV (17 - 25 cubic meters)"/>
-                                <StringItem index="5" value="Automobile/POV (up to 16 cubic meters)"/>
-                                <StringItem index="6" value="Automobile/POV (16 - 20 cubic meters)"/>
-                                <StringItem index="7" value="Automobile/POV (20 - 25 cubic meters)"/>
-                                <StringItem index="8" value="New Automobile"/>
-                                <StringItem index="9" value="New Automobile (up to 14 cubic meters)"/>
-                                <StringItem index="10" value="New Automobile (14 - 17 cubic meters)"/>
-                                <StringItem index="11" value="New Automobile (17 - 25 cubic meters)"/>
-                                <StringItem index="12" value="New Automobile (up to 16 cubic meters)"/>
-                                <StringItem index="13" value="New Automobile (16 - 20 cubic meters)"/>
-                                <StringItem index="14" value="New Automobile (20 - 25 cubic meters)"/>
-                                <StringItem index="15" value="Motorhome(s)"/>
-                                <StringItem index="16" value="Truck(s)"/>
-                                <StringItem index="17" value="Bus(es)"/>
-                                <StringItem index="18" value="Van(s)"/>
-                                <StringItem index="19" value="Chassis"/>
-                                <StringItem index="20" value="Travel trailer(s)"/>
-                                <StringItem index="21" value="Utility trailer(s)"/>
-                                <StringItem index="22" value="5th wheel trailer(s)"/>
-                                <StringItem index="23" value="Agriculture Equipment"/>
-                                <StringItem index="24" value="Construction Equipment"/>
-                                <StringItem index="25" value="Forestry Equipment"/>
-                                <StringItem index="26" value="Mining Equipment"/>
-                                <StringItem index="27" value="Handling Equipment"/>
-                                <StringItem index="28" value="Crane(s)"/>
-                                <StringItem index="29" value="Tractor(s)"/>
-                                <StringItem index="30" value="Boat(s) on Trailer"/>
-                                <StringItem index="31" value="Boat(s) on Cradle"/>
-                                <StringItem index="32" value="Static"/>
-                                <StringItem index="33" value="Static Machinery"/>
-                                <StringItem index="34" value="Special Purpose Vehicles"/>
-                                <StringItem index="35" value="Motorcycle(s)"/>
-                                <StringItem index="36" value="All-Terrain Vehicle(s)"/>
-                                <StringItem index="37" value="Jet Ski(s) (up to 2 cbm)"/>
-                                <StringItem index="38" value="Aircraft"/>
-                              </StringArray>
+                              <StringArray count="0"/>
                             </Property>
                           </Properties>
                           <AuxValues>
@@ -5302,17 +5351,15 @@
                               <EmptySpace pref="192" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jPanel30" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jPanel28" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jPanel31" max="32767" attributes="0"/>
-                                              <Component id="jPanel29" max="32767" attributes="0"/>
-                                              <Component id="jPanel27" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Component id="jToolBar8" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
+                                  <Component id="jPanel28" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jPanel31" max="32767" attributes="0"/>
+                                          <Component id="jPanel29" max="32767" attributes="0"/>
+                                          <Component id="jPanel27" max="32767" attributes="0"/>
                                       </Group>
+                                      <Component id="jToolBar8" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -5688,46 +5735,7 @@
                         <Component class="javax.swing.JComboBox" name="pCommodityClassComboBox">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="38">
-                                <StringItem index="0" value="N/A"/>
-                                <StringItem index="1" value="Automobile/POV"/>
-                                <StringItem index="2" value="Automobile/POV (up to 14 cubic meters)"/>
-                                <StringItem index="3" value="Automobile/POV (14 - 17 cubic meters)"/>
-                                <StringItem index="4" value="Automobile/POV (17 - 25 cubic meters)"/>
-                                <StringItem index="5" value="Automobile/POV (up to 16 cubic meters)"/>
-                                <StringItem index="6" value="Automobile/POV (16 - 20 cubic meters)"/>
-                                <StringItem index="7" value="Automobile/POV (20 - 25 cubic meters)"/>
-                                <StringItem index="8" value="New Automobile"/>
-                                <StringItem index="9" value="New Automobile (up to 14 cubic meters)"/>
-                                <StringItem index="10" value="New Automobile (14 - 17 cubic meters)"/>
-                                <StringItem index="11" value="New Automobile (17 - 25 cubic meters)"/>
-                                <StringItem index="12" value="New Automobile (up to 16 cubic meters)"/>
-                                <StringItem index="13" value="New Automobile (16 - 20 cubic meters)"/>
-                                <StringItem index="14" value="New Automobile (20 - 25 cubic meters)"/>
-                                <StringItem index="15" value="Motorhome(s)"/>
-                                <StringItem index="16" value="Truck(s)"/>
-                                <StringItem index="17" value="Bus(es)"/>
-                                <StringItem index="18" value="Van(s)"/>
-                                <StringItem index="19" value="Chassis"/>
-                                <StringItem index="20" value="Travel trailer(s)"/>
-                                <StringItem index="21" value="Utility trailer(s)"/>
-                                <StringItem index="22" value="5th wheel trailer(s)"/>
-                                <StringItem index="23" value="Agriculture Equipment"/>
-                                <StringItem index="24" value="Construction Equipment"/>
-                                <StringItem index="25" value="Forestry Equipment"/>
-                                <StringItem index="26" value="Mining Equipment"/>
-                                <StringItem index="27" value="Handling Equipment"/>
-                                <StringItem index="28" value="Crane(s)"/>
-                                <StringItem index="29" value="Tractor(s)"/>
-                                <StringItem index="30" value="Boat(s) on Trailer"/>
-                                <StringItem index="31" value="Boat(s) on Cradle"/>
-                                <StringItem index="32" value="Static"/>
-                                <StringItem index="33" value="Static Machinery"/>
-                                <StringItem index="34" value="Special Purpose Vehicles"/>
-                                <StringItem index="35" value="Motorcycle(s)"/>
-                                <StringItem index="36" value="All-Terrain Vehicle(s)"/>
-                                <StringItem index="37" value="Jet Ski(s) (up to 2 cbm)"/>
-                              </StringArray>
+                              <StringArray count="0"/>
                             </Property>
                           </Properties>
                         </Component>

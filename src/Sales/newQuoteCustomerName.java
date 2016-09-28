@@ -121,6 +121,12 @@ public class newQuoteCustomerName extends javax.swing.JDialog {
             }
         });
 
+        searchInputField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchInputFieldKeyReleased(evt);
+            }
+        });
+
         jButton2.setText("Search");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,6 +240,12 @@ public class newQuoteCustomerName extends javax.swing.JDialog {
             System.out.println(value);
         }
     }//GEN-LAST:event_existingCustomerTableMouseClicked
+
+    private void searchInputFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchInputFieldKeyReleased
+        String searchInput = searchInputField.getText();
+        ResultSet rs = new CustomerNameSearch().customerNameSearch(searchInput);
+        newQuoteCustomerName.existingCustomerTable.setModel(DbUtils.resultSetToTableModel(rs));
+    }//GEN-LAST:event_searchInputFieldKeyReleased
 
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/drive_green_project.jpg")));

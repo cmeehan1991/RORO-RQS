@@ -1,10 +1,9 @@
 package Sales;
 
 import Excel.ExcelToJTable;
+import PortPicker.*;
 import Connections.DBConnection;
 import Output.QuotePDf;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Font;
 import com.sun.glass.events.KeyEvent;
 import java.awt.HeadlessException;
 import java.awt.Point;
@@ -24,10 +23,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import static javafx.application.Platform.exit;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -82,6 +78,22 @@ public class MainMenu extends javax.swing.JFrame {
     private static JDatePanelImpl datePanel1, datePanel2, datePanel3, datePanel4;
     private static UtilDateModel model1, model2, model3, model4;
 
+    // This method populates the commodity class combo box from the MySQL database
+    private static void addCommodities(){
+        String SQL = "SELECT * FROM commodities";
+        try{
+            PreparedStatement ps = CONN.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                commodityClassComboBox.addItem(rs.getString("CLASS"));
+                updateCommodityClassComboBox.addItem(rs.getString("CLASS"));
+                pCommodityClassComboBox.addItem(rs.getString("CLASS"));
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    
     // This object sets the date pickers used
     private static void DatePicker() {
         /*
@@ -156,6 +168,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jChooser = new JFileChooser();
         DatePicker();
+        addCommodities();
     }
 
     /**
@@ -201,6 +214,15 @@ public class MainMenu extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         buttonGroup20 = new javax.swing.ButtonGroup();
         updateRateTypeButtonGroup = new javax.swing.ButtonGroup();
+        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("kline?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
+        commoditiesQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT c FROM Commodities c");
+        commoditiesList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : commoditiesQuery.getResultList();
+        commoditiesQuery1 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT c FROM Commodities c");
+        commoditiesList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : commoditiesQuery1.getResultList();
+        allquotesQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT a FROM Allquotes a");
+        allquotesList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : allquotesQuery.getResultList();
+        commoditiesQuery2 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT c FROM Commodities c");
+        commoditiesList2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : commoditiesQuery2.getResultList();
         jScrollPane15 = new javax.swing.JScrollPane();
         jPanel13 = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
@@ -347,6 +369,10 @@ public class MainMenu extends javax.swing.JFrame {
         tshp1TextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tshp2TextField = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
         submitNewQuote = new javax.swing.JButton();
         jSeparator12 = new javax.swing.JToolBar.Separator();
@@ -1187,31 +1213,30 @@ public class MainMenu extends javax.swing.JFrame {
         userInformationPanelLayout.setHorizontalGroup(
             userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userInformationPanelLayout.createSequentialGroup()
-                .addContainerGap(161, Short.MAX_VALUE)
-                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(userInformationPanelLayout.createSequentialGroup()
-                        .addComponent(jToolBar14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel135, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(userInformationPanelLayout.createSequentialGroup()
-                            .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jToolBar15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jToolBar16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel128, javax.swing.GroupLayout.PREFERRED_SIZE, 819, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(161, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userInformationPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(userInformationPanelLayout.createSequentialGroup()
+                            .addComponent(jToolBar14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel135, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(userInformationPanelLayout.createSequentialGroup()
+                                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jToolBar15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jToolBar16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel128, javax.swing.GroupLayout.PREFERRED_SIZE, 819, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(userInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(userInformationPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1324,7 +1349,6 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel6.setText("Commodity Class");
 
         commodityClassComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        commodityClassComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Automobile/POV", "Automobile/POV (up to 14 cubic meters)", "Automobile/POV (14 - 17 cubic meters)", "Automobile/POV (17 - 25 cubic meters)", "Automobile/POV (up to 16 cubic meters)", "Automobile/POV (16 - 20 cubic meters)", "Automobile/POV (20 - 25 cubic meters)", "New Automobile", "New Automobile (up to 14 cubic meters)", "New Automobile (14 - 17 cubic meters)", "New Automobile (17 - 25 cubic meters)", "New Automobile (up to 16 cubic meters)", "New Automobile (16 - 20 cubic meters)", "New Automobile (20 - 25 cubic meters)", "Motorhome(s)", "Truck(s)", "Bus(es)", "Van(s)", "Chassis", "Travel trailer(s)", "Utility trailer(s)", "5th wheel trailer(s)", "Agriculture Equipment", "Construction Equipment", "Forestry Equipment", "Mining Equipment", "Handling Equipment", "Crane(s)", "Tractor(s)", "Boat(s) on Trailer", "Boat(s) on Cradle", "Static", "Static Machinery", "Special Purpose Vehicles", "Motorcycle(s)", "All-Terrain Vehicle(s)", "Jet Ski(s) (up to 2 cbm)", "Aircraft" }));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setText("Handling Instructions");
@@ -1873,6 +1897,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         polTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         polTextField.setComponentPopupMenu(jPopupMenu1);
+        polTextField.setNextFocusableComponent(podTextField);
         polTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 polTextFieldFocusGained(evt);
@@ -1883,16 +1908,47 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel4.setText("POD");
 
         podTextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        podTextField.setNextFocusableComponent(tshp1TextField);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setText("Tshp1");
 
         tshp1TextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tshp1TextField.setNextFocusableComponent(tshp2TextField);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel5.setText("Tshp2");
 
         tshp2TextField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tshp2TextField.setNextFocusableComponent(commodityClassComboBox);
+
+        jButton3.setText("...");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("...");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("...");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("...");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -1908,18 +1964,26 @@ public class MainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(polTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(podTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tshp1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tshp2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         jPanel19Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tshp1TextField, tshp2TextField});
@@ -1938,7 +2002,11 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(tshp1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(tshp2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tshp2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5)
+                    .addComponent(jButton8))
                 .addGap(0, 0, 0))
         );
 
@@ -2002,7 +2070,7 @@ public class MainMenu extends javax.swing.JFrame {
         newQuotePanelLayout.setHorizontalGroup(
             newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newQuotePanelLayout.createSequentialGroup()
-                .addContainerGap(124, Short.MAX_VALUE)
+                .addContainerGap(75, Short.MAX_VALUE)
                 .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(newQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -2031,7 +2099,7 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         newQuotePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel19, jScrollPane1});
@@ -2518,7 +2586,6 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel63.setText("Commodity Class");
 
         updateCommodityClassComboBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updateCommodityClassComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Automobile/POV", "Automobile/POV (up to 14 cubic meters)", "Automobile/POV (14 - 17 cubic meters)", "Automobile/POV (17 - 25 cubic meters)", "Automobile/POV (up to 16 cubic meters)", "Automobile/POV (16 - 20 cubic meters)", "Automobile/POV (20 - 25 cubic meters)", "New Automobile", "New Automobile (up to 14 cubic meters)", "New Automobile (14 - 17 cubic meters)", "New Automobile (17 - 25 cubic meters)", "New Automobile (up to 16 cubic meters)", "New Automobile (16 - 20 cubic meters)", "New Automobile (20 - 25 cubic meters)", "Motorhome(s)", "Truck(s)", "Bus(es)", "Van(s)", "Chassis", "Travel trailer(s)", "Utility trailer(s)", "5th wheel trailer(s)", "Agriculture Equipment", "Construction Equipment", "Forestry Equipment", "Mining Equipment", "Handling Equipment", "Crane(s)", "Tractor(s)", "Boat(s) on Trailer", "Boat(s) on Cradle", "Static", "Static Machinery", "Special Purpose Vehicles", "Motorcycle(s)", "All-Terrain Vehicle(s)", "Jet Ski(s) (up to 2 cbm)", "Aircraft" }));
 
         jLabel65.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel65.setText("Handling Instructions");
@@ -2978,7 +3045,6 @@ public class MainMenu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
                         .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(updateEditQuotePanelLayout.createSequentialGroup()
                                 .addGroup(updateEditQuotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -3324,8 +3390,6 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel105.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel105.setText("Commodity Class");
-
-        pCommodityClassComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Automobile/POV", "Automobile/POV (up to 14 cubic meters)", "Automobile/POV (14 - 17 cubic meters)", "Automobile/POV (17 - 25 cubic meters)", "Automobile/POV (up to 16 cubic meters)", "Automobile/POV (16 - 20 cubic meters)", "Automobile/POV (20 - 25 cubic meters)", "New Automobile", "New Automobile (up to 14 cubic meters)", "New Automobile (14 - 17 cubic meters)", "New Automobile (17 - 25 cubic meters)", "New Automobile (up to 16 cubic meters)", "New Automobile (16 - 20 cubic meters)", "New Automobile (20 - 25 cubic meters)", "Motorhome(s)", "Truck(s)", "Bus(es)", "Van(s)", "Chassis", "Travel trailer(s)", "Utility trailer(s)", "5th wheel trailer(s)", "Agriculture Equipment", "Construction Equipment", "Forestry Equipment", "Mining Equipment", "Handling Equipment", "Crane(s)", "Tractor(s)", "Boat(s) on Trailer", "Boat(s) on Cradle", "Static", "Static Machinery", "Special Purpose Vehicles", "Motorcycle(s)", "All-Terrain Vehicle(s)", "Jet Ski(s) (up to 2 cbm)" }));
 
         jLabel123.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel123.setText("Handling Instructions");
@@ -3806,15 +3870,14 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap(192, Short.MAX_VALUE)
                 .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel28, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jToolBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jPanel28, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(publishingCenterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jToolBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(193, Short.MAX_VALUE))
@@ -8725,6 +8788,26 @@ public class MainMenu extends javax.swing.JFrame {
         updateQuoteInformation(quoteID);
     }//GEN-LAST:event_selectOustandingQuoteButton1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        NQPOLPicker picker = new NQPOLPicker();
+        picker.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        NQPODPicker picker = new NQPODPicker();
+        picker.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        NQTSHP1Picker picker = new NQTSHP1Picker();
+        picker.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        NQTSHP2Picker picker = new NQTSHP2Picker();
+        picker.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     protected static void ClearUpdateQuotePanel() {
         // Clears the update quote panel inputs and resets all the tables to their default values
 
@@ -9030,6 +9113,8 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JMenu EditMenuItem;
     public static javax.swing.JMenuItem NewCustMenuItem;
     public static javax.swing.JButton UserInformationCenterButton;
+    public static java.util.List<Sales.Allquotes> allquotesList;
+    public static javax.persistence.Query allquotesQuery;
     public static javax.swing.JLabel authorLabel;
     public static javax.swing.JCheckBox bafIncludedCheckBox;
     public static javax.swing.JCheckBox bafSubjectToTariffCheckBox;
@@ -9064,6 +9149,12 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JButton clearResultTable;
     public static javax.swing.JMenuItem closeApplicationMenuItem;
     public static javax.swing.JTextArea commentsTextArea;
+    public static java.util.List<Sales.Commodities> commoditiesList;
+    public static java.util.List<Sales.Commodities> commoditiesList1;
+    public static java.util.List<Sales.Commodities> commoditiesList2;
+    public static javax.persistence.Query commoditiesQuery;
+    public static javax.persistence.Query commoditiesQuery1;
+    public static javax.persistence.Query commoditiesQuery2;
     public static javax.swing.JComboBox commodityClassComboBox;
     public static javax.swing.JTextField commodityDescriptionTextField;
     public static javax.swing.JTextField contactEmailTextField;
@@ -9090,6 +9181,7 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JButton editUpdateCustomerQuotesButton;
     public static javax.swing.JLabel emailLabel;
     public static javax.swing.JLabel emailLabel1;
+    public static javax.persistence.EntityManager entityManager;
     public static javax.swing.JTextField existingCompanyAddress1TextField;
     public static javax.swing.JTextField existingCompanyAddress2TextField;
     public static javax.swing.JTextField existingCompanyCityTextField;
@@ -9129,8 +9221,12 @@ public class MainMenu extends javax.swing.JFrame {
     public static javax.swing.JCheckBox includeShipperCommentsCheckBox;
     public static javax.swing.JButton jButton1;
     public static javax.swing.JButton jButton2;
+    public static javax.swing.JButton jButton3;
+    public static javax.swing.JButton jButton4;
+    public static javax.swing.JButton jButton5;
     public static javax.swing.JButton jButton6;
     public static javax.swing.JButton jButton7;
+    public static javax.swing.JButton jButton8;
     public static javax.swing.JLabel jLabel1;
     public static javax.swing.JLabel jLabel10;
     public static javax.swing.JLabel jLabel100;

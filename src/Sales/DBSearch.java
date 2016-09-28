@@ -796,7 +796,7 @@ public class DBSearch extends javax.swing.JFrame {
                 parenthases1 = parametersTable.getValueAt(r, 1);
                 columnActual = parametersTable.getValueAt(r, 2);
                 column = null;
-                operator = parametersTable.getValueAt(r, 3);
+                operator = parametersTable.getValueAt(r, 3);              
                 value = parametersTable.getValueAt(r, 4);
                 parenthases2 = parametersTable.getValueAt(r, 5);
                 switch (String.valueOf(columnActual)) {
@@ -804,7 +804,7 @@ public class DBSearch extends javax.swing.JFrame {
                         column = "allquotes." + id;
                         break;
                     case "Trade Lane":
-                        column = "allquotes." + tradeLane;
+                        column = "allquotes." + tradeLane + operator + "'"+value+"'";
                         break;
                     case "POL":
                         column = "allquotes." + pol;
@@ -831,7 +831,7 @@ public class DBSearch extends javax.swing.JFrame {
                         column = declined;
                         break;
                     case "Quote Date":
-                        column = "IF(allquotes.DATE_UPDATED!='',allquotes.DATE_UPDATED, allquotes.DATE_QUOTED)";
+                        column = "IF(allquotes.DATE_UPDATED!='',allquotes.DATE_UPDATED " +operator +"'"+ value+"'"+", allquotes.DATE_QUOTED"+operator+"'"+ value+"')";
                         break;
                     case "Duplicate":
                         column = "allquotes.duplicateRate";
@@ -879,14 +879,15 @@ public class DBSearch extends javax.swing.JFrame {
                     v.append("%");
                     whereStatement[r] = " " + andOr + " " + parenthases1 + column + " " + o + " '" + v + "'" + parenthases2;
                 } else {
-                    whereStatement[r] = " " + andOr + " " + parenthases1 + column + " " + operator + " '" + value + "'" + parenthases2;
+                    whereStatement[r] = " " + andOr + " " + parenthases1 + column + parenthases2;
                 }
 
                 if (whereStatement[r] == null || whereStatement[r].equals("null")) {
                     whereStatement[r] = "";
                 }
-
-                System.out.println(Arrays.toString(whereStatement));
+                for (String where : whereStatement){
+                    System.out.println(where);
+                }
             }
             if (rows >= 0) {
                 if (Selections.length < 1) {
